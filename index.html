@@ -7,15 +7,11 @@
   <!-- CDNs -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <style>
-    :root{
-      --royal-purple: #7434ac;
-      --purple: #98069d;
-      --muted: #6b7280;
-      --green: #10b981;
-      --danger: #ef4444;
-      --stubw: 520px; /* wider stub */
-      --colw: 110px;
-    }
+    :root{$1}
+    .control-row.center{justify-content:center;}
+    .actions .btn{min-width:160px;}
+    .status{position:sticky; top:6px; z-index:100;}
+
     * { box-sizing: border-box; }
     body {
       margin: 0;
@@ -151,9 +147,7 @@
     <div class="controls">
       <div id="status" class="status"></div>
       <div class="control-row">
-          <div class="control-group">
-            <label>Data source</label>
-            <div class="pill">Auto‑load from same folder as this page</div>
+          
           </div>
         </div>
         
@@ -201,7 +195,7 @@
             <select id="qSel"></select>
           </div>
         </div>
-        <div class="control-row">
+        <div class="control-row center actions">
           <button class="btn" id="genBtn">Generate Table</button>
           <button class="btn success" id="allFullBtn">Generate All Tables</button>
           <button class="btn danger" id="clearBtn">Clear Tables</button>
@@ -322,13 +316,12 @@ const AGE_COL = 'respondent_age';
 /* Code helpers */
 function setStatus(msg, ok=true){
   const s = document.getElementById('status');
+  if(!s) return;
   s.style.display='block';
   s.style.background = ok ? '#f0fdf4' : '#fef2f2';
   s.style.borderColor = ok ? '#86efac' : '#fecaca';
   s.style.color = ok ? '#166534' : '#991b1b';
   s.innerText = msg;
-  clearTimeout(setStatus._t);
-  setStatus._t = setTimeout(()=>s.style.display='none', 4000);
 }
 function num(v){ if(v===undefined||v===null||v==='') return null; const n=Number(v); return Number.isFinite(n)?n:null; }
 function getAge(row){ return num(row[AGE_COL]); }
@@ -448,45 +441,9 @@ function deriveLabelsFromHeaders(prefix){
 
 /* =================== QUESTIONS =================== */
 const DERIVED = {};
-function initQuestions(){
-  DERIVED.Q5_labels = deriveLabelsFromHeaders('Q5');
-  const qs = [
-    {code:'S1', type:'single', title:'S1. Gender Identity', labels:MAP.S1},
-    {code:'S2', type:'age', title:'S2. Age (exact numeric)'},
-    {code:'S3', type:'orderedMedian', title:'S3. Years in the Security Industry', labels:MAP.S3, gmedian:'S3',
-      nets:[{label:'<5 years [NET]', codes:['_01','_02','_03']},
-            {label:'5 to <10 years', codes:['_04']},
-            {label:'10+ years [NET]', codes:['_05','_06','_07']}]},
-    {code:'S4', type:'single', title:'S4. Work Status', labels:MAP.S4, nets:[{label:'Employed (NET)', codes:['_01','_02']}]},
-    {code:'S5', type:'single', title:'S5. Company / Organization Type', labels:MAP.S5},
-    {code:'S6', type:'single', title:'S6. Job Title', labels:MAP.S6},
-    {code:'S7', type:'multiPrefix', title:'S7. Job Function (multi-select)', prefix:'S7', labels:MAP.S7_labels},
-    {code:'Q1', type:'scale5', title:'Q1. Overall Job Satisfaction', labels:MAP.Q1, netsTB:true},
-    {code:'Q3', type:'scale5', title:'Q3. Likelihood to Look for a New Job', labels:MAP.Q3, netsTB:true},
-    {code:'Q4', type:'single', title:'Q4. Where Will You Look for a New Job? (Q3 T3B base)', labels:MAP.Q4},
-    {code:'Q5', type:'multiPrefix', title:'Q5. Reasons for Looking for a New Job (multi-select, Q3 T3B base)', prefix:'Q5', labels:DERIVED.Q5_labels},
-    {code:'OB1', type:'ob1grid', title:'OB1. Agreement with Statements — 4-pt nets tables'},
-    {code:'OB2', type:'orderedMedian', title:'OB2. % of Leadership Positions Held by Women', labels:MAP.OB2_ranges, gmedian:'OB2'},
-    {code:'OB3', type:'single', title:'OB3. Gender of Your Manager', labels:MAP.OB3},
-    {code:'OB4', type:'multiPrefix', title:'OB4. Professional Development Activities (multi-select)', prefix:'OB4', labels:MAP.OB4_labels},
-    {code:'OB5', type:'ob5grid', title:'OB5. Satisfaction with PD Activities — (bases = selected in OB4)'},
-    {code:'C0', type:'single', title:'C0. Attended Security LeadHER Conference', labels:MAP.C0},
-    {code:'C1', type:'orderedMedian', title:'C1. Company Size (employees)', labels:MAP.C1_ranges, gmedian:'C1'},
-    {code:'C2', type:'orderedMedian', title:'C2. 2024 Total Annual Revenue', labels:MAP.C2_ranges, gmedian:'C2',
-      nets:[{label:'< $5M [NET]', codes:['_01','_02','_03']},
-            {label:'$25M+ [NET]', codes:['_06','_07','_08','_09','_10']}]},
-    {code:'C3', type:'single', title:'C3. Marital Status', labels:MAP.C3, nets:[{label:'SINGLE (NET)', codes:['_03','_04']}]},
-    {code:'C4', type:'single', title:'C4. Children in HH', labels:MAP.C4, nets:[{label:'Have ANY', codes:['_02','_03','_04','_05']}, {label:'Have NONE', codes:['_01']}]},
-    {code:'C5', type:'orderedMedian', title:'C5. Household Income', labels:MAP.C5_ranges, gmedian:'C5',
-      nets:[{label:'< $100k [NET]', codes:['_01','_02','_03','_04','_05']},
-            {label:'$100k+ [NET]', codes:['_06','_07','_08','_09']},
-            {label:'$200k+ [NET]', codes:['_08','_09']}]},
-    {code:'C6', type:'multiPrefix', title:'C6. Race / Ethnicity (multi-select)', prefix:'C6', labels:MAP.C6_labels},
-    {code:'C7', type:'single', title:'C7. LGBTQIA Identity', labels:MAP.C7}
-  ];
-  const qSel = document.getElementById('qSel');
-  qSel.innerHTML = qs.map(q => `<option value="${q.code}">${q.title}</option>`).join('');
-  qSel.dataset.def = JSON.stringify(qs);
+function initQuestions(){$1qSel.dataset.def = JSON.stringify(qs);
+  if(qs.length){ qSel.value = qs[0].code; }
+
 }
 function getQuestions(){ const qSel=document.getElementById('qSel'); return (qSel&&qSel.dataset&&qSel.dataset.def)?JSON.parse(qSel.dataset.def):[]; }
 function getQ(code){ return getQuestions().find(q => q.code===code); }
