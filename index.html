@@ -150,7 +150,7 @@
 
     <div class="controls">
       <div id="status" class="status"></div>
-      <div class="control-row">
+      <div id="uploadControls" class="control-row">
         <div class="control-group">
           <label>Datafile (respDF.csv) — Upload</label>
           <input type="file" id="csvFile" accept=".csv">
@@ -294,9 +294,17 @@
 /* =================== CORE STATE =================== */
 /* === PASSCODE GATE (client-side) === */
 const ACCESS_CODE = "SEC001!25"; // requested
+function ensureDefaultSources(){
+  try{
+    const csvInput = document.getElementById('csvUrl');
+    const oeInput  = document.getElementById('oeUrl');
+    if (csvInput && !csvInput.value) csvInput.value = DEFAULTS.csv;
+    if (oeInput && !oeInput.value)  oeInput.value  = DEFAULTS.oe;
+  }catch(e){}
+}
 function showGate(show){ const g=document.getElementById('accessGate'); if(g){ g.style.display = show? 'flex':'none'; } }
 function gateOk(){ try{ return localStorage.getItem('wisc_gate_ok')==='1'; }catch(e){ return false; } }
-function unlock(){ try{ localStorage.setItem('wisc_gate_ok','1'); }catch(e){} showGate(false); }
+function unlock(){ try{ localStorage.setItem('wisc_gate_ok','1'); }catch(e){} showGate(false); ensureDefaultSources(); loadFromInputs(); }
 function attachGate(){
   const btn=document.getElementById('passcodeBtn');
   const input=document.getElementById('passcodeInput');
@@ -973,6 +981,8 @@ function ingestDF(df, oe){
   initQuestions();
   populateBBSelectors();
   renderVerbatims();
+  // Hide manual upload controls after successful load
+  const u = document.getElementById('uploadControls'); if(u) u.style.display='none';
 }
 
 /* =================== EVENTS =================== */
