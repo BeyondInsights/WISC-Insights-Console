@@ -7,7 +7,7 @@
   <!-- CDNs -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <style>
-    :root{$1}
+    :root{--royal-purple:#7434ac;--purple:#98069d;--muted:#6b7280;--green:#10b981;--danger:#ef4444;--stubw:520px;--colw:110px;}
     .control-row.center{justify-content:center;}
     .actions .btn{min-width:160px;}
     .status{position:sticky; top:6px; z-index:100;}
@@ -441,9 +441,41 @@ function deriveLabelsFromHeaders(prefix){
 
 /* =================== QUESTIONS =================== */
 const DERIVED = {};
-function initQuestions(){$1qSel.dataset.def = JSON.stringify(qs);
+function initQuestions(){
+  DERIVED.Q5_labels = deriveLabelsFromHeaders('Q5');
+  const qs = [
+    {code:'S1', type:'single', title:'S1. Gender Identity', labels:MAP.S1},
+    {code:'S2', type:'age', title:'S2. Age (exact numeric)'},
+    {code:'S3', type:'orderedMedian', title:'S3. Years in the Security Industry', labels:MAP.S3,
+      nets:[{label:'<5 years [NET]', codes:['_01','_02','_03']}, {label:'5 to <10 years', codes:['_04']}, {label:'10+ years [NET]', codes:['_05','_06','_07']} ]},
+    {code:'S4', type:'single', title:'S4. Work Status', labels:MAP.S4, nets:[{label:'Employed (NET)', codes:['_01','_02']}]},
+    {code:'S5', type:'single', title:'S5. Company / Organization Type', labels:MAP.S5},
+    {code:'S6', type:'single', title:'S6. Job Title', labels:MAP.S6},
+    {code:'S7', type:'multiPrefix', title:'S7. Job Function (multi-select)', prefix:'S7', labels:MAP.S7_labels},
+    {code:'Q1', type:'scale5', title:'Q1. Overall Job Satisfaction', labels:MAP.Q1, netsTB:true},
+    {code:'Q3', type:'scale5', title:'Q3. Likelihood to Look for a New Job', labels:MAP.Q3, netsTB:true},
+    {code:'Q4', type:'single', title:'Q4. Where Will You Look for a New Job? (Q3 T3B base)', labels:MAP.Q4},
+    {code:'Q5', type:'multiPrefix', title:'Q5. Reasons for Looking for a New Job (multi-select, Q3 T3B base)', prefix:'Q5', labels:DERIVED.Q5_labels},
+    {code:'OB1', type:'ob1grid', title:'OB1. Agreement with Statements — 4-pt nets tables'},
+    {code:'OB2', type:'orderedMedian', title:'OB2. % of Leadership Positions Held by Women', labels:MAP.OB2_ranges},
+    {code:'OB3', type:'single', title:'OB3. Gender of Your Manager', labels:MAP.OB3},
+    {code:'OB4', type:'multiPrefix', title:'OB4. Professional Development Activities (multi-select)', prefix:'OB4', labels:MAP.OB4_labels},
+    {code:'OB5', type:'ob5grid', title:'OB5. Satisfaction with PD Activities — (bases = selected in OB4)'},
+    {code:'C0', type:'single', title:'C0. Attended Security LeadHER Conference', labels:MAP.C0},
+    {code:'C1', type:'orderedMedian', title:'C1. Company Size (employees)', labels:MAP.C1_ranges},
+    {code:'C2', type:'orderedMedian', title:'C2. 2024 Total Annual Revenue', labels:MAP.C2_ranges,
+      nets:[{label:'< $5M [NET]', codes:['_01','_02','_03']}, {label:'$25M+ [NET]', codes:['_06','_07','_08','_09','_10']} ]},
+    {code:'C3', type:'single', title:'C3. Marital Status', labels:MAP.C3, nets:[{label:'SINGLE (NET)', codes:['_03','_04']}]},
+    {code:'C4', type:'single', title:'C4. Children in HH', labels:MAP.C4, nets:[{label:'Have ANY', codes:['_02','_03','_04','_05']}, {label:'Have NONE', codes:['_01']}]},
+    {code:'C5', type:'orderedMedian', title:'C5. Household Income', labels:MAP.C5_ranges,
+      nets:[{label:'< $100k [NET]', codes:['_01','_02','_03','_04','_05']}, {label:'$100k+ [NET]', codes:['_06','_07','_08','_09']}, {label:'$200k+ [NET]', codes:['_08','_09']}]},
+    {code:'C6', type:'multiPrefix', title:'C6. Race / Ethnicity (multi-select)', prefix:'C6', labels:MAP.C6_labels},
+    {code:'C7', type:'single', title:'C7. LGBTQIA Identity', labels:MAP.C7}
+  ];
+  const qSel = document.getElementById('qSel');
+  qSel.innerHTML = qs.map(function(q){ return '<option value="'+q.code+'">'+q.title+'</option>'; }).join('');
+  qSel.dataset.def = JSON.stringify(qs);
   if(qs.length){ qSel.value = qs[0].code; }
-
 }
 function getQuestions(){ const qSel=document.getElementById('qSel'); return (qSel&&qSel.dataset&&qSel.dataset.def)?JSON.parse(qSel.dataset.def):[]; }
 function getQ(code){ return getQuestions().find(q => q.code===code); }
@@ -573,135 +605,46 @@ function baseRowsForQ(code){
 }
 
 function renderTable(code){
-  const q = getQ(code);
-  if(!q){ setStatus('Unknown question '+code, false); return; }
-  const banner = document.getElementById('bannerSel').value;
-  const groups = bannerDefs(banner);
-
-  const columns = [];
-  const colMeta = [];
-  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-  let li = 0;
-  groups.forEach(g=>{
+  var q = getQ(code); if(!q){ setStatus('Unknown question '+code, false); return; }
+  var banner = document.getElementById('bannerSel').value;
+  var groups = bannerDefs(banner);
+  var columns = []; var colMeta=[]; var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''); var li=0;
+  groups.forEach(function(g){
     if(g.label==='TOTAL' && g.filter){ columns.push({label:'TOTAL', filter:g.filter, _group:'TOTAL', _letter:null}); colMeta.push({group:'TOTAL', letter:null}); }
-    if(g.group && g.cols){ g.cols.forEach(c=>{ const L = letters[li++]||'?'; columns.push({label:`${c.label} (${L})`, filter:c.filter, _group:g.group, _letter:L}); colMeta.push({group:g.group, letter:L}); }); }
+    if(g.group && g.cols){ g.cols.forEach(function(c){ var L = letters[li++]||'?'; columns.push({label:c.label+' ('+L+')', filter:c.filter, _group:g.group, _letter:L}); colMeta.push({group:g.group, letter:L}); }); }
   });
-  const statScope = (document.getElementById('statScope')?.value)||'group';
-
-  // Table header
-  let html = `<div class="twrap">
-    <div class="thead">${q.title}</div>
-    <div class="scrollX">
-    <table>
-      <thead>
-        <tr>
-          <th class="stub">Response</th>
-          ${columns.map(c=>`<th style="min-width:${'var(--colw)'}">${c.label}</th>`).join('')}
-        </tr>
-      </thead>
-      <tbody>`;
-
-  function countPct(filterRows, pred){
-    const asked = filterRows;
-    const n = asked.length;
-    const cnt = asked.filter(pred).length;
-    const showPct = document.getElementById('showPct').checked;
-    const showFreq = document.getElementById('showFreq').checked;
-    let s='';
-    if(showPct) s += `<div class="pct">${fmtPct(n? (100*cnt/n) : 0)}</div>`;
-    if(showFreq) s += `<div class="freq">n=${cnt}</div>`;
-    return s||'&nbsp;';
-  }
-
-  const allRows = baseRowsForQ(code);
-  const minBase = Number(document.getElementById('minBase').value||0);
-
+  var statScope = (document.getElementById('statScope') && document.getElementById('statScope').value) || 'group';
+  var html = '<div class="twrap"><div class="thead">'+q.title+'</div><div class="scrollX"><table><thead><tr><th class="stub">Response</th>' + columns.map(function(c){return '<th style="min-width:var(--colw)">'+c.label+'</th>';}).join('') + '</tr></thead><tbody>';
+  var allRows = baseRowsForQ(code); var minBase = Number(document.getElementById('minBase').value||0);
   function addRow(label, predicate){
-    const showPct = document.getElementById('showPct').checked;
-    const showFreq = document.getElementById('showFreq').checked;
-    const colStats = columns.map(c=>{ const colRows = allRows.filter(c.filter); const n=colRows.length; const x=colRows.filter(predicate).length; return {n,x}; });
-    const lettersArr = (document.getElementById('statScope') && document.getElementById('statScope').value!=='off') ? computeLetters(colStats, colMeta, statScope, minBase) : Array.from({length:colStats.length},()=>({up:'',low:''}));
-    html += `<tr><td class="stub">${label}</td>`;
-    columns.forEach((c, j) => {
-      const {n,x} = colStats[j];
-      if(n>=minBase){
-        let s='';
-        if(showPct) s += `<div class="pct">${fmtPct(100*(n?x/n:0))}</div>`;
-        if(showFreq) s += `<div class="freq">n=${x}</div>`;
-        const L = lettersArr[j];
-        if((L.up||'') || (L.low||'')) s += `<div class="letters">${L.up||''}${L.low? `<span class=\"lowercase\">${L.low}</span>`:''}</div>`;
-        html += `<td>${s||'&nbsp;'}</td>`;
-      } else {
-        html += `<td><div class="freq">n=${n}</div></td>`;
-      }
-    });
-    html += `</tr>`;
-  }</td>`;
-    columns.forEach(c => {
-      const colRows = allRows.filter(c.filter);
-      const show = colRows.length>=minBase ? countPct(colRows, predicate) : `<div class="freq">n=${colRows.length}</div>`;
-      html += `<td>${show}</td>`;
-    });
-    html += `</tr>`;
+    var showPct = document.getElementById('showPct').checked; var showFreq = document.getElementById('showFreq').checked;
+    var colStats = columns.map(function(c){ var colRows = allRows.filter(c.filter); var n=colRows.length; var x = colRows.filter(predicate).length; return {n:x? n: n, x:x}; });
+    var lettersArr = (document.getElementById('statScope') && document.getElementById('statScope').value!=='off') ? computeLetters(colStats, colMeta, statScope, minBase) : Array.from({length:colStats.length}, function(){return {up:'',low:''}});
+    html += '<tr><td class="stub">'+label+'</td>';
+    columns.forEach(function(c,j){ var n=colStats[j].n, x=colStats[j].x; if(n>=minBase){ var s=''; if(showPct) s+='<div class="pct">'+fmtPct(100*(n? x/n:0))+'</div>'; if(showFreq) s+='<div class="freq">n='+x+'</div>'; var L=lettersArr[j]; if((L.up||'')||(L.low||'')) s+='<div class="letters">'+(L.up||'')+(L.low?'<span class="lowercase">'+L.low+'</span>':'')+'</div>'; html+='<td>'+ (s||'&nbsp;') +'</td>'; } else { html+='<td><div class="freq">n='+n+'</div></td>'; } });
+    html += '</tr>';
   }
-
   if(q.type==='single'){
-    const labels = q.labels || {};
-    Object.entries(labels).forEach(([k,lab])=> { addRow(lab, r=> valueToCode(r[q.code], q.labels)===k); });
+    var labels = q.labels || {}; Object.keys(labels).forEach(function(k){ addRow(labels[k], function(r){ return valueToCode(r[q.code], q.labels)===k; }); });
+  } else if(q.type==='multiPrefix'){
+    var labels = q.labels || {}; var prefix = q.prefix; Object.keys(labels).forEach(function(k){ addRow(labels[k], function(r){ return hasMulti(r, prefix, k); }); });
+  } else if(q.type==='scale5'){
+    var labels = q.labels || {}; ['_05','_04','_03','_02','_01'].forEach(function(k){ addRow(labels[k]||k, function(r){ return valueToCode(r[q.code], q.labels)===k; }); });
+    if(q.netsTB){ addRow('TOP 2 BOX', function(r){ var v=valueToCode(r[q.code], q.labels); return v==='_05' || v==='_04'; }); addRow('TOP 3 BOX', function(r){ var v=valueToCode(r[q.code], q.labels); return v==='_05'||v==='_04'||v==='_03'; }); addRow('BOTTOM 2 BOX', function(r){ var v=valueToCode(r[q.code], q.labels); return v==='_02'||v==='_01'; }); }
+  } else if(q.type==='orderedMedian'){
+    var labels = q.labels || {}; Object.keys(labels).forEach(function(k){ addRow(labels[k], function(r){ return valueToCode(r[q.code], q.labels)===k; }); });
+    html += '<tr class="baserow"><td class="stub">Median (grouped)</td>';
+    columns.forEach(function(c){ var colRows = allRows.filter(c.filter); var counts = {}; Object.keys(q.labels).forEach(function(k){counts[k]=0;}); colRows.forEach(function(r){ var v=valueToCode(r[q.code], q.labels); if(counts[v]!==undefined) counts[v]+=1; }); var med = groupedMedian(counts); html += '<td><div class="pct">'+med+'</div><div class="freq">n='+colRows.length+'</div></td>'; });
+    html += '</tr>';
+  } else if(q.type==='ob1grid'){
+    Object.keys(MAP.OB1_items).forEach(function(k){ addRow(MAP.OB1_items[k]+' — TOP 2', function(r){ var v=valueToCode(r['OB1_loop[{'+k+'}].OB1'], MAP.OB1_scale); return v==='_04'||v==='_03'; }); });
+  } else if(q.type==='ob5grid'){
+    Object.keys(MAP.OB4_labels).forEach(function(k){ if(k==='_08') return; var lab=MAP.OB4_labels[k]; var stats = columns.map(function(c){ var base = allRows.filter(function(r){ return c.filter(r) && hasMulti(r,'OB4',k); }); var n=base.length; var x=base.filter(function(r){ var v=valueToCode(r['OB5_loop[{'+k+'}].OB5'], MAP.OB5_scale); return v==='_04'||v==='_05'; }).length; return {n:n,x:x}; }); var lettersArr=(document.getElementById('statScope')&&document.getElementById('statScope').value!=='off')?computeLetters(stats,colMeta,statScope,minBase):Array.from({length:stats.length},function(){return {up:'',low:''}}); html+='<tr><td class="stub">'+lab+' — Top 2</td>'; columns.forEach(function(c,j){ var n=stats[j].n, x=stats[j].x; var s=n>=minBase?((document.getElementById('showPct').checked?'<div class="pct">'+fmtPct(n?(100*x/n):0)+'</div>':'')+(document.getElementById('showFreq').checked?'<div class="freq">n='+x+'/'+n+'</div>':'')):'<div class="freq">n='+n+'</div>'; var L=lettersArr[j]; var sig=(n>=minBase&&((L.up||'')||(L.low||'')))?'<div class="letters">'+(L.up||'')+(L.low?'<span class="lowercase">'+L.low+'</span>':'')+'</div>':''; html+='<td>'+s+sig+'</td>'; }); html+='</tr>'; });
   }
-  else if(q.type==='multiPrefix'){
-    const labels = q.labels || {};
-    const prefix = q.prefix;
-    Object.entries(labels).forEach(([k,lab])=> { addRow(lab, r=> hasMulti(r, prefix, k)); });
-  }
-  else if(q.type==='scale5'){
-    const labels = q.labels || {};
-    ['_05','_04','_03','_02','_01'].forEach(k=>{ addRow(labels[k]||k, r=> valueToCode(r[q.code], q.labels)===k); });
-    if(q.netsTB){
-      addRow('TOP 2 BOX', r=>['_05','_04'].includes(valueToCode(r[q.code], q.labels)));
-      addRow('TOP 3 BOX', r=>['_05','_04','_03'].includes(valueToCode(r[q.code], q.labels)));
-      addRow('BOTTOM 2 BOX', r=>['_02','_01'].includes(valueToCode(r[q.code], q.labels)));
-    }
-  }
-  else if(q.type==='orderedMedian'){
-    const labels = q.labels || {};
-    Object.entries(labels).forEach(([k,lab])=> { addRow(lab, r=> valueToCode(r[q.code], q.labels)===k); });
-    html += `<tr class="baserow"><td class="stub">Median (grouped)</td>`;
-    columns.forEach(c=>{
-      const colRows = allRows.filter(c.filter);
-      const counts = Object.fromEntries(Object.keys(q.labels).map(k=>[k,0]));
-      colRows.forEach(r=>{ const v = valueToCode(r[q.code], q.labels); if(counts[v]!==undefined) counts[v] += 1; });
-      const med = groupedMedian(counts);
-      html += `<td><div class="pct">${med}</div><div class="freq">n=${colRows.length}</div></td>`;
-    });
-    html += `</tr>`;
-  }
-  else if(q.type==='ob1grid'){
-    Object.entries(MAP.OB1_items).forEach(([k,lab])=>{ addRow(lab+' — TOP 2', r=> ['_04','_03'].includes(valueToCode(r['OB1_loop[{'+k+'}].OB1'], MAP.OB1_scale))); });
-  }
-  else if(q.type==='ob5grid'){
-    Object.entries(MAP.OB4_labels).forEach(([k,lab])=>{
-      if(k==='_08') return; // skip "Other"
-      // Build stats first (bases restricted to those who selected this activity)
-      const stats = columns.map(c=>{
-        const base = allRows.filter(r=> c.filter(r) && hasMulti(r, 'OB4', k));
-        const n = base.length;
-        const x = base.filter(r => ['_04','_05'].includes(valueToCode(r['OB5_loop[{'+k+'}].OB5'], MAP.OB5_scale))).length;
-        return {n,x};
-      });
-      const lettersArr = (document.getElementById('statScope') && document.getElementById('statScope').value!=='off') ? computeLetters(stats, colMeta, statScope, minBase) : Array.from({length:stats.length},()=>({up:'',low:''}));
-      html += `<tr><td class="stub">${lab} — Top 2</td>`;
-      columns.forEach((c,j) => {
-        const {n,x} = stats[j];
-        const s = n>=minBase ? ((document.getElementById('showPct').checked? `<div class=\"pct\">${fmtPct(n? (100*x/n):0)}</div>`:'') + (document.getElementById('showFreq').checked? `<div class=\"freq\">n=${x}/${n}</div>`:'')) : `<div class=\"freq\">n=${n}</div>`;
-        const L = lettersArr[j];
-        const sig = (n>=minBase && ((L.up||'') || (L.low||''))) ? `<div class=\"letters\">${L.up||''}${L.low? `<span class=\"lowercase\">${L.low}</span>`:''}</div>` : '';
-        html += `<td>${s}${sig}</td>`;
-      });
-      html += `</tr>`;
-    });
-  }
-  
+  html += '</tbody></table></div><div class="footer">Stub is wider and frozen for horizontal scroll. Percentages are column-based by default.</div></div>';
+  document.getElementById('tables').insertAdjacentHTML('beforeend', html);
+  updateStatsLegend();
+}
 
 function groupedMedian(counts){
   const order = Object.keys(counts);
@@ -784,114 +727,74 @@ function renderVerbatims(){
 /* =================== BANNER × BANNER =================== */
 function openBB(){ document.getElementById('bbModal').style.display='flex'; }
 function closeBB(){ document.getElementById('bbModal').style.display='none'; }
+function populateBBSelectors(){
+  const elC = document.getElementById('bbCols');
+  const elR = document.getElementById('bbRows');
+  const opts = [
+    {val:'B1', label:'BANNER 1 — Demographics & Experience'},
+    {val:'B2', label:'BANNER 2 — Perceptions (Women Only)'}
+  ];
+  [elC, elR].forEach(function(el){
+    el.innerHTML = '';
+    opts.forEach(function(o){ var op=document.createElement('option'); op.value=o.val; op.textContent=o.label; el.appendChild(op); });
+  });
+}
 function runBB(){
-  const colBanner = document.getElementById('bbCols').value; // 'B1' or 'B2'
-  const rowBanner = document.getElementById('bbRows').value; // 'B1' or 'B2'
-  const pctOf = document.getElementById('bbPctOf').value;
-  const showCounts = document.getElementById('bbShowCounts').checked;
-  const showPerc = document.getElementById('bbShowPerc').checked;
-
+  var cb = document.getElementById('bbCols').value;
+  var rb = document.getElementById('bbRows').value;
+  var pctOf = document.getElementById('bbPctOf').value;
+  var showCounts = document.getElementById('bbShowCounts').checked;
+  var showPerc = document.getElementById('bbShowPerc').checked;
   function flattenBanner(which){
-    const def = bannerDefs(which);
-    const out = [];
-    def.forEach(g=>{
-      if(g.label==='TOTAL' && g.filter){ out.push({label:'TOTAL', filter:g.filter}); }
-      if(g.group && g.cols){ g.cols.forEach(c=> out.push({label:c.label, filter:c.filter})); }
+    var def = bannerDefs(which), out=[];
+    def.forEach(function(g){
+      if(g.label && g.filter && !g.cols) out.push({label:g.label, filter:g.filter});
+      if(g.cols) g.cols.forEach(function(c){ out.push({label:c.label, filter:c.filter}); });
     });
     return out;
   }
-
-  const cols = flattenBanner(colBanner);
-  const rows = flattenBanner(rowBanner);
-  const base = DATA.slice();
-
-  const mat = rows.map(rg => cols.map(cg => base.filter(r => rg.filter(r) && cg.filter(r)).length));
-  const rowTotals = rows.map((_,i)=> mat[i].reduce((a,b)=>a+b,0));
-  const colTotals = cols.map((_,j)=> mat.reduce((a,row)=>a+row[j],0));
-  const grand = rowTotals.reduce((a,b)=>a+b,0);
-
-  let html = `<div class="twrap"><div class="thead">Banner × Banner — ${rowBanner} (rows) × ${colBanner} (cols)</div>
-    <div class="scrollX">
-      <table>
-        <thead>
-          <tr>
-            <th class="stub">Row \ Col</th>
-            ${cols.map(c=>`<th>${c.label}</th>`).join('')}
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>`;
-  rows.forEach((rg, i)=>{
-    html += `<tr><td class="stub">${rg.label}</td>`;
-    cols.forEach((cg, j)=>{
-      const n = mat[i][j];
-      let cell='';
-      if(showPerc){
-        let denom=1;
-        if(pctOf==='column') denom = colTotals[j]||1;
-        else if(pctOf==='row') denom = rowTotals[i]||1;
-        else denom = grand||1;
-        cell += `<div class="pct">${fmtPct(100*n/denom)}</div>`;
-      }
-      if(showCounts) cell += `<div class="freq">n=${n}</div>`;
-      html += `<td>${cell||'&nbsp;'}</td>`;
+  var cols = flattenBanner(cb);
+  var rows = flattenBanner(rb);
+  var mat = rows.map(function(rg){ return cols.map(function(cg){ return DATA.filter(function(r){ return rg.filter(r) && cg.filter(r); }).length; }); });
+  var rowTotals = rows.map(function(_,i){ return mat[i].reduce(function(a,b){return a+b;},0); });
+  var colTotals = cols.map(function(_,j){ return mat.reduce(function(a,row){return a+row[j];},0); });
+  var grand = rowTotals.reduce(function(a,b){return a+b;},0);
+  var html = '<div class="twrap"><div class="thead">Banner × Banner — '+rb+' (rows) × '+cb+' (cols)</div>'+
+             '<div class="scrollX"><table><thead><tr><th class="stub">Row \ Col</th>'+cols.map(function(c){return '<th>'+c.label+'</th>';}).join('')+'<th>Total</th></tr></thead><tbody>';
+  rows.forEach(function(rg,i){
+    html += '<tr><td class="stub">'+rg.label+'</td>';
+    cols.forEach(function(cg,j){
+      var n = mat[i][j];
+      var cell='';
+      if(showPerc){ var denom = (pctOf==='column') ? (colTotals[j]||1) : (pctOf==='row') ? (rowTotals[i]||1) : (grand||1); cell += '<div class="pct">'+(Math.round(1000*n/denom)/10).toFixed(1)+'%</div>'; }
+      if(showCounts) cell += '<div class="freq">n='+n+'</div>';
+      html += '<td>'+ (cell||'&nbsp;') +'</td>';
     });
-    html += `<td class="freq">n=${rowTotals[i]}</td></tr>`;
+    html += '<td class="freq">n='+rowTotals[i]+'</td></tr>';
   });
-  html += `<tr class="baserow"><td class="stub">Total</td>${colTotals.map(n=>`<td class="freq">n=${n}</td>`).join('')}<td class="freq">n=${grand}</td></tr>`;
-  html += `</tbody></table></div><div class="footer">Use Column %, Row % or Total % as needed.</div></div>`;
-
+  html += '<tr class="baserow"><td class="stub">Total</td>'+colTotals.map(function(n){return '<td class="freq">n='+n+'</td>';}).join('')+'<td class="freq">n='+grand+'</td></tr>';
+  html += '</tbody></table></div><div class="footer">Use Column %, Row % or Total % as needed.</div></div>';
   document.getElementById('bbOut').innerHTML = html;
 }
-  const cols = gCols.cols;
-  const rows = gRows.cols;
-  const base = DATA.slice();
-
-  const mat = rows.map(rg => cols.map(cg => base.filter(r => rg.filter(r) && cg.filter(r)).length));
-  const rowTotals = rows.map((_,i)=> mat[i].reduce((a,b)=>a+b,0));
-  const colTotals = cols.map((_,j)=> mat.reduce((a,row)=>a+row[j],0));
-  const grand = rowTotals.reduce((a,b)=>a+b,0);
-
-  let html = `<div class="twrap"><div class="thead">Banner × Banner — ${rowsGroupName} (rows) × ${colsGroupName} (cols)</div>
-    <div class="scrollX">
-      <table>
-        <thead>
-          <tr>
-            <th class="stub">Row \\ Col</th>
-            ${cols.map(c=>`<th>${c.label}</th>`).join('')}
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>`;
-  rows.forEach((rg, i)=>{
-    html += `<tr><td class="stub">${rg.label}</td>`;
-    cols.forEach((cg, j)=>{
-      const n = mat[i][j];
-      let cell='';
-      if(showPerc){
-        let denom=1;
-        if(pctOf==='column') denom = colTotals[j]||1;
-        else if(pctOf==='row') denom = rowTotals[i]||1;
-        else denom = grand||1;
-        cell += `<div class="pct">${fmtPct(100*n/denom)}</div>`;
-      }
-      if(showCounts) cell += `<div class="freq">n=${n}</div>`;
-      html += `<td>${cell||'&nbsp;'}</td>`;
-    });
-    html += `<td class="freq">n=${rowTotals[i]}</td></tr>`;
-  });
-  html += `<tr class="baserow"><td class="stub">Total</td>${colTotals.map(n=>`<td class="freq">n=${n}</td>`).join('')}<td class="freq">n=${grand}</td></tr>`;
-  html += `</tbody></table></div><div class="footer">Use Column %, Row % or Total % as needed.</div></div>`;
-
-  document.getElementById('bbOut').innerHTML = html;
-}
-
-/* =================== DATA LOADING =================== */
+/* =================== DATA LOADING =================== *//
 function parseCSVText(text){
   const parsed = Papa.parse(text.trim(), {header:true, skipEmptyLines:true});
   return parsed.data;
 }
 async function loadFromInputs(){
+  if(typeof gateOk==='function' && !gateOk()){ if(typeof showGate==='function'){ showGate(true); attachGate(); } setStatus('Access code required.', false); return; }
+  try{
+    var csvUrl = DEFAULTS.csv;
+    var oeUrl  = DEFAULTS.oe;
+    var res = await fetch(csvUrl, {cache:'no-store'}); if(!res.ok) throw new Error('Could not fetch respDF.csv');
+    var txt = await res.text();
+    var df = parseCSVText(txt);
+    var oe = [];
+    try{ var rs2 = await fetch(oeUrl, {cache:'no-store'}); if(rs2.ok){ var tx2 = await rs2.text(); oe = parseCSVText(tx2); } }catch(e){ oe = []; }
+    ingestDF(df, oe);
+    setStatus('Loaded '+DATA.length+' rows; open-ends '+OE.length+'.');
+  }catch(err){ setStatus('Load error: '+(err && err.message ? err.message : err), false); }
+}{
   // Autoload from DEFAULTS (same folder or query overrides)
   if(typeof gateOk==='function' && !gateOk()){ if(typeof showGate==='function'){ showGate(true); attachGate(); } setStatus('Access code required.', false); return; }
   try{
@@ -943,7 +846,7 @@ function ingestDF(df, oe){
   populateBBSelectors();
   renderVerbatims();
   // Hide manual upload controls after successful load
-  const u = document.getElementById('uploadControls'); if(u) u.style.display='none';
+  
 }
 
 /* =================== EVENTS =================== */
