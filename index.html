@@ -150,10 +150,11 @@
 
     <div class="controls">
       <div id="status" class="status"></div>
-      <div id="uploadControls" class="control-row">
-        <div class="control-group">
-          <label>Datafile (respDF.csv) — Upload</label>
-          <input type="file" id="csvFile" accept=".csv">
+      <div class="control-row">
+          <div class="control-group">
+            <label>Data source</label>
+            <div class="pill">Auto‑load from same folder as this page</div>
+          </div>
         </div>
         <div class="control-group">
           <label>Open-end file (openend.csv) — Upload</label>
@@ -169,7 +170,6 @@
         </div>
       </div>
       <div class="control-row">
-        <button class="btn" id="loadBtn">Load Data</button>
         <button class="btn secondary" id="exportBtn">Export Tables to CSV</button>
         <button class="btn" id="bbBtn" style="background:#8b5cf6">Banner × Banner</button>
         <div class="control-group">
@@ -944,7 +944,20 @@ function parseCSVText(text){
   return parsed.data;
 }
 async function loadFromInputs(){
+  // Autoload from DEFAULTS (same folder or query overrides)
   if(typeof gateOk==='function' && !gateOk()){ if(typeof showGate==='function'){ showGate(true); attachGate(); } setStatus('Access code required.', false); return; }
+  try{
+    const csvUrl = DEFAULTS.csv;
+    const oeUrl  = DEFAULTS.oe;
+    const res = await fetch(csvUrl); if(!res.ok) throw new Error('Could not fetch respDF.csv');
+    const txt = await res.text();
+    const df = parseCSVText(txt);
+    let oe = [];
+    try{ const rs2 = await fetch(oeUrl); if(rs2.ok){ const tx2 = await rs2.text(); oe = parseCSVText(tx2); } }catch(e){ oe = []; }
+    ingestDF(df, oe);
+    setStatus(`Loaded ${DATA.length} rows; open-ends ${OE.length}.`);
+  }catch(err){ setStatus('Load error: '+err.message, false); }
+} setStatus('Access code required.', false); return; }
   try{
     let df = [];
     const f = document.getElementById('csvFile').files[0];
@@ -986,7 +999,7 @@ function ingestDF(df, oe){
 }
 
 /* =================== EVENTS =================== */
-document.getElementById('loadBtn').addEventListener('click', loadFromInputs);
+
 document.getElementById('genBtn').addEventListener('click', ()=>{
   const code = document.getElementById('qSel').value;
   document.getElementById('tables').innerHTML='';
