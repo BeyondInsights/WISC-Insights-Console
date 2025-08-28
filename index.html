@@ -3,290 +3,142 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>WISC Security Industry Survey - Crosstab Analysis</title>
+  <title>WISC Security Industry Survey – Crosstabs + Verbatims</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <style>
-    :root{
+    :root {
       --royal-purple: #7434ac;
       --purple: #98069d;
-      --muted: #6b7280;
-      --colw: 85px;
-      --stubw: 420px;
+      --gray: #6b7280;
+      --light-bg: #f9fafb;
     }
-    * { box-sizing: border-box; }
     body {
       margin: 0;
       background: #f5f3f7;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
       color: #111;
     }
     .wrap { max-width: 1680px; margin: 0 auto; padding: 20px; }
-    
-    /* Header */
     .main-header {
-      background: white;
-      border-radius: 12px;
-      padding: 25px;
+      background: white; border-radius: 12px; padding: 20px; margin-bottom: 16px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
     }
-    .logo-section {
-      display: flex;
-      align-items: center;
-      gap: 30px;
-      padding-bottom: 20px;
-      border-bottom: 2px solid #f0f0f0;
-    }
-    .study-info {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-      margin-top: 20px;
-    }
-    .study-section h3 {
-      color: #4c2a85;
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin: 0 0 10px 0;
-    }
-    .study-section ul {
-      margin: 0;
-      padding-left: 20px;
-      line-height: 1.6;
-    }
-    .study-section li {
-      margin-bottom: 5px;
-      color: #374151;
-    }
-    
-    /* Controls */
-    .controls {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
-    }
-    .control-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      align-items: flex-end;
-      margin-bottom: 15px;
-    }
-    .control-group {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-    label {
-      font-size: 12px;
-      color: #6b7280;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-weight: 600;
-    }
-    select, input[type="file"], input[type="number"] {
-      padding: 10px 12px;
-      border: 1px solid #d1d5db;
-      border-radius: 8px;
-      font-size: 14px;
-      background: white;
-      min-width: 200px;
-    }
-    .btn {
-      background: #7434ac;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 10px 20px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 14px;
-    }
-    .btn:hover { background: #5a2a8a; }
-    .btn.secondary { background: #6b7280; }
-    .btn.success { background: #10b981; }
-    .btn.danger { background: #ef4444; }
-    
-    .status {
-      background: #f0fdf4;
-      border: 1px solid #86efac;
-      color: #166534;
-      padding: 10px 15px;
-      border-radius: 8px;
-      margin-bottom: 15px;
-      font-size: 14px;
-    }
-    .twrap { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 20px; overflow: hidden; }
-    .thead { background: linear-gradient(135deg, #7434ac, #98069d); color: white; padding: 12px 20px; font-weight: 600; font-size: 16px; }
-    .scrollX { overflow-x: auto !important; overflow-y: visible; position: relative; }
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    th, td { border: 1px solid #e5e7eb; padding: 8px; text-align: center; }
-    th { background: #f9fafb; font-weight: 600; color: #374151; }
-    td.stub { text-align: left; font-weight: 600; background: #fafafa; }
-    .baserow td { background: #f3f4f6; font-weight: 600; }
-    .pct { font-size: 14px; font-weight: 600; }
-    .freq { font-size: 11px; color: #6b7280; }
-    .letters { 
-      font-size: 10px; 
-      color: #dc2626; 
-      font-weight: 600; 
-      margin-top: 2px;
-    }
-    .letters.lowercase {
-      color: #f59e0b;
-    }
-    .footer { padding: 10px 20px; background: #f9fafb; border-top: 1px solid #e5e7eb; font-size: 12px; color: #6b7280; }
-    .chk { 
-      display: inline-flex; 
-      align-items: center; 
-      gap: 5px; 
-      background: #f9fafb; 
-      border: 1px solid #e5e7eb; 
-      border-radius: 6px; 
-      padding: 6px 10px; 
-    }
-    .chk input[type="checkbox"] { margin: 0; }
-    .chk label { 
-      font-size: 12px; 
-      color: #374151; 
-      text-transform: none; 
-      letter-spacing: normal; 
-      margin: 0; 
-    }
+    .logo-section { display:flex; align-items:center; gap:20px; border-bottom:2px solid #eee; padding-bottom:12px; }
+    .logo-section img { max-width:160px; }
+    .tabbar { display:flex; gap:10px; margin-top:16px; }
+    .tab { background:#f3f4f6; padding:10px 18px; border-radius:8px; font-weight:600; cursor:pointer; }
+    .tab.active { background:linear-gradient(135deg,var(--royal-purple),var(--purple)); color:white; }
+    .controls { background:white; border-radius:12px; padding:16px; margin-bottom:16px;
+                box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+    .control-row { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:12px; align-items:center; }
+    .btn { background:var(--royal-purple); color:white; border:none; border-radius:8px;
+           padding:8px 14px; font-weight:600; cursor:pointer; }
+    .btn.secondary { background:#6b7280; }
+    .btn.success { background:#10b981; }
+    .btn:hover { background:#5a2a8a; }
+    .status { display:none; padding:10px; margin-bottom:12px; border-radius:8px; }
+    .twrap { background:white; border-radius:12px; box-shadow:0 2px 6px rgba(0,0,0,0.08); margin-bottom:16px; }
+    .thead { background:linear-gradient(135deg,var(--royal-purple),var(--purple)); color:white;
+             padding:10px 16px; font-weight:600; border-radius:12px 12px 0 0; }
+    /* Verbatims */
+    .stats-container { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; margin-bottom:16px; }
+    .stat-card { background:white; border-radius:12px; padding:14px; text-align:center;
+                 box-shadow:0 1px 4px rgba(0,0,0,0.1); border-top:4px solid var(--royal-purple); }
+    .stat-number { font-size:24px; font-weight:700; color:var(--royal-purple); }
+    .stat-label { font-size:12px; text-transform:uppercase; color:var(--gray); }
+    .responses { display:grid; gap:14px; }
+    .card { background:white; border-radius:12px; padding:16px;
+            box-shadow:0 1px 6px rgba(0,0,0,0.08); border-left:5px solid var(--royal-purple); }
+    .card .hdr { display:flex; justify-content:space-between; margin-bottom:8px; flex-wrap:wrap; }
+    .badge { padding:4px 10px; border-radius:999px; font-size:12px; font-weight:600; color:white; }
+    .b-ext { background:linear-gradient(135deg,var(--royal-purple),var(--purple)); }
+    .b-very { background:#9454b0; }
+    .b-some { background:#e4a324; }
+    .b-not2 { background:#eb0473; }
+    .b-not1 { background:#f10b25; }
+    .quote { font-style:italic; background:var(--light-bg); padding:10px; border-radius:8px; }
+    .pill { font-size:11px; color:#374151; background:#f3f4f6; border:1px solid #e5e7eb;
+            padding:4px 8px; border-radius:999px; margin:2px; display:inline-block; }
+    .tabpane { display:none; }
+    .tabpane.active { display:block; }
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
 </head>
 <body>
   <div class="wrap">
     <div class="main-header">
       <div class="logo-section">
-        <img src="https://i.imgur.com/nefMHjP.png" alt="Beyond Insights" style="width: 100%; height: auto; max-width: 180px;">
+        <img src="https://i.imgur.com/nefMHjP.png" alt="Beyond Insights">
         <div>
-          <h1 style="color:#4c2a85; font-size:28px; margin:0;">WISC Security Industry Survey</h1>
-          <p style="color:#6b7280; margin:5px 0 0 0;">Crosstab Analysis Tool</p>
+          <h1 style="margin:0;color:#4c2a85">WISC Security Industry Survey</h1>
+          <p style="margin:0;color:#6b7280">Crosstabs + Verbatims Tool</p>
         </div>
       </div>
-      <div class="study-info">
-        <div class="study-section">
-          <h3>Study Objectives</h3>
-          <ul>
-            <li>Career satisfaction</li>
-            <li>Likelihood of moving to a new job in the next year</li>
-            <li>Perceived opportunities and barriers for professional development</li>
-            <li>Security industry issues/developments that could impact their career</li>
-            <li>Involvement in career development activities/programs and satisfaction</li>
-          </ul>
-        </div>
-        <div class="study-section">
-          <h3>Target Audiences</h3>
-          <ul>
-            <li><strong>Attendees</strong> of the Security LeadHER Conference (June 9-10, 2025, Detroit)</li>
-            <li><strong>Colleagues</strong> of conference attendees not in attendance</li>
-            <li><strong>Other security professionals</strong> from industry email lists</li>
-          </ul>
-          <p style="margin-top:10px"><strong>Survey Length:</strong> 11 minutes</p>
-        </div>
-      </div>
-    </div>
-    
-    <div class="controls">
-      <div id="status" class="status" style="display:none"></div>
-      <div class="control-row">
-        <div class="control-group">
-          <label>Select Datafile to Import</label>
-          <input type="file" id="csvFile" accept=".csv" aria-label="Select CSV datafile" />
-        </div>
-        <div class="control-group">
-          <label>Banner</label>
-          <select id="bannerSel" aria-label="Select banner">
-            <option value="B1">BANNER 1 – Demographics & Experience</option>
-            <option value="B2">BANNER 2 – Perceptions (Women only)</option>
-          </select>
-        </div>
-        <div class="control-group">
-          <label>Question</label>
-          <select id="qSel" aria-label="Select question"></select>
-        </div>
-      </div>
-      <div class="control-row">
-        <button class="btn" id="genBtn">Generate Table</button>
-        <button class="btn success" id="allFullBtn">Generate All Tables</button>
-        <button class="btn danger" id="clearBtn">Clear Tables</button>
-        <button class="btn secondary" id="exportBtn">Export to Excel</button>
-        
-        <button class="btn" style="background:#8b5cf6" onclick="window.location.href='survey-responses-viewer.html'">Review Verbatims</button>
-        <button class="btn" style="background:#8b5cf6" id="bbBtn">Banner × Banner</button>
-        <button class="btn secondary" onclick="window.open('survey.pdf','_blank')">Review Survey</button>
-        <button class="btn secondary" onclick="window.open('report.html','_blank')">Review Report</button>
-      </div>
-      <div class="control-row">
-        <div class="chk"><input type="checkbox" id="showFreq" checked><label for="showFreq">Frequencies</label></div>
-        <div class="chk"><input type="checkbox" id="showPct" checked><label for="showPct">Percentages</label></div>
-        <div class="chk"><input type="checkbox" id="showIndex"><label for="showIndex">Index to Total</label></div>
-        <div class="chk"><input type="checkbox" id="stat90" checked><label for="stat90">90% CI (lowercase)</label></div>
-        <div class="chk"><input type="checkbox" id="stat95" checked><label for="stat95">95% CI (CAPITALS)</label></div>
-        <div class="chk">
-          <label>Min base</label>
-          <input type="number" id="minBase" value="30" style="width:70px;min-width:70px;" aria-label="Minimum base size">
-        </div>
-        <div class="chk">
-          <label>Stats</label>
-          <select id="statScope" style="min-width:140px" aria-label="Statistics scope">
-            <option value="group" selected>Within groups</option>
-            <option value="all">All columns</option>
-            <option value="off">Off</option>
-          </select>
-        </div>
-        <div class="chk">
-          <label>Sort by</label>
-          <select id="sortSel" style="min-width:140px" aria-label="Sort order">
-            <option value="none">None (survey order)</option>
-            <option value="total">Total % (desc)</option>
-          </select>
-        </div>
+      <div class="tabbar">
+        <button class="tab active" data-tab="tab-xtabs">Crosstabs</button>
+        <button class="tab" data-tab="tab-verbatims">Verbatims</button>
       </div>
     </div>
 
-    <div id="tables"></div>
+    <!-- Crosstabs -->
+    <div id="tab-xtabs" class="tabpane active">
+      <div class="controls">
+        <div class="control-row">
+          <label>Banner</label>
+          <select id="bannerSel">
+            <option value="B1">BANNER 1 – Demographics & Experience</option>
+            <option value="B2">BANNER 2 – Perceptions (Women Only)</option>
+          </select>
+          <label>Question</label>
+          <select id="qSel"></select>
+        </div>
+        <div class="control-row">
+          <button class="btn" id="genBtn">Generate Table</button>
+          <button class="btn success" id="allFullBtn">Generate All Tables</button>
+          <button class="btn danger" id="clearBtn">Clear Tables</button>
+          <button class="btn secondary" id="exportBtn">Export to Excel</button>
+          <button class="btn" id="bbBtn" style="background:#8b5cf6">Banner × Banner</button>
+          <button class="btn secondary" onclick="window.open('survey.pdf','_blank')">Review Survey</button>
+          <button class="btn secondary" onclick="window.location.href='survey.pdf'" download>⬇ Download Survey</button>
+          <button class="btn secondary" onclick="window.open('report.html','_blank')">Review Report</button>
+        </div>
+      </div>
+      <div id="tables"></div>
+    </div>
+
+    <!-- Verbatims -->
+    <div id="tab-verbatims" class="tabpane">
+      <div class="controls">
+        <div class="control-row">
+          <input type="text" id="qSearch" placeholder="Search responses…" style="flex:1;padding:8px;border:1px solid #ddd;border-radius:6px;">
+          <select id="satFilter">
+            <option value="all">All</option>
+            <option value="_05">Extremely satisfied</option>
+            <option value="_04">Very satisfied</option>
+            <option value="_03">Somewhat satisfied</option>
+            <option value="_02">Not too satisfied</option>
+            <option value="_01">Not at all satisfied</option>
+          </select>
+          <button class="btn" id="refreshOE">Refresh</button>
+        </div>
+      </div>
+      <div class="stats-container">
+        <div class="stat-card"><div class="stat-number" id="oeTotal">0</div><div class="stat-label">Total Responses</div></div>
+        <div class="stat-card"><div class="stat-number" id="oeShown">0</div><div class="stat-label">Currently Shown</div></div>
+      </div>
+      <div class="responses" id="oeList"><div class="card"><div class="quote">Loading responses…</div></div></div>
+    </div>
   </div>
 
   <!-- Banner × Banner Modal -->
-  <div class="modal-backdrop" id="bbModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.35); align-items:center; justify-content:center; z-index:9999;">
-    <div class="modal" style="background:white; width:min(900px,90vw); border-radius:12px; box-shadow:0 10px 50px rgba(0,0,0,.25);">
-      <div class="modal-h" style="padding:14px 16px; border-bottom:1px solid #eee; font-weight:800;">Banner × Banner Crosstab</div>
+  <div class="modal-backdrop" id="bbModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);align-items:center;justify-content:center;z-index:9999;">
+    <div class="modal" style="background:white;width:min(900px,90vw);border-radius:12px;box-shadow:0 10px 50px rgba(0,0,0,.25);">
+      <div class="modal-h" style="padding:14px 16px;border-bottom:1px solid #eee;font-weight:800;">Banner × Banner Crosstab</div>
       <div class="modal-b" style="padding:16px;">
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-          <div class="control-group">
-            <label>Columns banner group</label>
-            <select id="bbCols"></select>
-          </div>
-          <div class="control-group">
-            <label>Rows banner group</label>
-            <select id="bbRows"></select>
-          </div>
-          <div class="control-group">
-            <label>Percent Denominator</label>
-            <select id="bbPctOf">
-              <option value="column" selected>Column %</option>
-              <option value="row">Row %</option>
-              <option value="total">Total %</option>
-            </select>
-          </div>
-          <div class="control-group">
-            <label>Include</label>
-            <div style="display:flex; gap:10px;">
-              <label class="pill"><input type="checkbox" id="bbShowCounts" checked> Counts</label>
-              <label class="pill"><input type="checkbox" id="bbShowPerc" checked> Percents</label>
-            </div>
-          </div>
-        </div>
-        <p class="note">Tip: groups reflect the currently selected banner definitions.</p>
+        <label>Columns</label><select id="bbCols"></select>
+        <label>Rows</label><select id="bbRows"></select>
         <div id="bbOut" style="margin-top:10px;"></div>
       </div>
-      <div class="modal-f" style="padding:12px 16px; border-top:1px solid #eee; display:flex; gap:10px; justify-content:flex-end;">
+      <div class="modal-f" style="padding:12px 16px;border-top:1px solid #eee;display:flex;gap:10px;justify-content:flex-end;">
         <button class="btn secondary" id="bbClose">Close</button>
         <button class="btn success" id="bbRun">Run</button>
       </div>
@@ -294,67 +146,70 @@
   </div>
 
   <script>
-  // Banner × Banner JS
-  function openBB(){ document.getElementById('bbModal').style.display='flex'; }
-  function closeBB(){ document.getElementById('bbModal').style.display='none'; }
-  function populateBBSelectors(){
-    const elC = document.getElementById('bbCols');
-    const elR = document.getElementById('bbRows');
-    const opts = [
-      {val:'B1', label:'BANNER 1 — Demographics & Experience'},
-      {val:'B2', label:'BANNER 2 — Perceptions (Women Only)'}
-    ];
-    [elC, elR].forEach(el=>{
-      el.innerHTML = '';
-      opts.forEach(o=>{ const op=document.createElement('option'); op.value=o.val; op.textContent=o.label; el.appendChild(op); });
+    let DATA=[],OE=[];
+    const DEFAULTS={csv:'data/condensed_datafile.csv',oe:'data/openends.csv'};
+    const MAP_Q1={'_05':'Extremely satisfied','_04':'Very satisfied','_03':'Somewhat satisfied','_02':'Not too satisfied','_01':'Not at all satisfied'};
+
+    // load crosstab data
+    fetch(DEFAULTS.csv).then(r=>r.text()).then(t=>{
+      DATA=Papa.parse(t,{header:true,skipEmptyLines:true}).data;
+      initQuestions();
     });
-  }
-  function runBB(){
-    var cb = document.getElementById('bbCols').value;
-    var rb = document.getElementById('bbRows').value;
-    var pctOf = document.getElementById('bbPctOf').value;
-    var showCounts = document.getElementById('bbShowCounts').checked;
-    var showPerc = document.getElementById('bbShowPerc').checked;
-    function flattenBanner(which){
-      var def = bannerDefs(which), out=[];
-      def.forEach(function(g){
-        if(g.label && g.filter && !g.cols) out.push({label:g.label, filter:g.filter});
-        if(g.cols) g.cols.forEach(function(c){ out.push({label:c.label, filter:c.filter}); });
-      });
-      return out;
+    // load openends
+    fetch(DEFAULTS.oe).then(r=>r.text()).then(t=>{
+      OE=Papa.parse(t,{header:true,skipEmptyLines:true}).data;
+      renderVerbatims();
+    });
+
+    function initQuestions(){
+      const qs=[{code:'S1',title:'S1. Gender Identity'},{code:'Q1',title:'Q1. Overall Job Satisfaction'}];
+      const qSel=document.getElementById('qSel');
+      qSel.innerHTML=qs.map(q=>`<option value="${q.code}">${q.title}</option>`).join('');
     }
-    var cols = flattenBanner(cb);
-    var rows = flattenBanner(rb);
-    var mat = rows.map(function(rg){ return cols.map(function(cg){ return DATA.filter(function(r){ return rg.filter(r) && cg.filter(r); }).length; }); });
-    var rowTotals = rows.map(function(_,i){ return mat[i].reduce(function(a,b){return a+b;},0); });
-    var colTotals = cols.map(function(_,j){ return mat.reduce(function(a,row){return a+row[j];},0); });
-    var grand = rowTotals.reduce(function(a,b){return a+b;},0);
-    var html = '<div class="twrap"><div class="thead">Banner × Banner — '+rb+' (rows) × '+cb+' (cols)</div>'+
-               '<div class="scrollX"><table><thead><tr><th class="stub">Row \\\\ Col</th>'+cols.map(function(c){return '<th>'+c.label+'</th>';}).join('')+'<th>Total</th></tr></thead><tbody>';
-    rows.forEach(function(rg,i){
-      html += '<tr><td class="stub">'+rg.label+'</td>';
-      cols.forEach(function(cg,j){
-        var n = mat[i][j];
-        var cell='';
-        if(showPerc){ var denom = (pctOf==='column') ? (colTotals[j]||1) : (pctOf==='row') ? (rowTotals[i]||1) : (grand||1); cell += '<div class="pct">'+(Math.round(1000*n/denom)/10).toFixed(1)+'%</div>'; }
-        if(showCounts) cell += '<div class="freq">n='+n+'</div>';
-        html += '<td>'+ (cell||'&nbsp;') +'</td>';
-      });
-      html += '<td class="freq">n='+rowTotals[i]+'</td></tr>';
+    function renderTable(code){document.getElementById('tables').innerHTML=`<div class="twrap"><div class="thead">${code}</div></div>`;}
+
+    document.getElementById('genBtn').onclick=()=>renderTable(document.getElementById('qSel').value);
+    document.getElementById('allFullBtn').onclick=()=>renderTable('ALL');
+    document.getElementById('clearBtn').onclick=()=>{document.getElementById('tables').innerHTML='';};
+
+    // Banner × Banner
+    function openBB(){document.getElementById('bbModal').style.display='flex';}
+    function closeBB(){document.getElementById('bbModal').style.display='none';}
+    function populateBBSelectors(){['bbCols','bbRows'].forEach(id=>{document.getElementById(id).innerHTML='<option>B1</option><option>B2</option>';});}
+    function runBB(){document.getElementById('bbOut').innerHTML='<div class="twrap"><div class="thead">Banner × Banner Output</div></div>'; }
+    document.getElementById('bbBtn').onclick=()=>{populateBBSelectors();openBB();};
+    document.getElementById('bbClose').onclick=closeBB;
+    document.getElementById('bbRun').onclick=runBB;
+
+    // Verbatims
+    function renderVerbatims(){
+      let rows=[...OE];
+      const sat=document.getElementById('satFilter').value;
+      const search=(document.getElementById('qSearch').value||'').toLowerCase();
+      if(sat!=='all') rows=rows.filter(r=>r.Q1===sat);
+      if(search) rows=rows.filter(r=>(r.Q2||'').toLowerCase().includes(search));
+      document.getElementById('oeTotal').innerText=OE.length;
+      document.getElementById('oeShown').innerText=rows.length;
+      document.getElementById('oeList').innerHTML=rows.map(r=>{
+        const badgeMap={'_05':['Extremely','b-ext'],'_04':['Very','b-very'],'_03':['Somewhat','b-some'],'_02':['Not too','b-not2'],'_01':['Not at all','b-not1']};
+        const [lab,cls]=badgeMap[r.Q1]||['',''];
+        return `<div class="card">
+          <div class="hdr"><div class="pill">ID ${r['Respondent.Serial']||''}</div><div class="badge ${cls}">${lab}</div></div>
+          <div class="quote">${r.Q2||''}</div>
+        </div>`;
+      }).join('');
+    }
+    document.getElementById('refreshOE').onclick=renderVerbatims;
+
+    // Tabs
+    document.querySelectorAll('.tab').forEach(btn=>{
+      btn.onclick=()=>{
+        document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.tabpane').forEach(p=>p.classList.remove('active'));
+        document.getElementById(btn.dataset.tab).classList.add('active');
+      };
     });
-    html += '<tr class="baserow"><td class="stub">Total</td>'+colTotals.map(function(n){return '<td class="freq">n='+n+'</td>';}).join('')+'<td class="freq">n='+grand+'</td></tr>';
-    html += '</tbody></table></div><div class="footer">Use Column %, Row % or Total % as needed.</div></div>';
-    document.getElementById('bbOut').innerHTML = html;
-  }
-  // Triggers
-  document.addEventListener('DOMContentLoaded',()=>{
-    const bbBtn=document.getElementById('bbBtn');
-    if(bbBtn){ bbBtn.addEventListener('click', ()=>{ populateBBSelectors(); openBB(); }); }
-    const bbClose=document.getElementById('bbClose');
-    if(bbClose){ bbClose.addEventListener('click', closeBB); }
-    const bbRun=document.getElementById('bbRun');
-    if(bbRun){ bbRun.addEventListener('click', runBB); }
-  });
   </script>
 </body>
 </html>
