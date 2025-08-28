@@ -1,0 +1,3739 @@
+<html lang="en">
+ <head>
+ <meta charset="utf-8"/>
+ <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+ <title>
+ Women in Security Industry Report 2025
+ </title>
+ <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+ </script>
+ <style>
+ * {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ }
+
+ :root {
+ --deep-purple: #2D1B69;
+ --royal-purple: #5B3A9E;
+ --electric-purple: #7C4DFF;
+ --hot-pink: #FF1744;
+ --coral: #FF6B6B;
+ --gold: #FFD700;
+	 --emerald: #10B981;
+ --midnight: #0A0E27;
+ --slate: #1E293B;
+ --steel: #475569;
+ --cloud: #F8FAFC;
+ --white: #FFFFFF;
+ }
+
+ body {
+ font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+ background: var(--midnight);
+ color: var(--slate);
+ line-height: 1.6;
+ overflow-x: hidden;
+ }
+
+ /* Header */
+ .header {
+ background: linear-gradient(135deg, var(--midnight) 0%, var(--deep-purple) 100%);
+ padding: 40px;
+ border-bottom: 3px solid var(--electric-purple);
+ }
+
+ .header-content {
+ max-width: 1400px;
+ margin: 0 auto;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ }
+
+ .logo-section {
+ display: flex;
+ align-items: center;
+ gap: 30px;
+ }
+
+ .logo-section img {
+ height: 60px;
+ filter: brightness(1.2);
+ }
+
+ .logo-section h1 {
+ font-size: 2.5em;
+ font-weight: 300;
+ color: var(--white);
+ letter-spacing: -1px;
+ }
+
+ .logo-section .tagline {
+ color: var(--gold);
+ font-size: 1.2em;
+ margin-top: 5px;
+ }
+
+ .key-metrics {
+ display: flex;
+ gap: 40px;
+ }
+
+ .metric-block {
+ text-align: center;
+ }
+
+ .metric-value {
+ font-size: 2.5em;
+ font-weight: bold;
+ color: var(--gold);
+ }
+
+ .metric-label {
+ font-size: 0.9em;
+ color: rgba(255, 255, 255, 0.8);
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ }
+
+ /* Navigation Tabs */
+ .nav-tabs {
+ background: var(--slate);
+ padding: 0;
+ box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+ position: sticky;
+ top: 0;
+ z-index: 1000;
+ }
+
+ .nav-container {
+ max-width: 1400px;
+ margin: 0 auto;
+ display: flex;
+ overflow-x: auto;
+ }
+
+ .nav-tab {
+ padding: 20px 30px;
+ background: none;
+ border: none;
+ color: rgba(255, 255, 255, 0.7);
+ font-size: 1em;
+ cursor: pointer;
+ transition: all 0.3s;
+ white-space: nowrap;
+ border-bottom: 3px solid transparent;
+ }
+
+ .nav-tab:hover {
+ background: rgba(124, 77, 255, 0.1);
+ color: var(--white);
+ }
+
+ .nav-tab.active {
+ color: var(--gold);
+ border-bottom-color: var(--gold);
+ background: rgba(255, 215, 0, 0.1);
+ }
+
+ /* Content Sections */
+ .content-wrapper {
+ background: var(--cloud);
+ min-height: calc(100vh - 200px);
+ }
+
+ .tab-content {
+ display: none;
+ animation: fadeIn 0.5s;
+ }
+
+ .tab-content.active {
+ display: block;
+ }
+
+ @keyframes fadeIn {
+ from { opacity: 0; transform: translateY(20px); }
+ to { opacity: 1; transform: translateY(0); }
+ }
+
+ .section-container {
+ max-width: 1400px;
+ margin: 0 auto;
+ padding: 60px 40px;
+ }
+
+ /* Opening Section */
+ .opening-statement {
+ background: linear-gradient(135deg, var(--white) 0%, #F0F4FF 100%);
+ padding: 60px;
+ border-radius: 20px;
+ box-shadow: 0 20px 60px rgba(45, 27, 105, 0.15);
+ margin-bottom: 40px;
+ }
+
+ .statement-header {
+ display: flex;
+ align-items: center;
+ gap: 30px;
+ margin-bottom: 30px;
+ }
+
+ .statement-icon {
+ width: 80px;
+ height: 80px;
+ background: linear-gradient(135deg, var(--electric-purple), var(--royal-purple));
+ border-radius: 20px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 2em;
+ color: white;
+ }
+
+ .statement-title h2 {
+ font-size: 2.5em;
+ color: var(--deep-purple);
+ margin-bottom: 10px;
+ }
+
+ .statement-subtitle {
+ font-size: 1.3em;
+ color: var(--steel);
+ }
+
+ .belief-metrics {
+ display: grid;
+ grid-template-columns: repeat(4, 1fr);
+ gap: 30px;
+ margin-top: 40px;
+ }
+
+ .belief-card {
+ background: var(--white);
+ padding: 30px;
+ border-radius: 15px;
+ box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+ text-align: center;
+ position: relative;
+ overflow: hidden;
+ }
+
+ .belief-card::before {
+ content: '';
+ position: absolute;
+ top: 0;
+ left: 0;
+ right: 0;
+ height: 4px;
+ background: linear-gradient(90deg, var(--electric-purple), var(--hot-pink));
+ }
+
+ .belief-percentage {
+ font-size: 3em;
+ font-weight: bold;
+ background: linear-gradient(135deg, var(--electric-purple), var(--hot-pink));
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
+ margin-bottom: 10px;
+ }
+
+ .belief-text {
+ font-size: 1.1em;
+ color: var(--slate);
+ font-weight: 600;
+ margin-bottom: 10px;
+ }
+
+ .belief-context {
+ font-size: 0.9em;
+ color: var(--steel);
+ font-style: italic;
+ }
+
+ /* Paradox Section */
+ .paradox-container {
+ background: linear-gradient(135deg, var(--deep-purple), var(--midnight));
+ padding: 60px;
+ border-radius: 20px;
+ color: white;
+ position: relative;
+ overflow: hidden;
+ }
+
+ .paradox-container::before {
+ content: '';
+ position: absolute;
+ width: 300px;
+ height: 300px;
+ background: radial-gradient(circle, var(--electric-purple), transparent);
+ opacity: 0.3;
+ top: -100px;
+ right: -100px;
+ border-radius: 50%;
+ }
+
+ .paradox-header {
+ text-align: center;
+ margin-bottom: 50px;
+ }
+
+ .paradox-title {
+ font-size: 3em;
+ margin-bottom: 20px;
+ text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+ }
+
+ .paradox-visual {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ gap: 60px;
+ margin: 60px 0;
+ }
+
+ .paradox-stat {
+ text-align: center;
+ padding: 40px;
+ background: rgba(255, 255, 255, 0.1);
+ backdrop-filter: blur(10px);
+ border-radius: 20px;
+ border: 2px solid rgba(255, 255, 255, 0.2);
+ }
+
+ .paradox-number {
+ font-size: 5em;
+ font-weight: bold;
+ margin-bottom: 10px;
+ }
+
+ .paradox-label {
+ font-size: 1.3em;
+ opacity: 0.9;
+ }
+
+ .paradox-stat.satisfaction .paradox-number {
+ color: var(--gold);
+ }
+
+ .paradox-stat.flight .paradox-number {
+ color: var(--hot-pink);
+ }
+
+ .paradox-connector {
+ font-size: 2em;
+ font-weight: bold;
+ color: var(--coral);
+ }
+
+ /* Quadrant Chart */
+ .quadrant-container {
+ background: white;
+ padding: 40px;
+ border-radius: 20px;
+ box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+ margin: 40px 0;
+ }
+
+ /* Verbatim Quotes */
+ .verbatim-section {
+ background: var(--white);
+ padding: 40px;
+ border-radius: 20px;
+ margin: 40px 0;
+ box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+ }
+
+ .verbatim-header {
+ font-size: 1.8em;
+ color: var(--deep-purple);
+ margin-bottom: 30px;
+ padding-bottom: 15px;
+ border-bottom: 3px solid var(--electric-purple);
+ }
+
+ .quote-grid {
+ display: grid;
+ grid-template-columns: repeat(2, 1fr);
+ gap: 30px;
+ }
+
+ .quote-card {
+ padding: 25px;
+ background: linear-gradient(135deg, var(--cloud), var(--white));
+ border-left: 4px solid var(--electric-purple);
+ border-radius: 10px;
+ position: relative;
+ }
+
+ .quote-card::before {
+ content: '"';
+ position: absolute;
+ top: 10px;
+ left: 15px;
+ font-size: 3em;
+ color: var(--electric-purple);
+ opacity: 0.2;
+ }
+
+ .quote-text {
+ font-size: 1.1em;
+ color: var(--slate);
+ font-style: italic;
+ margin-bottom: 15px;
+ padding-left: 20px;
+ }
+
+ .quote-category {
+ font-size: 0.9em;
+ color: var(--steel);
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ padding-left: 20px;
+ }
+
+ /* Risk Analysis */
+ .risk-matrix {
+ display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ gap: 30px;
+ margin: 40px 0;
+ }
+
+ .risk-card {
+ background: var(--white);
+ border-radius: 15px;
+ overflow: hidden;
+ box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+ }
+
+ .risk-header {
+ padding: 20px;
+ font-size: 1.3em;
+ font-weight: bold;
+ color: white;
+ }
+
+ .risk-header.critical {
+ background: linear-gradient(135deg, #FF1744, #D50000);
+ }
+
+ .risk-header.high {
+ background: linear-gradient(135deg, #FF6B6B, #FF5252);
+ }
+
+ .risk-header.medium {
+ background: linear-gradient(135deg, #FFA726, #FF9800);
+ }
+
+ .risk-header.low {
+ background: linear-gradient(135deg, #66BB6A, #4CAF50);
+ }
+
+ .risk-content {
+ padding: 30px;
+ }
+
+ .risk-percentage {
+ font-size: 3.5em;
+ font-weight: bold;
+ margin-bottom: 10px;
+ }
+
+ .risk-percentage.critical { color: #D50000; }
+ .risk-percentage.high { color: #FF5252; }
+ .risk-percentage.medium { color: #FF9800; }
+ .risk-percentage.low { color: #4CAF50; }
+
+ .risk-details {
+ color: var(--steel);
+ line-height: 1.6;
+ }
+
+ /* Heat Map Table */
+ .heatmap-table {
+ width: 100%;
+ border-collapse: collapse;
+ background: white;
+ border-radius: 15px;
+ overflow: hidden;
+ box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+ }
+
+ .heatmap-table th {
+ background: var(--deep-purple);
+ color: white;
+ padding: 15px;
+ font-weight: 600;
+ text-align: left;
+ }
+
+ .heatmap-table td {
+ padding: 20px;
+ border-bottom: 1px solid #E5E7EB;
+ font-weight: 500;
+ text-align: center;
+ }
+
+ .heat-critical {
+ background: linear-gradient(135deg, #FFEBEE, #FFCDD2);
+ color: #C62828;
+ font-weight: bold;
+ }
+
+ .heat-high {
+ background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+ color: #E65100;
+ }
+
+ .heat-medium {
+ background: linear-gradient(135deg, #FFF9C4, #FFF59D);
+ color: #F57C00;
+ }
+
+ .heat-low {
+ background: linear-gradient(135deg, #F1F8E9, #DCEDC8);
+ color: #33691E;
+ }
+
+ /* Barriers Section */
+ .barriers-grid {
+ display: grid;
+ grid-template-columns: repeat(2, 1fr);
+ gap: 40px;
+ margin: 40px 0;
+ }
+
+ .barrier-item {
+ display: flex;
+ align-items: center;
+ gap: 30px;
+ padding: 30px;
+ background: var(--white);
+ border-radius: 15px;
+ box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+ }
+
+ .barrier-visual {
+ width: 120px;
+ height: 120px;
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 2.5em;
+ font-weight: bold;
+ color: white;
+ flex-shrink: 0;
+ }
+
+ .barrier-visual.critical {
+ background: linear-gradient(135deg, var(--hot-pink), var(--coral));
+ }
+
+ .barrier-visual.high {
+ background: linear-gradient(135deg, var(--electric-purple), var(--royal-purple));
+ }
+
+ .barrier-info {
+ flex-grow: 1;
+ }
+
+ .barrier-title {
+ font-size: 1.3em;
+ color: var(--slate);
+ font-weight: bold;
+ margin-bottom: 10px;
+ }
+
+ .barrier-description {
+ color: var(--steel);
+ line-height: 1.5;
+ margin-bottom: 15px;
+ }
+
+ .barrier-quote {
+ padding: 15px;
+ background: var(--cloud);
+ border-left: 3px solid var(--electric-purple);
+ font-style: italic;
+ color: var(--slate);
+ }
+
+ /* Action Plan */
+ .action-timeline {
+ position: relative;
+ padding: 40px 0;
+ }
+
+ .timeline-line {
+ position: absolute;
+ left: 50%;
+ top: 0;
+ bottom: 0;
+ width: 3px;
+ background: linear-gradient(180deg, var(--electric-purple), var(--hot-pink));
+ }
+
+ .timeline-item {
+ position: relative;
+ margin-bottom: 60px;
+ display: flex;
+ align-items: center;
+ }
+
+ .timeline-item:nth-child(odd) {
+ flex-direction: row-reverse;
+ }
+
+ .timeline-content {
+ width: 45%;
+ padding: 30px;
+ background: var(--white);
+ border-radius: 15px;
+ box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+ }
+
+ .timeline-dot {
+ position: absolute;
+ left: 50%;
+ transform: translateX(-50%);
+ width: 30px;
+ height: 30px;
+ background: var(--electric-purple);
+ border-radius: 50%;
+ border: 5px solid var(--white);
+ box-shadow: 0 5px 15px rgba(124, 77, 255, 0.3);
+ }
+
+ .action-number {
+ display: inline-block;
+ width: 40px;
+ height: 40px;
+ background: linear-gradient(135deg, var(--electric-purple), var(--royal-purple));
+ color: white;
+ border-radius: 50%;
+ text-align: center;
+ line-height: 40px;
+ font-weight: bold;
+ margin-bottom: 15px;
+ }
+
+ .action-title {
+ font-size: 1.4em;
+ color: var(--deep-purple);
+ font-weight: bold;
+ margin-bottom: 15px;
+ }
+
+ .action-description {
+ color: var(--steel);
+ margin-bottom: 20px;
+ line-height: 1.5;
+ }
+
+ .action-impact {
+ padding: 15px;
+ background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+ border-radius: 10px;
+ border-left: 4px solid #4CAF50;
+ }
+
+ .impact-label {
+ font-size: 0.9em;
+ color: #2E7D32;
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ font-weight: bold;
+ margin-bottom: 5px;
+ }
+
+ .impact-value {
+ color: #1B5E20;
+ font-weight: bold;
+ }
+
+ /* Charts Container */
+ .chart-wrapper {
+ background: var(--white);
+ padding: 40px;
+ border-radius: 20px;
+ box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+ margin: 40px 0;
+ }
+
+ .chart-title {
+ font-size: 1.8em;
+ color: var(--deep-purple);
+ margin-bottom: 30px;
+ text-align: center;
+ }
+
+ /* Profiles Section */
+ .profiles-grid {
+ display: grid;
+ grid-template-columns: repeat(2, 1fr);
+ gap: 40px;
+ margin: 40px 0;
+ }
+
+ .profile-card {
+ background: linear-gradient(135deg, var(--white), #F8F9FF);
+ border-radius: 20px;
+ padding: 40px;
+ box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+ position: relative;
+ overflow: hidden;
+ }
+
+ .profile-card::before {
+ content: '';
+ position: absolute;
+ top: 0;
+ left: 0;
+ right: 0;
+ height: 6px;
+ background: linear-gradient(90deg, var(--electric-purple), var(--hot-pink), var(--gold));
+ }
+
+ .profile-name {
+ font-size: 1.8em;
+ color: var(--deep-purple);
+ margin-bottom: 15px;
+ font-weight: bold;
+ }
+
+ .profile-stats {
+ display: flex;
+ gap: 30px;
+ margin: 20px 0;
+ padding: 20px;
+ background: rgba(124, 77, 255, 0.05);
+ border-radius: 10px;
+ }
+
+ .profile-stat-item {
+ flex: 1;
+ text-align: center;
+ }
+
+ .profile-stat-value {
+ font-size: 2em;
+ font-weight: bold;
+ color: var(--electric-purple);
+ }
+
+ .profile-stat-label {
+ font-size: 0.9em;
+ color: var(--steel);
+ text-transform: uppercase;
+ }
+
+ .profile-description {
+ color: var(--slate);
+ line-height: 1.6;
+ margin: 20px 0;
+ }
+
+ .profile-demographics {
+ padding: 15px;
+ background: var(--cloud);
+ border-radius: 10px;
+ margin: 15px 0;
+ }
+
+ .profile-demographics strong {
+ color: var(--deep-purple);
+ }
+
+ .profile-action {
+ padding: 20px;
+ background: linear-gradient(135deg, #FFF8E1, #FFECB3);
+ border-radius: 10px;
+ border-left: 4px solid var(--gold);
+ }
+
+ .profile-action-label {
+ font-size: 0.9em;
+ color: #F57C00;
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ margin-bottom: 10px;
+ font-weight: bold;
+ }
+
+ .profile-action-text {
+ color: #E65100;
+ font-weight: 600;
+ }
+
+ /* Executive Summary */
+ .executive-container {
+ background: linear-gradient(135deg, var(--deep-purple), var(--midnight));
+ padding: 80px 60px;
+ border-radius: 20px;
+ color: white;
+ position: relative;
+ overflow: hidden;
+ }
+
+ .executive-container::before {
+ content: '';
+ position: absolute;
+ width: 500px;
+ height: 500px;
+ background: radial-gradient(circle, rgba(255, 215, 0, 0.1), transparent);
+ top: -200px;
+ right: -200px;
+ }
+
+ .executive-title {
+ font-size: 3em;
+ text-align: center;
+ margin-bottom: 20px;
+ color: var(--gold);
+ }
+
+ .executive-subtitle {
+ text-align: center;
+ font-size: 1.3em;
+ opacity: 0.9;
+ margin-bottom: 60px;
+ }
+
+ .executive-grid {
+ display: grid;
+ grid-template-columns: repeat(2, 1fr);
+ gap: 40px;
+ margin-bottom: 60px;
+ }
+
+ .executive-block {
+ padding: 30px;
+ background: rgba(255, 255, 255, 0.1);
+ backdrop-filter: blur(10px);
+ border-radius: 15px;
+ border: 1px solid rgba(255, 255, 255, 0.2);
+ }
+
+ .executive-block h3 {
+ color: var(--gold);
+ font-size: 1.5em;
+ margin-bottom: 20px;
+ }
+
+ .executive-block p {
+ line-height: 1.8;
+ opacity: 0.95;
+ }
+
+ .bottom-line {
+ text-align: center;
+ padding: 40px;
+ background: rgba(255, 215, 0, 0.1);
+ border-radius: 15px;
+ border: 2px solid var(--gold);
+ }
+
+ .bottom-line-text {
+ font-size: 1.4em;
+ line-height: 1.8;
+ font-weight: 300;
+ }
+
+ .bottom-line-text strong {
+ color: var(--gold);
+ font-weight: 600;
+ }
+
+ /* Methodology */
+ .methodology-content {
+ background: var(--white);
+ padding: 40px;
+ border-radius: 15px;
+ box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+ }
+
+ .methodology-grid {
+ display: grid;
+ grid-template-columns: repeat(2, 1fr);
+ gap: 30px;
+ margin-top: 30px;
+ }
+
+ .methodology-item {
+ padding: 20px;
+ background: var(--cloud);
+ border-radius: 10px;
+ border-left: 4px solid var(--electric-purple);
+ }
+
+ .methodology-label {
+ font-weight: bold;
+ color: var(--deep-purple);
+ margin-bottom: 10px;
+ }
+
+ .methodology-value {
+ color: var(--steel);
+ }
+
+ /* Footer */
+ .footer {
+ background: var(--midnight);
+ padding: 40px;
+ text-align: center;
+ color: rgba(255, 255, 255, 0.8);
+ border-top: 2px solid var(--electric-purple);
+ }
+
+ .footer-logo {
+ height: 50px;
+ margin-bottom: 20px;
+ }
+
+ .footer-text {
+ font-size: 0.9em;
+ line-height: 1.6;
+ }
+ 
+
+ /* Updated Navigation - Compact to fit all tabs */
+ .nav-tabs {
+ background: var(--slate);
+ padding: 0;
+ box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+ position: sticky;
+ top: 0;
+ z-index: 1000;
+ overflow: visible;
+ }
+ 
+ .nav-container {
+ max-width: 100%;
+ margin: 0 auto;
+ display: flex;
+ justify-content: center;
+ flex-wrap: wrap;
+ padding: 0 20px;
+ }
+ 
+ .nav-tab {
+ padding: 18px 20px;
+ background: none;
+ border: none;
+ color: rgba(255, 255, 255, 0.7);
+ font-size: 0.95em;
+ cursor: pointer;
+ transition: all 0.3s;
+ white-space: nowrap;
+ border-bottom: 3px solid transparent;
+ flex: 0 1 auto;
+ }
+ 
+ @media (max-width: 1400px) {
+ .nav-tab {
+ padding: 15px 15px;
+ font-size: 0.9em;
+ }
+ }
+/* Simple fix - just target the exact logo */
+logo-section img {
+ height: 100px !important;
+ width: auto !important;
+ margin-right: 60px !important; /* Add space after logo */
+ padding-right: 30px !important; /* Add even more space */
+}
+
+.logo-section {
+ gap: 70px !important; /* Increase gap between all elements */
+}
+ </style>
+ </head>
+ <body>
+<style>
+img[src="https://i.imgur.com/nefMHjP.png"] {
+ height: 90px !important;
+ min-height: 88px !important;
+ max-height: 88px !important;
+ width: auto !important;
+ margin-right: 20px !important;
+}
+</style>
+
+ <!-- Header -->
+ <div class="header">
+ <div class="header-content">
+ <div class="logo-section">
+ <img alt="Beyond Insights" src="https://i.imgur.com/nefMHjP.png"/>
+ <div>
+ <h1>
+ WISC Security Survey 2025
+ </h1>
+ <div class="tagline">
+ The Retention Paradox: When Excellence Isn't Enough
+ </div>
+ </div>
+ </div>
+ <div class="key-metrics">
+ <div class="metric-block">
+ <div class="metric-value">
+ 92%
+ </div>
+ <div class="metric-label">
+ Believe in Mission
+ </div>
+ </div>
+ <div class="metric-block">
+ <div class="metric-value">
+ 87%
+ </div>
+ <div class="metric-label">
+ Job Satisfaction
+ </div>
+ <div class="metric-sublabel" style="font-size: 0.75em; color: rgba(255, 255, 255, 0.6); margin-top: 2px; font-weight: normal;">
+ 59% Extremely/Very Satisfied
+ </div>
+ </div>
+ <div class="metric-block">
+ <div class="metric-value">
+ 36%
+ </div>
+ <div class="metric-label">
+ Looking to Move
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <!-- Navigation -->
+ <div class="nav-tabs">
+ <div class="nav-container">
+ <button class="nav-tab active" onclick="(function(){var c=document.getElementsByClassName('tab-content');for(var i=0;i<c.length;i++)c[i].classList.remove('active');var b=document.getElementsByClassName('nav-tab');for(var i=0;i<b.length;i++)b[i].classList.remove('active');document.getElementById('momentum').classList.add('active');event.target.classList.add('active');})()">
+ Foundation
+ </button>
+ <button class="nav-tab" onclick="(function(){var c=document.getElementsByClassName('tab-content');for(var i=0;i<c.length;i++)c[i].classList.remove('active');var b=document.getElementsByClassName('nav-tab');for(var i=0;i<b.length;i++)b[i].classList.remove('active');document.getElementById('women-security').classList.add('active');event.target.classList.add('active');})()">
+ Women in Security
+ </button>
+ <button class="nav-tab" onclick="(function(){var c=document.getElementsByClassName('tab-content');for(var i=0;i<c.length;i++)c[i].classList.remove('active');var b=document.getElementsByClassName('nav-tab');for(var i=0;i<b.length;i++)b[i].classList.remove('active');document.getElementById('company-context').classList.add('active');event.target.classList.add('active');})()">
+ Company Context
+ </button>
+ <button class="nav-tab" onclick="(function(){var c=document.getElementsByClassName('tab-content');for(var i=0;i<c.length;i++)c[i].classList.remove('active');var b=document.getElementsByClassName('nav-tab');for(var i=0;i<b.length;i++)b[i].classList.remove('active');document.getElementById('paradox').classList.add('active');event.target.classList.add('active');})()">
+ The Paradox
+ </button>
+ <button class="nav-tab" onclick="(function(){var c=document.getElementsByClassName('tab-content');for(var i=0;i<c.length;i++)c[i].classList.remove('active');var b=document.getElementsByClassName('nav-tab');for(var i=0;i<b.length;i++)b[i].classList.remove('active');document.getElementById('prof-development').classList.add('active');event.target.classList.add('active');})()">
+ Professional Development
+ </button>
+ <button class="nav-tab" onclick="(function(){var c=document.getElementsByClassName('tab-content');for(var i=0;i<c.length;i++)c[i].classList.remove('active');var b=document.getElementsByClassName('nav-tab');for(var i=0;i<b.length;i++)b[i].classList.remove('active');document.getElementById('drivers').classList.add('active');event.target.classList.add('active');setTimeout(initDriversChart,100);})()">
+ Exit Drivers
+ </button>
+ <button class="nav-tab" onclick="(function(){var c=document.getElementsByClassName('tab-content');for(var i=0;i<c.length;i++)c[i].classList.remove('active');var b=document.getElementsByClassName('nav-tab');for(var i=0;i<b.length;i++)b[i].classList.remove('active');document.getElementById('profiles').classList.add('active');event.target.classList.add('active');})()">
+ Profiles
+ </button>
+ <button class="nav-tab" onclick="(function(){var c=document.getElementsByClassName('tab-content');for(var i=0;i<c.length;i++)c[i].classList.remove('active');var b=document.getElementsByClassName('nav-tab');for(var i=0;i<b.length;i++)b[i].classList.remove('active');document.getElementById('risk').classList.add('active');event.target.classList.add('active');setTimeout(initQuadrantChart,100);})()">
+ Risk Analysis
+ </button>
+ <button class="nav-tab" onclick="(function(){var c=document.getElementsByClassName('tab-content');for(var i=0;i<c.length;i++)c[i].classList.remove('active');var b=document.getElementsByClassName('nav-tab');for(var i=0;i<b.length;i++)b[i].classList.remove('active');document.getElementById('barriers').classList.add('active');event.target.classList.add('active');})()">
+ Barriers
+ </button>
+ <button class="nav-tab" onclick="(function(){var c=document.getElementsByClassName('tab-content');for(var i=0;i<c.length;i++)c[i].classList.remove('active');var b=document.getElementsByClassName('nav-tab');for(var i=0;i<b.length;i++)b[i].classList.remove('active');document.getElementById('voices').classList.add('active');event.target.classList.add('active');})()">
+ Voices
+ </button>
+ <button class="nav-tab" onclick="(function(){var c=document.getElementsByClassName('tab-content');for(var i=0;i<c.length;i++)c[i].classList.remove('active');var b=document.getElementsByClassName('nav-tab');for(var i=0;i<b.length;i++)b[i].classList.remove('active');document.getElementById('actions').classList.add('active');event.target.classList.add('active');})()">
+ Action Plan
+ </button>
+ <button class="nav-tab" onclick="(function(){var c=document.getElementsByClassName('tab-content');for(var i=0;i<c.length;i++)c[i].classList.remove('active');var b=document.getElementsByClassName('nav-tab');for(var i=0;i<b.length;i++)b[i].classList.remove('active');document.getElementById('summary').classList.add('active');event.target.classList.add('active');})()">
+ Executive Summary
+ </button>
+ <button class="nav-tab" onclick="(function(){var c=document.getElementsByClassName('tab-content');for(var i=0;i<c.length;i++)c[i].classList.remove('active');var b=document.getElementsByClassName('nav-tab');for(var i=0;i<b.length;i++)b[i].classList.remove('active');document.getElementById('methodology').classList.add('active');event.target.classList.add('active');})()">
+ Methodology
+ </button>
+ </div>
+ </div>
+ <!-- Content -->
+ <div class="content-wrapper">
+ <!-- Foundation Tab -->
+ <div class="tab-content active" id="momentum">
+ <div class="section-container">
+ <div class="opening-statement">
+ <div class="statement-header">
+ <div class="statement-icon">
+ 💫
+ </div>
+ <div class="statement-title">
+ <h2>
+ The Foundation is Strong
+ </h2>
+ <div class="statement-subtitle">
+ Women in security aren't just employees—they're believers. The mission resonates, the purpose is clear, and the commitment is genuine.
+ </div>
+ </div>
+ </div>
+ <div class="belief-metrics">
+ <div class="belief-card">
+ <div class="belief-percentage">
+ 92%
+ </div>
+ <div class="belief-text">
+ Feel Connected
+ </div>
+ <div class="belief-context">
+ Women are tied to security's mission, protecting what matters most
+ </div>
+ </div>
+ <div class="belief-card">
+ <div class="belief-percentage">
+ 92%
+ </div>
+ <div class="belief-text">
+ See Fulfilling Careers
+ </div>
+ <div class="belief-context">
+ The path to meaning and impact is visible and valued
+ </div>
+ </div>
+ <div class="belief-card">
+ <div class="belief-percentage">
+ 91%
+ </div>
+ <div class="belief-text">Can Achieve Financial Security</div>
+ <div class="belief-context">
+ Security provides economic stability and growth potential
+ </div>
+ </div>
+ <div class="belief-card">
+ <div class="belief-percentage">
+ 90%
+ </div>
+ <div class="belief-text">
+ Would Recommend
+ </div>
+ <div class="belief-context">
+ Women actively encourage others to join the field
+ </div>
+ </div>
+ </div>
+ <div style="margin-top: 40px; padding: 30px; background: white; border-radius: 15px; border-left: 5px solid var(--electric-purple);">
+ <p style="font-size: 1.2em; color: var(--slate); line-height: 1.8; font-style: italic;">
+ "Love security and the technology solutions we can solve for our clients."
+ <br/>
+ "I have had incredible opportunities. I love my coworkers and love waking every day to make the world a safer place."
+ </p>
+ <div style="text-align: right; color: var(--steel); font-size: 0.9em; margin-top: 15px;">
+ , Security Professionals, WISC Survey
+ </div>
+ </div>
+ </div>
+ <div style="padding: 40px; background: linear-gradient(135deg, #E8F5E9, #C8E6C9); border-radius: 20px; margin-top: 40px;">
+ <h3 style="color: #2E7D32; font-size: 1.8em; margin-bottom: 20px;">
+ The Power of Professional Development
+ </h3>
+ <p style="color: #1B5E20; font-size: 1.2em; line-height: 1.8; margin-bottom: 30px;">
+ When women receive structured development and community support, the impact is measurable. LeadHER attendees show markedly better outcomes than their peers, proving that investment in women's development pays dividends.
+ </p>
+ <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;">
+ <div style="padding: 25px; background: white; border-radius: 15px;">
+ <h4 style="color: var(--deep-purple); margin-bottom: 15px;">
+ LeadHER Participants
+ </h4>
+ <div style="display: flex; justify-content: space-between;">
+ <div>
+ <div style="font-size: 2em; font-weight: bold; color: var(--electric-purple);">
+ 64%
+ </div>
+ <div style="color: var(--steel);">
+ Satisfaction (T2B)
+ </div>
+ </div>
+ <div>
+ <div style="font-size: 2em; font-weight: bold; color: var(--gold);">
+ 34%
+ </div>
+ <div style="color: var(--steel);">
+ Flight Risk
+ </div>
+ </div>
+ </div>
+ </div>
+ <div style="padding: 25px; background: white; border-radius: 15px;">
+ <h4 style="color: var(--deep-purple); margin-bottom: 15px;">
+ Non-Participants
+ </h4>
+ <div style="display: flex; justify-content: space-between;">
+ <div>
+ <div style="font-size: 2em; font-weight: bold; color: var(--coral);">
+ 48%
+ </div>
+ <div style="color: var(--steel);">
+ Satisfaction (T2B)
+ </div>
+ </div>
+ <div>
+ <div style="font-size: 2em; font-weight: bold; color: var(--hot-pink);">
+ 41%
+ </div>
+ <div style="color: var(--steel);">
+ Flight Risk
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <div style="margin-top: 40px; padding: 40px; background: linear-gradient(135deg, #F0F4FF, white); border-radius: 20px;">
+ <h3 style="color: var(--deep-purple); font-size: 1.8em; margin-bottom: 20px;">
+ What This Foundation Means
+ </h3>
+ <p style="color: var(--slate); font-size: 1.2em; line-height: 1.8;">
+ <strong>
+ This isn't a "sell the industry" problem, the foundation of pride and purpose is rock solid.
+ </strong>
+ Women see security as more than a job; it's a calling with purpose. The challenge isn't creating belief, it's 
+ honoring that belief with fair treatment, clear paths, and equal opportunity. When 92% believe but 36% are 
+ looking elsewhere, the gap isn't about mission, it's about execution. The industry needs greater attention to the structural barriers that prevent belief from retaining talent.
+ </p>
+ </div>
+ </div>
+ </div>
+ <div class="tab-content" id="women-security">
+ <div class="section-container">
+ <div style="background: white; padding: 50px; border-radius: 20px; box-shadow: 0 20px 60px rgba(45, 27, 105, 0.15);">
+ <h2 style="font-size: 2.5em; color: var(--deep-purple); margin-bottom: 10px;">
+ Women in Security
+ </h2>
+ <p style="font-size: 1.2em; color: var(--steel); margin-bottom: 40px;">
+ Profile of women shaping the security industry
+ </p>
+ <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+ <!-- Left Column -->
+<div>
+ <!-- Demographics with Age Distribution -->
+ <div style="background: linear-gradient(135deg, #E8F5E9, white); padding: 30px; border-radius: 15px; border-left: 4px solid var(--emerald);">
+ <h3 style="color: var(--deep-purple); margin-bottom: 20px; font-size: 1.3em; display: flex; align-items: center;">
+ <svg style="width: 28px; height: 28px; margin-right: 12px;" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2">
+ <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+ <circle cx="9" cy="7" r="4"/>
+ <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+ <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+ </svg>
+ Demographics
+ </h3>
+ <div>
+ <!-- Age Distribution First -->
+ <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 2px solid #C8E6C9;">
+ <div style="display: flex; justify-content: space-between; padding: 10px 0;">
+ <span style="color: var(--slate);">Under 35</span>
+ <span style="font-weight: bold; color: var(--deep-purple); background: rgba(16, 185, 129, 0.1); padding: 4px 12px; border-radius: 20px;">21.5%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; padding: 10px 0;">
+ <span style="color: var(--slate);">35-54</span>
+ <span style="font-weight: bold; color: var(--deep-purple); background: rgba(16, 185, 129, 0.1); padding: 4px 12px; border-radius: 20px;">60.2%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; padding: 10px 0;">
+ <span style="color: var(--slate);">55+</span>
+ <span style="font-weight: bold; color: var(--deep-purple); background: rgba(16, 185, 129, 0.1); padding: 4px 12px; border-radius: 20px;">18.3%</span>
+ </div>
+ </div>
+ 
+ <!-- Average Age and Experience -->
+ <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #C8E6C9;">
+ <span style="color: var(--slate);">Average Age</span>
+ <span style="font-weight: bold; color: var(--deep-purple); background: rgba(16, 185, 129, 0.1); padding: 4px 12px; border-radius: 20px;">44 years</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 2px solid #C8E6C9;">
+ <span style="color: var(--slate); font-weight: 600;">Median Experience</span>
+ <span style="font-weight: 900; font-size: 1.1em; color: var(--deep-purple); background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.1)); padding: 6px 14px; border-radius: 20px; box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);">~17 years</span>
+ </div>
+ 
+ <!-- Race/Ethnicity -->
+ <div style="margin-top: 15px; margin-bottom: 15px;">
+ <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #C8E6C9;">
+ <span style="color: var(--slate);">White</span>
+ <span style="font-weight: bold; color: var(--deep-purple); background: rgba(16, 185, 129, 0.1); padding: 4px 12px; border-radius: 20px;">68.2%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #C8E6C9;">
+ <span style="color: var(--slate);">Black/African American</span>
+ <span style="font-weight: bold; color: var(--deep-purple); background: rgba(16, 185, 129, 0.1); padding: 4px 12px; border-radius: 20px;">10.3%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #C8E6C9;">
+ <span style="color: var(--slate);">Hispanic/Latina</span>
+ <span style="font-weight: bold; color: var(--deep-purple); background: rgba(16, 185, 129, 0.1); padding: 4px 12px; border-radius: 20px;">8.4%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 2px solid #C8E6C9;">
+ <span style="color: var(--slate); font-weight: 600;">Non-White (NET)</span>
+ <span style="font-weight: 900; color: white; background: linear-gradient(135deg, var(--hot-pink), var(--coral)); padding: 6px 14px; border-radius: 20px;">31.8%</span>
+ </div>
+ </div>
+ 
+ <!-- Other Demographics -->
+ <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #C8E6C9;">
+ <span style="color: var(--slate);">Household Income $100k+</span>
+ <span style="font-weight: bold; color: var(--deep-purple); background: rgba(16, 185, 129, 0.1); padding: 4px 12px; border-radius: 20px;">61.7%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #C8E6C9;">
+ <span style="color: var(--slate);">Married/Partnered</span>
+ <span style="font-weight: bold; color: var(--deep-purple); background: rgba(16, 185, 129, 0.1); padding: 4px 12px; border-radius: 20px;">76.2%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #C8E6C9;">
+ <span style="color: var(--slate);">Children in Household</span>
+ <span style="font-weight: bold; color: var(--deep-purple); background: rgba(16, 185, 129, 0.1); padding: 4px 12px; border-radius: 20px;">40.6%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; padding: 10px 0;">
+ <span style="color: var(--slate);">LGBTQIA</span>
+ <span style="font-weight: bold; color: var(--deep-purple); background: rgba(16, 185, 129, 0.1); padding: 4px 12px; border-radius: 20px;">13.8%</span>
+ </div>
+ </div>
+ </div>
+</div>
+
+<!-- Right Column -->
+<div>
+ <!-- Career Footprint -->
+ <div style="background: linear-gradient(135deg, #FCE4EC, white); padding: 30px; border-radius: 15px; margin-bottom: 30px; border-left: 4px solid var(--hot-pink);">
+ <h3 style="color: var(--deep-purple); margin-bottom: 20px; font-size: 1.3em; display: flex; align-items: center;">
+ <svg style="width: 28px; height: 28px; margin-right: 12px;" viewBox="0 0 24 24" fill="none" stroke="var(--hot-pink)" stroke-width="2">
+ <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+ </svg>
+ Career Footprint
+ </h3>
+ <div>
+ <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #FFCDD2;">
+ <span style="color: var(--slate);">Manager/Sr. Manager</span>
+ <span style="font-weight: bold; color: var(--deep-purple); background: rgba(255, 23, 68, 0.1); padding: 4px 12px; border-radius: 20px;">35.9%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #FFCDD2;">
+ <span style="color: var(--slate);">Director/Sr. Director</span>
+ <span style="font-weight: bold; color: var(--deep-purple); background: rgba(255, 23, 68, 0.1); padding: 4px 12px; border-radius: 20px;">13.1%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #FFCDD2;">
+ <span style="color: var(--slate);">VP/SVP</span>
+ <span style="font-weight: bold; color: var(--deep-purple); background: rgba(255, 23, 68, 0.1); padding: 4px 12px; border-radius: 20px;">8.5%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; padding: 10px 0;">
+ <span style="color: var(--slate);">C-level/Partner</span>
+ <span style="font-weight: bold; color: var(--deep-purple); background: rgba(255, 23, 68, 0.1); padding: 4px 12px; border-radius: 20px;">5.4%</span>
+ </div>
+ </div>
+ </div>
+ 
+ <!-- Job Functions -->
+ <div style="background: linear-gradient(135deg, #FFF8E1, white); padding: 30px; border-radius: 15px; border-left: 4px solid var(--gold);">
+ <h3 style="color: var(--deep-purple); margin-bottom: 20px; font-size: 1.3em; display: flex; align-items: center;">
+ <svg style="width: 28px; height: 28px; margin-right: 12px;" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2">
+ <rect x="3" y="3" width="7" height="7"/>
+ <rect x="14" y="3" width="7" height="7"/>
+ <rect x="14" y="14" width="7" height="7"/>
+ <rect x="3" y="14" width="7" height="7"/>
+ </svg>
+ Job Functions
+ </h3>
+ <div>
+ <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #FFE0B2;">
+ <span style="color: var(--slate);">Security</span>
+ <span style="font-weight: bold; color: var(--deep-purple); background: rgba(255, 215, 0, 0.2); padding: 4px 12px; border-radius: 20px;">30.9%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #FFE0B2;">
+ <span style="color: var(--slate);">Project Management</span>
+ <span style="font-weight: bold; color: var(--deep-purple); background: rgba(255, 215, 0, 0.2); padding: 4px 12px; border-radius: 20px;">24.7%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #FFE0B2;">
+ <span style="color: var(--slate);">Sales</span>
+ <span style="font-weight: bold; color: var(--deep-purple); background: rgba(255, 215, 0, 0.2); padding: 4px 12px; border-radius: 20px;">21.6%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; padding: 10px 0;">
+ <span style="color: var(--slate);">Marketing</span>
+ <span style="font-weight: bold; color: var(--deep-purple); background: rgba(255, 215, 0, 0.2); padding: 4px 12px; border-radius: 20px;">19.7%</span>
+ </div>
+ </div>
+ </div>
+</div>
+ </div>
+ <!-- How They Feel Section -->
+<div style="margin-top: 40px; padding: 35px; background: linear-gradient(135deg, #F0F4FF, white); border-radius: 15px; border: 1px solid rgba(124, 77, 255, 0.2);">
+ <h3 style="color: var(--deep-purple); margin-bottom: 25px; font-size: 1.5em;">How They Feel</h3>
+ <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+ <div>
+ <h4 style="color: var(--electric-purple); margin-bottom: 15px; font-size: 1.2em;">Pride & Belonging</h4>
+ <ul style="color: var(--slate); line-height: 1.8; list-style-type: none; padding: 0;">
+ <li style="padding: 8px 0; border-bottom: 1px solid #E5E7EB;">
+ <svg style="width: 16px; height: 16px; display: inline; vertical-align: middle; margin-right: 6px;" viewBox="0 0 24 24" fill="none">
+ <path d="M20 6L9 17L4 12" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+ </svg>
+ Can have fulfilling career: <strong>92%</strong>
+ </li>
+ <li style="padding: 8px 0; border-bottom: 1px solid #E5E7EB;">
+ <svg style="width: 16px; height: 16px; display: inline; vertical-align: middle; margin-right: 6px;" viewBox="0 0 24 24" fill="none">
+ <path d="M20 6L9 17L4 12" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+ </svg>
+ Feel connected: <strong>92%</strong>
+ </li>
+ <li style="padding: 8px 0; border-bottom: 1px solid #E5E7EB;">
+ <svg style="width: 16px; height: 16px; display: inline; vertical-align: middle; margin-right: 6px;" viewBox="0 0 24 24" fill="none">
+ <path d="M20 6L9 17L4 12" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+ </svg>
+ Can achieve financial security: <strong>91%</strong>
+ </li>
+ <li style="padding: 8px 0;">
+ <svg style="width: 16px; height: 16px; display: inline; vertical-align: middle; margin-right: 6px;" viewBox="0 0 24 24" fill="none">
+ <path d="M20 6L9 17L4 12" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+ </svg>
+ Would encourage other women: <strong>90%</strong>
+ </li>
+ </ul>
+ </div>
+ <div>
+ <h4 style="color: var(--hot-pink); margin-bottom: 15px; font-size: 1.2em;">Headwinds</h4>
+ <ul style="color: var(--slate); line-height: 1.8; list-style-type: none; padding: 0;">
+ <li style="padding: 8px 0; border-bottom: 1px solid #E5E7EB;">
+ <svg style="width: 16px; height: 16px; display: inline; vertical-align: middle; margin-right: 6px;" viewBox="0 0 24 24" fill="none">
+ <circle cx="12" cy="12" r="10" stroke="#FF1744" stroke-width="2"/>
+ <line x1="12" y1="8" x2="12" y2="12" stroke="#FF1744" stroke-width="2" stroke-linecap="round"/>
+ <circle cx="12" cy="16" r="1" fill="#FF1744"/>
+ </svg>
+ Judged more on appearance: <strong>93%</strong>
+ </li>
+ <li style="padding: 8px 0; border-bottom: 1px solid #E5E7EB;">
+ <svg style="width: 16px; height: 16px; display: inline; vertical-align: middle; margin-right: 6px;" viewBox="0 0 24 24" fill="none">
+ <circle cx="12" cy="12" r="10" stroke="#FF1744" stroke-width="2"/>
+ <line x1="12" y1="8" x2="12" y2="12" stroke="#FF1744" stroke-width="2" stroke-linecap="round"/>
+ <circle cx="12" cy="16" r="1" fill="#FF1744"/>
+ </svg>
+ Must work harder than men: <strong>91%</strong>
+ </li>
+ <li style="padding: 8px 0; border-bottom: 1px solid #E5E7EB;">
+ <svg style="width: 16px; height: 16px; display: inline; vertical-align: middle; margin-right: 6px;" viewBox="0 0 24 24" fill="none">
+ <circle cx="12" cy="12" r="10" stroke="#FF1744" stroke-width="2"/>
+ <line x1="12" y1="8" x2="12" y2="12" stroke="#FF1744" stroke-width="2" stroke-linecap="round"/>
+ <circle cx="12" cy="16" r="1" fill="#FF1744"/>
+ </svg>
+ Fewer promotion opportunities: <strong>82%</strong>
+ </li>
+ <li style="padding: 8px 0;">
+ <svg style="width: 16px; height: 16px; display: inline; vertical-align: middle; margin-right: 6px;" viewBox="0 0 24 24" fill="none">
+ <circle cx="12" cy="12" r="10" stroke="#FF1744" stroke-width="2"/>
+ <line x1="12" y1="8" x2="12" y2="12" stroke="#FF1744" stroke-width="2" stroke-linecap="round"/>
+ <circle cx="12" cy="16" r="1" fill="#FF1744"/>
+ </svg>
+ "Good old boys" culture: <strong>81%</strong>
+ </li>
+ </ul>
+ </div>
+ </div>
+ <p style="margin-top: 25px; padding-top: 25px; border-top: 2px solid #C5CAE9; color: var(--slate); font-style: italic; font-size: 1.05em;">
+ Women in security are seasoned professionals who like the work, feel they belong, and see a viable future in the field. 
+ But they also report consistent, structural headwinds-most notably promotion friction and unequal standards.
+ </p>
+</div>
+ </div>
+ </div>
+ </div>
+ <div class="tab-content" id="company-context">
+ <div class="section-container">
+ <div style="background: white; padding: 50px; border-radius: 20px; box-shadow: 0 20px 60px rgba(45, 27, 105, 0.15);">
+ <h2 style="font-size: 2.5em; color: var(--deep-purple); margin-bottom: 10px;">
+ Company Context — Where They Work
+ </h2>
+ <p style="font-size: 1.2em; color: var(--steel); margin-bottom: 40px;">
+ Most women sit in product, service, and end-user organizations where female leadership is still under 25% 
+ in a typical company. That context helps explain why advancement, not engagement, is the choke point.
+ </p>
+ <!-- Industry Distribution -->
+ <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 50px;">
+ <div style="background: linear-gradient(135deg, #F0F4FF, white); padding: 30px; border-radius: 15px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-top: 4px solid var(--electric-purple);">
+ <svg fill="none" stroke="var(--electric-purple)" stroke-width="2" style="width: 50px; height: 50px; margin-bottom: 15px;" viewbox="0 0 24 24">
+ <rect height="14" rx="2" ry="2" width="20" x="2" y="3">
+ </rect>
+ <line x1="8" x2="16" y1="21" y2="21">
+ </line>
+ <line x1="12" x2="12" y1="17" y2="21">
+ </line>
+ </svg>
+ <div style="font-size: 2.5em; font-weight: bold; color: var(--deep-purple); margin-bottom: 10px;">
+ 35.9%
+ </div>
+ <div style="color: var(--slate); font-weight: 600;">
+ Tech/Product Manufacturer
+ </div>
+ </div>
+ <div style="background: linear-gradient(135deg, #FFF8E1, white); padding: 30px; border-radius: 15px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-top: 4px solid var(--gold);">
+ <svg fill="none" stroke="var(--gold)" stroke-width="2" style="width: 50px; height: 50px; margin-bottom: 15px;" viewbox="0 0 24 24">
+ <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z">
+ </path>
+ </svg>
+ <div style="font-size: 2.5em; font-weight: bold; color: var(--deep-purple); margin-bottom: 10px;">
+ 22.4%
+ </div>
+ <div style="color: var(--slate); font-weight: 600;">
+ Security Solutions/Services
+ </div>
+ </div>
+ <div style="background: linear-gradient(135deg, #FCE4EC, white); padding: 30px; border-radius: 15px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-top: 4px solid var(--hot-pink);">
+ <svg fill="none" stroke="var(--hot-pink)" stroke-width="2" style="width: 50px; height: 50px; margin-bottom: 15px;" viewbox="0 0 24 24">
+ <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2">
+ </path>
+ <circle cx="12" cy="8" r="4">
+ </circle>
+ </svg>
+ <div style="font-size: 2.5em; font-weight: bold; color: var(--deep-purple); margin-bottom: 10px;">
+ 12.4%
+ </div>
+ <div style="color: var(--slate); font-weight: 600;">
+ Practitioners/End-users
+ </div>
+ </div>
+ </div>
+ <!-- Leadership & Manager Stats -->
+ <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+ <div style="background: linear-gradient(135deg, #FFEBEE, white); padding: 35px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
+ <h3 style="color: var(--deep-purple); margin-bottom: 25px; font-size: 1.4em;">
+ Women in Leadership Roles
+ </h3>
+ <div style="text-align: center; margin: 30px 0;">
+ <div style="font-size: 4.5em; font-weight: bold; background: linear-gradient(135deg, var(--hot-pink), var(--coral)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+ 19.6%
+ </div>
+ <div style="color: var(--steel); font-size: 1.1em; margin-top: 10px;">
+ Median percentage
+ </div>
+ </div>
+ <div style="margin-top: 30px; padding-top: 25px; border-top: 2px solid #FFCDD2;">
+ <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: center;">
+ <div style="padding: 10px; background: white; border-radius: 8px;">
+ <div style="color: var(--steel); font-size: 0.9em;">
+ None
+ </div>
+ <div style="font-weight: bold; color: var(--deep-purple);">
+ 2.7%
+ </div>
+ </div>
+ <div style="padding: 10px; background: white; border-radius: 8px;">
+ <div style="color: var(--steel); font-size: 0.9em;">
+ <10%
+ </div>
+ <div style="font-weight: bold; color: var(--deep-purple);">
+ 25.7%
+ </div>
+ </div>
+ <div style="padding: 10px; background: white; border-radius: 8px;">
+ <div style="color: var(--steel); font-size: 0.9em;">
+ 10-25%
+ </div>
+ <div style="font-weight: bold; color: var(--deep-purple);">
+ 33.7%
+ </div>
+ </div>
+ <div style="padding: 10px; background: white; border-radius: 8px;">
+ <div style="color: var(--steel); font-size: 0.9em;">
+ 25-50%
+ </div>
+ <div style="font-weight: bold; color: var(--deep-purple);">
+ 27.6%
+ </div>
+ </div>
+ </div>
+ <div style="text-align: center; margin-top: 15px; padding: 10px; background: white; border-radius: 8px;">
+ <div style="color: var(--steel); font-size: 0.9em;">
+ 50%+
+ </div>
+ <div style="font-weight: bold; color: var(--emerald);">
+ 10.2%
+ </div>
+ </div>
+ </div>
+ </div>
+ <div style="background: linear-gradient(135deg, #E8EAF6, white); padding: 35px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
+ <h3 style="color: var(--deep-purple); margin-bottom: 25px; font-size: 1.4em;">
+ Manager Gender
+ </h3>
+ <div style="text-align: center; margin: 30px 0;">
+ <div style="font-size: 4.5em; font-weight: bold; background: linear-gradient(135deg, var(--electric-purple), var(--royal-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+ 66.3%
+ </div>
+ <div style="color: var(--steel); font-size: 1.1em; margin-top: 10px;">
+ Report to Male Managers
+ </div>
+ </div>
+ <div style="margin-top: 30px; padding-top: 25px; border-top: 2px solid #C5CAE9;">
+ <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: white; border-radius: 8px; margin-bottom: 10px;">
+ <span style="color: var(--slate);">
+ Male manager
+ </span>
+ <span style="font-weight: bold; color: var(--deep-purple); background: rgba(124, 77, 255, 0.1); padding: 6px 16px; border-radius: 20px;">
+ 66.3%
+ </span>
+ </div>
+ <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: white; border-radius: 8px; margin-bottom: 10px;">
+ <span style="color: var(--slate);">
+ Female manager
+ </span>
+ <span style="font-weight: bold; color: var(--deep-purple); background: rgba(124, 77, 255, 0.1); padding: 6px 16px; border-radius: 20px;">
+ 28.7%
+ </span>
+ </div>
+ <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: white; border-radius: 8px;">
+ <span style="color: var(--slate);">
+ No manager
+ </span>
+ <span style="font-weight: bold; color: var(--deep-purple); background: rgba(124, 77, 255, 0.1); padding: 6px 16px; border-radius: 20px;">
+ ~5%
+ </span>
+ </div>
+ </div>
+ <p style="margin-top: 20px; color: var(--steel); font-style: italic; text-align: center; font-size: 0.95em;">
+ Two in three report to male managers, low female representation atop the org creates advancement bottlenecks.
+ </p>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <!-- Paradox Tab -->
+ <div class="tab-content" id="paradox">
+ <div class="section-container">
+ <div class="paradox-container">
+ <div class="paradox-header">
+ <h2 class="paradox-title">
+ The Satisfaction-Retention Paradox
+ </h2>
+ <p style="font-size: 1.3em; opacity: 0.9;">
+ High satisfaction doesn't guarantee retention when the path forward is unclear
+ </p>
+ </div>
+ <div class="paradox-visual">
+ <div class="paradox-stat satisfaction">
+ <div class="paradox-number">
+ 87%
+ </div>
+ <div class="paradox-label">
+ Satisfied (T3B)
+ </div>
+ <div style="margin-top: 15px; opacity: 0.8;">
+ Women broadly endorse their day-to-day experience
+ </div>
+ </div>
+ <div class="paradox-connector">
+ YET
+ </div>
+ <div class="paradox-stat flight">
+ <div class="paradox-number">
+ 36%
+ </div>
+ <div class="paradox-label">
+ Likely to Look
+ </div>
+ <div style="margin-top: 15px; opacity: 0.8;">
+ Actively considering new opportunities within 12 months
+ </div>
+ </div>
+ </div>
+ <div style="background: rgba(255, 255, 255, 0.1); padding: 40px; border-radius: 15px; margin-top: 40px;">
+ <h3 style="color: var(--gold); font-size: 1.8em; margin-bottom: 20px;">
+ The Deeper Analysis
+ </h3>
+ <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; text-align: center;">
+ <div>
+ <div style="font-size: 1.1em; margin-bottom: 10px; opacity: 0.9;">
+ Extremely / Very Satisfied (T2B: 59%)
+ </div>
+ <div style="font-size: 3em; font-weight: bold; color: var(--coral);">
+ 17%
+ </div>
+ <div style="margin-top: 10px; opacity: 0.8;">
+ Still likely to look
+ </div>
+ </div>
+ <div>
+ <div style="font-size: 1.1em; margin-bottom: 10px; opacity: 0.9;">
+ Direction of Movement
+ </div>
+ <div style="font-size: 3em; font-weight: bold; color: var(--gold);">
+ 50/50
+ </div>
+ <div style="margin-top: 10px; opacity: 0.8;">
+ Half stay in security, half leave industry entirely
+ </div>
+ </div>
+ <div>
+ <div style="font-size: 1.1em; margin-bottom: 10px; opacity: 0.9;">
+ Primary Trigger
+ </div>
+ <div style="font-size: 3em; font-weight: bold; color: var(--hot-pink);">
+ 78%
+ </div>
+ <div style="margin-top: 10px; opacity: 0.8;">
+ Cite pay/promotion opacity
+ </div>
+ </div>
+ </div>
+ </div>
+ <div style="background: rgba(255, 215, 0, 0.1); padding: 40px; border-radius: 15px; margin-top: 40px; border: 2px solid var(--gold);">
+ <h3 style="color: var(--gold); margin-bottom: 20px;">
+ What This Paradox Reveals
+ </h3>
+ <p style="font-size: 1.2em; line-height: 1.8;">
+ <strong>
+ Job satisfaction measures the present; retention requires confidence in the future.
+ </strong>
+ Women enjoy their work, appreciate their colleagues, and believe in the mission. But when promotion 
+ criteria are opaque, pay bands are hidden, and advancement examples are rare, even satisfied employees 
+ update their LinkedIn profiles. The propensity to look for new opportunities isn't about dissatisfaction, it's 
+ about maximizing career potential when internal paths are unclear.
+ </p>
+ <p style="font-size: 1.1em; line-height: 1.6; margin-top: 20px; font-style: italic; opacity: 0.9;">
+ "I am proud of what I've accomplished, but growth has stalled at my company."
+ <br/>
+ "I would be extremely satisfied if I made more money and had clear advancement opportunities."
+ </p>
+ </div>
+ </div>
+ <div style="margin-top: 60px; padding: 40px; background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+ <h3 style="color: var(--deep-purple); font-size: 2em; margin-bottom: 30px;">
+ The Industry-Wide Cost of Turnover
+ </h3>
+ <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; text-align: center;">
+ <div>
+ <div style="font-size: 3em; font-weight: bold; color: var(--hot-pink);">
+ $45,000
+ </div>
+ <div style="margin-top: 10px; color: var(--steel);">
+ Average replacement cost per person
+ </div>
+ </div>
+ <div>
+ <div style="font-size: 3em; font-weight: bold; color: var(--hot-pink);">
+ 36%
+ </div>
+ <div style="margin-top: 10px; color: var(--steel);">
+ Women considering new opportunities
+ </div>
+ </div>
+ <div>
+ <div style="font-size: 3em; font-weight: bold; color: var(--gold);">
+ $162M
+ </div>
+ <div style="margin-top: 10px; color: var(--steel);">
+ Annual risk (per 10,000 women)
+ </div>
+ </div>
+ </div>
+ <p style="margin-top: 30px; color: var(--slate); font-size: 1.1em; text-align: center;">
+    <strong>For every 10,000 women in security:</strong> 3,600 are looking, representing $162 million in replacement costs alone.
+    <br/>
+    This doesn't include knowledge loss, team disruption, client relationships, or the 6-12 month productivity gap.
+</p>
+ </div>
+ </div>
+ </div>
+ <div class="tab-content" id="prof-development">
+ <div class="section-container">
+ <div style="background: white; padding: 50px; border-radius: 20px; box-shadow: 0 20px 60px rgba(45, 27, 105, 0.15);">
+ <h2 style="font-size: 2.5em; color: var(--deep-purple); margin-bottom: 10px;">
+ Professional Development
+ </h2>
+ <p style="font-size: 1.2em; color: var(--steel); margin-bottom: 40px;">
+ PD raises satisfaction; impact on flight risk is mixed. The unlock is sponsorship + progression, not just attendance.
+ </p>
+ <!-- Participation Rates -->
+ <div style="margin-bottom: 50px;">
+ <h3 style="color: var(--deep-purple); margin-bottom: 25px; font-size: 1.4em;">
+ Participation Rates
+ </h3>
+ <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+ <div style="background: linear-gradient(135deg, #E8EAF6, white); padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+ <div style="font-size: 2.8em; font-weight: bold; color: var(--electric-purple);">
+ 66.7%
+ </div>
+ <div style="color: var(--steel); font-weight: 600; margin-top: 10px;">
+ Conferences
+ </div>
+ </div>
+ <div style="background: linear-gradient(135deg, #FFF8E1, white); padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+ <div style="font-size: 2.8em; font-weight: bold; color: var(--gold);">
+ 45.6%
+ </div>
+ <div style="color: var(--steel); font-weight: 600; margin-top: 10px;">
+ Trade Shows
+ </div>
+ </div>
+ <div style="background: linear-gradient(135deg, #E8F5E9, white); padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+ <div style="font-size: 2.8em; font-weight: bold; color: var(--emerald);">
+ 37.2%
+ </div>
+ <div style="color: var(--steel); font-weight: 600; margin-top: 10px;">
+ Leadership Programs
+ </div>
+ </div>
+ <div style="background: linear-gradient(135deg, #FCE4EC, white); padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+ <div style="font-size: 2.8em; font-weight: bold; color: var(--hot-pink);">
+ 35.2%
+ </div>
+ <div style="color: var(--steel); font-weight: 600; margin-top: 10px;">
+ Certifications
+ </div>
+ </div>
+ <div style="background: linear-gradient(135deg, #F3E5F5, white); padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+ <div style="font-size: 2.8em; font-weight: bold; color: var(--royal-purple);">
+ 24.1%
+ </div>
+ <div style="color: var(--steel); font-weight: 600; margin-top: 10px;">
+ Mentor (giving)
+ </div>
+ </div>
+ <div style="background: linear-gradient(135deg, #E0F2F1, white); padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+ <div style="font-size: 2.8em; font-weight: bold; color: #00897B;">
+ 24.1%
+ </div>
+ <div style="color: var(--steel); font-weight: 600; margin-top: 10px;">
+ Mentee (receiving)
+ </div>
+ </div>
+ </div>
+ </div>
+ <!-- Satisfaction and Impact -->
+ <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 50px;">
+ <div style="background: linear-gradient(135deg, #F0F4FF, white); padding: 35px; border-radius: 15px;">
+ <h4 style="color: var(--deep-purple); margin-bottom: 25px; font-size: 1.3em;">
+ Satisfaction with PD Activities (T2B)
+ </h4>
+ <div style="display: flex; flex-direction: column; gap: 18px;">
+ <div>
+ <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+ <span style="color: var(--slate); font-weight: 600;">
+ Mentor
+ </span>
+ <span style="color: var(--deep-purple); font-weight: bold;">
+ 79%
+ </span>
+ </div>
+ <div style="background: #E5E7EB; border-radius: 8px; height: 28px; overflow: hidden;">
+ <div style="width: 79%; background: linear-gradient(90deg, var(--electric-purple), var(--royal-purple)); height: 100%;">
+ </div>
+ </div>
+ </div>
+ <div>
+ <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+ <span style="color: var(--slate); font-weight: 600;">
+ Community
+ </span>
+ <span style="color: var(--deep-purple); font-weight: bold;">
+ 69%
+ </span>
+ </div>
+ <div style="background: #E5E7EB; border-radius: 8px; height: 28px; overflow: hidden;">
+ <div style="width: 69%; background: linear-gradient(90deg, var(--gold), #FFA726); height: 100%;">
+ </div>
+ </div>
+ </div>
+ <div>
+ <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+ <span style="color: var(--slate); font-weight: 600;">
+ Certifications
+ </span>
+ <span style="color: var(--deep-purple); font-weight: bold;">
+ 67%
+ </span>
+ </div>
+ <div style="background: #E5E7EB; border-radius: 8px; height: 28px; overflow: hidden;">
+ <div style="width: 67%; background: linear-gradient(90deg, var(--emerald), #66BB6A); height: 100%;">
+ </div>
+ </div>
+ </div>
+ <div>
+ <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+ <span style="color: var(--slate); font-weight: 600;">
+ Conferences
+ </span>
+ <span style="color: var(--deep-purple); font-weight: bold;">
+ 62%
+ </span>
+ </div>
+ <div style="background: #E5E7EB; border-radius: 8px; height: 28px; overflow: hidden;">
+ <div style="width: 62%; background: linear-gradient(90deg, var(--hot-pink), var(--coral)); height: 100%;">
+ </div>
+ </div>
+ </div>
+ <div>
+ <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+ <span style="color: var(--slate); font-weight: 600;">
+ Mentee
+ </span>
+ <span style="color: var(--steel); font-weight: bold;">
+ 43%
+ </span>
+ </div>
+ <div style="background: #E5E7EB; border-radius: 8px; height: 28px; overflow: hidden;">
+ <div style="width: 43%; background: linear-gradient(90deg, #94A3B8, #64748B); height: 100%;">
+ </div>
+ </div>
+ </div>
+ </div>
+ <p style="margin-top: 20px; color: var(--steel); font-size: 0.95em; font-style: italic;">
+ Mentoring others delivers the most perceived value; mentee programs under-deliver in current form.
+ </p>
+ </div>
+ <div style="background: linear-gradient(135deg, #FFF8E1, white); padding: 35px; border-radius: 15px;">
+ <h4 style="color: var(--deep-purple); margin-bottom: 25px; font-size: 1.3em;">
+ PD Impact on Outcomes
+ </h4>
+ <div style="margin-bottom: 30px; padding: 20px; background: white; border-radius: 10px;">
+ <h5 style="color: var(--electric-purple); margin-bottom: 15px; font-weight: 600;">
+ Job Satisfaction (T2B)
+ </h5>
+ <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+ <div style="padding: 10px; background: #F0F4FF; border-radius: 8px;">
+ <div style="color: var(--slate); font-size: 0.9em;">
+ Overall
+ </div>
+ <div style="font-weight: bold; color: var(--deep-purple);">
+ 59%
+ </div>
+ </div>
+ <div style="padding: 10px; background: #E8F5E9; border-radius: 8px;">
+ <div style="color: var(--slate); font-size: 0.9em;">
+ Conference attendees
+ </div>
+ <div style="font-weight: bold; color: var(--emerald);">
+ 63% (+4pp)
+ </div>
+ </div>
+ <div style="padding: 10px; background: #E8F5E9; border-radius: 8px;">
+ <div style="color: var(--slate); font-size: 0.9em;">
+ Trade show attendees
+ </div>
+ <div style="font-weight: bold; color: var(--emerald);">
+ 66% (+7pp)
+ </div>
+ </div>
+ <div style="padding: 10px; background: #FFEBEE; border-radius: 8px;">
+ <div style="color: var(--slate); font-size: 0.9em;">
+ Mentors
+ </div>
+ <div style="font-weight: bold; color: var(--coral);">
+ 58% (-1pp)
+ </div>
+ </div>
+ </div>
+ </div>
+ <div style="padding: 20px; background: white; border-radius: 10px;">
+ <h5 style="color: var(--hot-pink); margin-bottom: 15px; font-weight: 600;">
+ Flight Risk (T3B)
+ </h5>
+ <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+ <div style="padding: 10px; background: #FCE4EC; border-radius: 8px;">
+ <div style="color: var(--slate); font-size: 0.9em;">
+ Overall
+ </div>
+ <div style="font-weight: bold; color: var(--deep-purple);">
+ 36%
+ </div>
+ </div>
+ <div style="padding: 10px; background: #FFEBEE; border-radius: 8px;">
+ <div style="color: var(--slate); font-size: 0.9em;">
+ Conference attendees
+ </div>
+ <div style="font-weight: bold; color: var(--hot-pink);">
+ 38% (+2pp)
+ </div>
+ </div>
+ <div style="padding: 10px; background: #E8F5E9; border-radius: 8px;">
+ <div style="color: var(--slate); font-size: 0.9em;">
+ Trade show attendees
+ </div>
+ <div style="font-weight: bold; color: var(--emerald);">
+ 33% (-3pp)
+ </div>
+ </div>
+ <div style="padding: 10px; background: #FFEBEE; border-radius: 8px;">
+ <div style="color: var(--slate); font-size: 0.9em;">
+ Mentors
+ </div>
+ <div style="font-weight: bold; color: var(--hot-pink);">
+ 37% (+1pp)
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <!-- LeadHER Impact - with separator line -->
+ <div style="border-top: 3px solid var(--electric-purple); margin: 50px 0;">
+ </div>
+ <div style="background: linear-gradient(135deg, var(--deep-purple), var(--midnight)); padding: 40px; border-radius: 15px; color: white;">
+ <h3 style="font-size: 1.8em; margin-bottom: 30px; color: var(--gold);">
+ LeadHER Conference Impact
+ </h3>
+ <div style="display: grid; grid-template-columns: 1fr 2px 1fr; gap: 40px; align-items: center;">
+ <div style="text-align: center;">
+ <h4 style="color: white; margin-bottom: 25px; font-size: 1.3em;">
+ Attendees
+ </h4>
+ <div style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); padding: 30px; border-radius: 15px;">
+ <div style="margin-bottom: 20px;">
+ <div style="font-size: 3.5em; font-weight: bold; color: var(--emerald);">
+ 64%
+ </div>
+ <div style="color: rgba(255, 255, 255, 0.9); font-size: 1em;">
+ Satisfaction
+ </div>
+ </div>
+ <div>
+ <div style="font-size: 3.5em; font-weight: bold; color: var(--gold);">
+ 34%
+ </div>
+ <div style="color: rgba(255, 255, 255, 0.9); font-size: 1em;">
+ Flight Risk
+ </div>
+ </div>
+ </div>
+ </div>
+ <div style="background: linear-gradient(180deg, transparent, var(--gold), transparent); width: 2px; height: 200px;">
+ </div>
+ <div style="text-align: center;">
+ <h4 style="color: white; margin-bottom: 25px; font-size: 1.3em;">
+ Non-Attendees
+ </h4>
+ <div style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); padding: 30px; border-radius: 15px;">
+ <div style="margin-bottom: 20px;">
+ <div style="font-size: 3.5em; font-weight: bold; color: var(--coral);">
+ 47%
+ </div>
+ <div style="color: rgba(255, 255, 255, 0.9); font-size: 1em;">
+ Satisfaction
+ </div>
+ </div>
+ <div>
+ <div style="font-size: 3.5em; font-weight: bold; color: var(--hot-pink);">
+ 41%
+ </div>
+ <div style="color: rgba(255, 255, 255, 0.9); font-size: 1em;">
+ Flight Risk
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <p style="margin-top: 30px; text-align: center; font-size: 1.1em; color: rgba(255, 255, 255, 0.9); font-style: italic;">
+ LeadHER experience is associated with 17pp higher satisfaction and 7pp lower flight risk. 
+ Treat it as a feeder for sponsorship, not just a one-off event.
+ </p>
+ </div>
+ <!-- Convert to Progression -->
+ <div style="margin-top: 40px; padding: 35px; background: linear-gradient(135deg, #E8F5E9, white); border-radius: 15px; border: 2px solid var(--emerald);">
+ <h3 style="color: var(--deep-purple); margin-bottom: 25px; font-size: 1.5em;">
+ Convert PD to Progression
+ </h3>
+ <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
+ <div style="padding: 25px; background: white; border-radius: 12px; border-left: 4px solid var(--electric-purple);">
+ <h4 style="color: var(--electric-purple); margin-bottom: 12px;">
+ Track Conversion
+ </h4>
+ <p style="color: var(--slate); font-size: 0.95em; line-height: 1.6;">
+ Require a "what this unlocked" checkpoint, new scope, stretch assignment, calibrated title progress.
+ </p>
+ </div>
+ <div style="padding: 25px; background: white; border-radius: 12px; border-left: 4px solid var(--hot-pink);">
+ <h4 style="color: var(--hot-pink); margin-bottom: 12px;">
+ Replace with Sponsorship
+ </h4>
+ <p style="color: var(--slate); font-size: 0.95em; line-height: 1.6;">
+ For high-potentials, commit to two advocacy acts per quarter: slate inclusion, visibility, stretch roles.
+ </p>
+ </div>
+ <div style="padding: 25px; background: white; border-radius: 12px; border-left: 4px solid var(--gold);">
+ <h4 style="color: var(--gold); margin-bottom: 12px;">
+ Measure Impact
+ </h4>
+ <p style="color: var(--slate); font-size: 0.95em; line-height: 1.6;">
+ PD participation †’ promotion rate; time-to-promotion by gender; pay-equity ratios.
+ </p>
+ </div>
+ <div style="padding: 25px; background: white; border-radius: 12px; border-left: 4px solid var(--emerald);">
+ <h4 style="color: var(--emerald); margin-bottom: 12px;">
+ Scale LeadHER
+ </h4>
+ <p style="color: var(--slate); font-size: 0.95em; line-height: 1.6;">
+ Triple conference capacity, mandate attendance support, convert participation into advancement.
+ </p>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <!-- Exit Drivers Tab -->
+ <div class="tab-content" id="drivers">
+ <div class="section-container">
+ <h2 style="font-size: 2.5em; color: var(--deep-purple); margin-bottom: 20px;">
+ What Drives the Decision to Look
+ </h2>
+ <p style="font-size: 1.3em; color: var(--steel); margin-bottom: 20px;">
+ Among women with high propensity to explore new opportunities, the reasons are remarkably consistent, and solvable
+ </p>
+ <p style="font-size: 1.1em; color: var(--slate); margin-bottom: 40px;">
+ These aren't abstract cultural issues or unsolvable problems. They're operational gaps with clear fixes: 
+ transparent pay bands, published promotion criteria, visible career paths, and genuine flexibility. Every 
+ driver below represents a competitive advantage for organizations that get it right.
+ </p>
+ <div class="chart-wrapper">
+ <div class="chart-title">
+ Primary Factors Driving Job Search Activity
+ </div>
+ <canvas id="driversChart" style="max-height: 400px;">
+ </canvas>
+ </div>
+ <div style="margin-top: 50px;">
+ <h3 style="font-size: 1.8em; color: var(--deep-purple); margin-bottom: 30px;">
+ Understanding Each Driver in Detail
+ </h3>
+ <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;">
+ <div style="padding: 30px; background: white; border-radius: 15px; border-left: 5px solid #FF1744;">
+ <h4 style="color: var(--deep-purple); font-size: 1.5em; margin-bottom: 15px;">
+ Pay & Benefits (44%)
+ </h4>
+ <p style="color: var(--steel); margin-bottom: 20px; line-height: 1.6;">
+ Not just about amount, it's about fairness and transparency. Women see male peers promoted faster 
+ with higher comp. The opacity breeds resentment even when absolute pay is competitive.
+ </p>
+ <p style="font-style: italic; color: var(--slate); margin-bottom: 20px;">
+ "I would be extremely satisfied if I made more money."
+ <br/>
+ "I've watched people grow... while mine seems stagnant."
+ </p>
+ <div style="padding: 15px; background: #FFF3E0; border-radius: 8px;">
+ <strong style="color: #E65100;">
+ WHAT WORKS:
+ </strong>
+ Organizations posting ranges see 30% reduction 
+ in pay-related exits. Annual equity audits with published results build trust even before gaps close.
+ </div>
+ </div>
+ <div style="padding: 30px; background: white; border-radius: 15px; border-left: 5px solid #FF1744;">
+ <h4 style="color: var(--deep-purple); font-size: 1.5em; margin-bottom: 15px;">
+ Promotion Access (39%)
+ </h4>
+ <p style="color: var(--steel); margin-bottom: 20px; line-height: 1.6;">
+ The "tap on shoulder" system advantages those in the inner circle. Women wait 1.5x longer for 
+ promotion on average, often watching less qualified men advance past them.
+ </p>
+ <p style="font-style: italic; color: var(--slate); margin-bottom: 20px;">
+ "There's not a lot of women in security and sometimes that influences your growth."
+ </p>
+ <div style="padding: 15px; background: #FFF3E0; border-radius: 8px;">
+ <strong style="color: #E65100;">
+ WHAT WORKS:
+ </strong>
+ Published rubrics and quarterly promotion 
+ cycles with diverse slates. Track and report time-to-promotion by demographics.
+ </div>
+ </div>
+ <div style="padding: 30px; background: white; border-radius: 15px; border-left: 5px solid #7C4DFF;">
+ <h4 style="color: var(--deep-purple); font-size: 1.5em; margin-bottom: 15px;">
+ Role Frustration (34%)
+ </h4>
+ <p style="color: var(--steel); margin-bottom: 20px; line-height: 1.6;">
+ Pigeonholed into support roles while men rotate through P&L positions. Limited stretch assignments 
+ and skill development create stagnation.
+ </p>
+ <div style="padding: 15px; background: #F3E5F5; border-radius: 8px;">
+ <strong style="color: #6A1B9A;">
+ WHAT WORKS:
+ </strong>
+ Formal rotation programs, quarterly growth 
+ conversations, stretch assignments with executive visibility.
+ </div>
+ </div>
+ <div style="padding: 30px; background: white; border-radius: 15px; border-left: 5px solid #7C4DFF;">
+ <h4 style="color: var(--deep-purple); font-size: 1.5em; margin-bottom: 15px;">
+ Work-Life Integration (33%)
+ </h4>
+ <p style="color: var(--steel); margin-bottom: 20px; line-height: 1.6;">
+ Not about working less, it's about sustainable performance. The 191% effort requirement for women 
+ to achieve what men get at 100% creates inevitable burnout.
+ </p>
+ <p style="font-style: italic; color: var(--slate); margin-bottom: 20px;">
+ "I need a male counterpart to restate things for people to listen."
+ </p>
+ <div style="padding: 15px; background: #F3E5F5; border-radius: 8px;">
+ <strong style="color: #6A1B9A;">
+ WHAT WORKS:
+ </strong>
+ Outcome-based flexibility, workload audits 
+ on high-pressure teams, recognition that values impact over hours.
+ </div>
+ </div>
+ <div style="padding: 30px; background: white; border-radius: 15px; border-left: 5px solid #7C4DFF;">
+ <h4 style="color: var(--deep-purple); font-size: 1.5em; margin-bottom: 15px;">
+ Leadership Path (31%)
+ </h4>
+ <p style="color: var(--steel); margin-bottom: 20px; line-height: 1.6;">
+ The Manager†’Director bottleneck is particularly acute. Women see men advance through informal 
+ sponsorship while they wait for formal processes that never come.
+ </p>
+ <div style="padding: 15px; background: #F3E5F5; border-radius: 8px;">
+ <strong style="color: #6A1B9A;">
+ WHAT WORKS:
+ </strong>
+ Visible leadership pathways, interim roles 
+ for development, formal sponsorship (not just mentorship).
+ </div>
+ </div>
+ <div style="padding: 30px; background: white; border-radius: 15px; border-left: 5px solid #FFA726;">
+ <h4 style="color: var(--deep-purple); font-size: 1.5em; margin-bottom: 15px;">
+ Cultural Factors
+ </h4>
+ <p style="color: var(--steel); margin-bottom: 20px; line-height: 1.6;">
+ While not the primary driver, bias and exclusion erode trust in all other systems. The "good old 
+ boys" network makes even good policies ineffective.
+ </p>
+ <p style="font-style: italic; color: var(--slate); margin-bottom: 20px;">
+ "It is still a clique of men and very difficult to break through."
+ </p>
+ <div style="padding: 15px; background: #FFF8E1; border-radius: 8px;">
+ <strong style="color: #F57C00;">
+ WHAT WORKS:
+ </strong>
+ Zero-tolerance with safe reporting, cultural 
+ audits with consequences, visible male allyship from leadership.
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <!-- Profiles Tab -->
+ <div class="tab-content" id="profiles">
+ <div class="section-container">
+ <h2 style="font-size: 2.5em; color: var(--deep-purple); margin-bottom: 20px;">
+ Four Retention Profiles
+ </h2>
+ <p style="font-size: 1.3em; color: var(--steel); margin-bottom: 40px;">
+ Not all women face the same retention dynamics. Understanding these profiles enables targeted interventions 
+ that address specific needs rather than generic programs that miss the mark.
+ </p>
+ <div class="profiles-grid">
+ <div class="profile-card">
+ <div class="profile-name">
+ At-Risk Movers
+ </div>
+ <div class="profile-stats">
+ <div class="profile-stat-item">
+ <div class="profile-stat-value">
+ 22%
+ </div>
+ <div class="profile-stat-label">
+ of women
+ </div>
+ </div>
+ <div class="profile-stat-item">
+ <div class="profile-stat-value">
+ 52%
+ </div>
+ <div class="profile-stat-label">
+ satisfaction
+ </div>
+ </div>
+ <div class="profile-stat-item">
+ <div class="profile-stat-value">
+ 78%
+ </div>
+ <div class="profile-stat-label">
+ flight risk
+ </div>
+ </div>
+ </div>
+ <div class="profile-demographics">
+ <strong>
+ Who they are:
+ </strong>
+ Mid-career (35-54), concentrated in R&D (58%) and Security Ops (46%), 
+ 2-5 years tenure. Often high performers who've hit invisible ceilings.
+ </div>
+ <div class="profile-description">
+ These women perform well but see better opportunities elsewhere. They've proven themselves but face 
+ stalled progression. They know their market value and aren't afraid to pursue it.
+ </div>
+ <div class="profile-action">
+ <div class="profile-action-label">
+ Retention Strategy
+ </div>
+ <div class="profile-action-text">
+ Immediate promotion review, market-rate pay adjustment, high-visibility project assignment. 
+ These women need action, not promises.
+ </div>
+ </div>
+ </div>
+ <div class="profile-card">
+ <div class="profile-name">
+ Anchors
+ </div>
+ <div class="profile-stats">
+ <div class="profile-stat-item">
+ <div class="profile-stat-value">
+ 28%
+ </div>
+ <div class="profile-stat-label">
+ of women
+ </div>
+ </div>
+ <div class="profile-stat-item">
+ <div class="profile-stat-value">
+ 72%
+ </div>
+ <div class="profile-stat-label">
+ satisfaction
+ </div>
+ </div>
+ <div class="profile-stat-item">
+ <div class="profile-stat-value">
+ 12%
+ </div>
+ <div class="profile-stat-label">
+ flight risk
+ </div>
+ </div>
+ </div>
+ <div class="profile-demographics">
+ <strong>
+ Who they are:
+ </strong>
+ Often 55+, Engineering-heavy, 10+ years tenure. Senior contributors 
+ who've found their niche and built deep expertise.
+ </div>
+ <div class="profile-description">
+ Institutional knowledge holders and culture carriers. They've navigated the system successfully and 
+ now focus on craft and contribution rather than climbing ladders.
+ </div>
+ <div class="profile-action">
+ <div class="profile-action-label">
+ Engagement Strategy
+ </div>
+ <div class="profile-action-text">
+ Leverage as mentors and sponsors, recognize expertise publicly, create "master class" 
+ opportunities to teach others.
+ </div>
+ </div>
+ </div>
+ <div class="profile-card">
+ <div class="profile-name">
+ Stalled & Strained
+ </div>
+ <div class="profile-stats">
+ <div class="profile-stat-item">
+ <div class="profile-stat-value">
+ 25%
+ </div>
+ <div class="profile-stat-label">
+ of women
+ </div>
+ </div>
+ <div class="profile-stat-item">
+ <div class="profile-stat-value">
+ 38%
+ </div>
+ <div class="profile-stat-label">
+ satisfaction
+ </div>
+ </div>
+ <div class="profile-stat-item">
+ <div class="profile-stat-value">
+ 45%
+ </div>
+ <div class="profile-stat-label">
+ flight risk
+ </div>
+ </div>
+ </div>
+ <div class="profile-demographics">
+ <strong>
+ Who they are:
+ </strong>
+ Common in Admin roles, small firms (<$500K), teams with female managers 
+ carrying disproportionate loads. Often early-career or in support functions.
+ </div>
+ <div class="profile-description">
+ Facing compound challenges: unclear paths, heavy workloads, limited resources. They want to succeed 
+ but lack the structural support and scaffolding larger firms provide.
+ </div>
+ <div class="profile-action">
+ <div class="profile-action-label">
+ Support Strategy
+ </div>
+ <div class="profile-action-text">
+ Infrastructure templates, VP+ sponsorship, workload rebalancing, clear career ladders. 
+ They need systems, not inspiration.
+ </div>
+ </div>
+ </div>
+ <div class="profile-card">
+ <div class="profile-name">
+ Rising Stars
+ </div>
+ <div class="profile-stats">
+ <div class="profile-stat-item">
+ <div class="profile-stat-value">
+ 25%
+ </div>
+ <div class="profile-stat-label">
+ of women
+ </div>
+ </div>
+ <div class="profile-stat-item">
+ <div class="profile-stat-value">
+ 61%
+ </div>
+ <div class="profile-stat-label">
+ satisfaction
+ </div>
+ </div>
+ <div class="profile-stat-item">
+ <div class="profile-stat-value">
+ 28%
+ </div>
+ <div class="profile-stat-label">
+ flight risk
+ </div>
+ </div>
+ </div>
+ <div class="profile-demographics">
+ <strong>
+ Who they are:
+ </strong>
+ Often under 35, 1-3 years tenure, LeadHER participants, ambitious 
+ and optimistic about their futures.
+ </div>
+ <div class="profile-description">
+ High potential with positive outlook. They believe in the industry and their ability to succeed. 
+ Community connections and development opportunities resonate strongly.
+ </div>
+ <div class="profile-action">
+ <div class="profile-action-label">
+ Development Strategy
+ </div>
+ <div class="profile-action-text">
+ Accelerated development tracks, conference sponsorship, stretch assignments, executive 
+ mentorship. Invest early to build loyalty.
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <!-- Risk Analysis Tab -->
+ <div class="tab-content" id="risk">
+ <div class="section-container">
+ <div style="max-width: 1200px; margin: 0 auto;">
+ <h2 style="font-size: 2.5em; color: var(--deep-purple); margin-bottom: 20px;">
+ Risk Concentration Analysis
+ </h2>
+ <p style="font-size: 1.3em; color: var(--steel); margin-bottom: 40px;">
+ Flight risk isn't randomly distributed-it clusters in predictable patterns that enable targeted intervention
+ </p>
+
+ <!-- Strategic Quadrant Visualization -->
+ <div class="quadrant-container" style="margin-top: 40px;">
+ <h3 style="color: var(--deep-purple); margin-bottom: 20px;">
+ Strategic Segment Positioning
+ </h3>
+ <p style="color: var(--steel); margin-bottom: 30px;">
+ Mapping satisfaction against flight risk reveals critical intervention zones. Bubble size = workforce percentage.
+ </p>
+ <!-- Quadrant Chart Container -->
+<div style="position: relative; width: 100%; height: 500px; background: #FFFFFF; border: 2px solid #E5E7EB; border-radius: 16px; overflow: visible;">
+ <!-- Grid lines -->
+ <div style="position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: #E5E7EB;"></div>
+ <div style="position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: #E5E7EB;"></div>
+ 
+ <!-- Quadrant Labels -->
+ <div style="position: absolute; top: 10px; left: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; color: #94A3B8;">
+ CRITICAL<br/>
+ <span style="font-size: 0.65rem; opacity: 0.7;">Low Sat, High Flight</span>
+ </div>
+ <div style="position: absolute; top: 10px; right: 10px; text-align: right; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; color: #94A3B8;">
+ AT RISK<br/>
+ <span style="font-size: 0.65rem; opacity: 0.7;">High Sat, High Flight</span>
+ </div>
+ <div style="position: absolute; bottom: 10px; left: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; color: #94A3B8;">
+ WATCH<br/>
+ <span style="font-size: 0.65rem; opacity: 0.7;">Low Sat, Low Flight</span>
+ </div>
+ <div style="position: absolute; bottom: 10px; right: 10px; text-align: right; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; color: #94A3B8;">
+ STRONG<br/>
+ <span style="font-size: 0.65rem; opacity: 0.7;">High Sat, Low Flight</span>
+ </div>
+ 
+<!-- Axis Labels -->
+<div style="position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); color: var(--deep-purple); font-weight: 600; font-size: 0.9rem;">
+ SATISFACTION &rarr;
+</div>
+<div style="position: absolute; top: 50%; left: -80px; transform: rotate(-90deg); color: var(--deep-purple); font-weight: 600; font-size: 0.9rem;">
+ FLIGHT RISK &rarr;
+</div>
+
+<!-- Axis Scale Labels -->
+<!-- X-axis (Satisfaction) -->
+<div style="position: absolute; bottom: -25px; left: 5px; color: var(--steel); font-size: 0.75rem; font-weight: 500; opacity: 0.7;">
+ Low
+</div>
+<div style="position: absolute; bottom: -25px; right: 5px; color: var(--steel); font-size: 0.75rem; font-weight: 500; opacity: 0.7;">
+ High
+</div>
+
+<!-- Y-axis (Flight Risk) -->
+<div style="position: absolute; top: 5px; left: -35px; color: var(--steel); font-size: 0.75rem; font-weight: 500; opacity: 0.7;">
+ High
+</div>
+<div style="position: absolute; bottom: 5px; left: -35px; color: var(--steel); font-size: 0.75rem; font-weight: 500; opacity: 0.7;">
+ Low
+</div>
+ 
+ <!-- CRITICAL QUADRANT (Top Left - Low Sat, High Flight) -->
+ <!-- Small Firms: 24% Sat, 59% Flight - Scale: 24% becomes ~15% position -->
+ <div style="position: absolute; width: 70px; height: 70px; left: 15%; top: 10%; 
+ background: #FF1744; border-radius: 50%;
+ display: flex; flex-direction: column; align-items: center; justify-content: center;
+ color: white; font-weight: 600; cursor: pointer;
+ box-shadow: 0 4px 15px rgba(255,23,68,0.4); text-align: center; font-size: 0.7rem; line-height: 1.2;">
+ <div>Small Firms</div>
+ <div style="font-size: 0.6rem; margin-top: 2px;">24% Sat</div>
+ <div style="font-size: 0.6rem;">59% Flight</div>
+ </div>
+ 
+ <!-- R&D: 35% Sat, 58% Flight - Scale: 35% becomes ~25% position -->
+ <div style="position: absolute; width: 80px; height: 80px; left: 25%; top: 12%; 
+ background: #FF1744; border-radius: 50%;
+ display: flex; flex-direction: column; align-items: center; justify-content: center;
+ color: white; font-weight: 600; cursor: pointer;
+ box-shadow: 0 4px 15px rgba(255,23,68,0.4); text-align: center; font-size: 0.75rem; line-height: 1.2;">
+ <div>R&D</div>
+ <div style="font-size: 0.65rem; margin-top: 2px;">35% Sat</div>
+ <div style="font-size: 0.65rem;">58% Flight</div>
+ </div>
+ 
+ <!-- AT RISK QUADRANT (Top Right - High Sat, High Flight) -->
+ <!-- At-Risk Movers: 52% Sat, 78% Flight - Scale: 52% stays near center -->
+ <div style="position: absolute; width: 70px; height: 70px; left: 52%; top: 5%; 
+ background: #FFD700; border-radius: 50%;
+ display: flex; flex-direction: column; align-items: center; justify-content: center;
+ color: white; font-weight: 600; cursor: pointer;
+ box-shadow: 0 4px 15px rgba(255,215,0,0.4); text-align: center; font-size: 0.65rem; line-height: 1.2;">
+ <div>At-Risk</div>
+ <div>Movers</div>
+ <div style="font-size: 0.6rem; margin-top: 2px;">52%/78%</div>
+ </div>
+ 
+ <!-- Security Ops: 42% Sat, 46% Flight - Scale: 42% becomes ~35% position -->
+ <div style="position: absolute; width: 75px; height: 75px; left: 35%; top: 27%; 
+ background: #FFA726; border-radius: 50%;
+ display: flex; flex-direction: column; align-items: center; justify-content: center;
+ color: white; font-weight: 600; cursor: pointer;
+ box-shadow: 0 4px 15px rgba(255,167,38,0.4); text-align: center; font-size: 0.7rem; line-height: 1.2;">
+ <div>Security Ops</div>
+ <div style="font-size: 0.6rem; margin-top: 2px;">42% Sat</div>
+ <div style="font-size: 0.6rem;">46% Flight</div>
+ </div>
+ 
+ <!-- 35-54 Age: 56% Sat, 42% Flight - Scale: 56% becomes ~58% position -->
+ <div style="position: absolute; width: 90px; height: 90px; left: 58%; top: 30%; 
+ background: #FFA726; border-radius: 50%;
+ display: flex; flex-direction: column; align-items: center; justify-content: center;
+ color: white; font-weight: 600; cursor: pointer;
+ box-shadow: 0 4px 15px rgba(255,167,38,0.4); text-align: center; font-size: 0.8rem; line-height: 1.2;">
+ <div>35-54 Age</div>
+ <div style="font-size: 0.65rem; margin-top: 2px;">56% Sat</div>
+ <div style="font-size: 0.65rem;">42% Flight</div>
+ </div>
+ 
+ <!-- WATCH QUADRANT (Bottom Left - Low Sat, Low Flight) -->
+ <!-- Stalled: 38% Sat, 45% Flight - Scale: 38% becomes ~28% position -->
+ <div style="position: absolute; width: 65px; height: 65px; left: 28%; top: 55%; 
+ background: #94A3B8; border-radius: 50%;
+ display: flex; flex-direction: column; align-items: center; justify-content: center;
+ color: white; font-weight: 600; cursor: pointer;
+ box-shadow: 0 4px 15px rgba(148,163,184,0.4); text-align: center; font-size: 0.65rem; line-height: 1.2;">
+ <div>Stalled</div>
+ <div style="font-size: 0.6rem; margin-top: 2px;">38% Sat</div>
+ <div style="font-size: 0.6rem;">45% Flight</div>
+ </div>
+ 
+ <!-- Admin: 48% Sat, 45% Flight - Scale: 48% becomes ~45% position -->
+ <div style="position: absolute; width: 75px; height: 75px; left: 45%; top: 55%; 
+ background: #94A3B8; border-radius: 50%;
+ display: flex; flex-direction: column; align-items: center; justify-content: center;
+ color: white; font-weight: 600; cursor: pointer;
+ box-shadow: 0 4px 15px rgba(148,163,184,0.4); text-align: center; font-size: 0.75rem; line-height: 1.2;">
+ <div>Admin</div>
+ <div style="font-size: 0.65rem; margin-top: 2px;">48% Sat</div>
+ <div style="font-size: 0.65rem;">45% Flight</div>
+ </div>
+ 
+ <!-- STRONG QUADRANT (Bottom Right - High Sat, Low Flight) -->
+ <!-- LeadHER: 64% Sat, 34% Flight - Scale: 64% becomes ~68% position -->
+ <div style="position: absolute; width: 70px; height: 70px; left: 68%; top: 65%; 
+ background: #FFD700; border-radius: 50%;
+ display: flex; flex-direction: column; align-items: center; justify-content: center;
+ color: white; font-weight: 600; cursor: pointer;
+ box-shadow: 0 4px 15px rgba(255,215,0,0.4); text-align: center; font-size: 0.65rem; line-height: 1.2;">
+ <div>LeadHER</div>
+ <div style="font-size: 0.6rem; margin-top: 2px;">64% Sat</div>
+ <div style="font-size: 0.6rem;">34% Flight</div>
+ </div>
+ 
+ <!-- Large Firms: 65% Sat, 28% Flight - Scale: 65% becomes ~70% position -->
+ <div style="position: absolute; width: 80px; height: 80px; left: 70%; top: 72%; 
+ background: #4CAF50; border-radius: 50%;
+ display: flex; flex-direction: column; align-items: center; justify-content: center;
+ color: white; font-weight: 600; cursor: pointer;
+ box-shadow: 0 4px 15px rgba(76,175,80,0.4); text-align: center; font-size: 0.7rem; line-height: 1.2;">
+ <div>Large Firms</div>
+ <div style="font-size: 0.6rem; margin-top: 2px;">65% Sat</div>
+ <div style="font-size: 0.6rem;">28% Flight</div>
+ </div>
+ 
+ <!-- 55+ Age: 68% Sat, 25% Flight - Scale: 68% becomes ~75% position -->
+ <div style="position: absolute; width: 75px; height: 75px; left: 75%; top: 75%; 
+ background: #4CAF50; border-radius: 50%;
+ display: flex; flex-direction: column; align-items: center; justify-content: center;
+ color: white; font-weight: 600; cursor: pointer;
+ box-shadow: 0 4px 15px rgba(76,175,80,0.4); text-align: center; font-size: 0.7rem; line-height: 1.2;">
+ <div>55+ Age</div>
+ <div style="font-size: 0.6rem; margin-top: 2px;">68% Sat</div>
+ <div style="font-size: 0.6rem;">25% Flight</div>
+ </div>
+ 
+ <!-- Engineering: 72% Sat, 20% Flight - Scale: 72% becomes ~82% position -->
+ <div style="position: absolute; width: 85px; height: 85px; left: 82%; top: 80%; 
+ background: #4CAF50; border-radius: 50%;
+ display: flex; flex-direction: column; align-items: center; justify-content: center;
+ color: white; font-weight: 600; cursor: pointer;
+ box-shadow: 0 4px 15px rgba(76,175,80,0.4); text-align: center; font-size: 0.75rem; line-height: 1.2;">
+ <div>Engineering</div>
+ <div style="font-size: 0.65rem; margin-top: 2px;">72% Sat</div>
+ <div style="font-size: 0.65rem;">20% Flight</div>
+ </div>
+</div>
+ </div>
+ <!-- Key Insights Box -->
+ <div style="margin-top: 50px; padding: 30px; background: linear-gradient(135deg, #FFF3E0, #FFE0B2); border-radius: 15px;">
+ <h4 style="color: #E65100; font-size: 1.5em; margin-bottom: 15px;">
+ Critical Quadrant Insights
+ </h4>
+ <ul style="color: #BF360C; line-height: 1.8; padding-left: 20px;">
+ <li>
+ <strong>
+ CRITICAL (Red - Top Left):
+ </strong>
+ R&D (58% flight) and Small Firms (59% flight) need immediate intervention, they're hemorrhaging talent
+ </li>
+ <li>
+ <strong>
+ AT RISK (Orange/Gold - Top Right):
+ </strong>
+ Mid-career women (35-54) and Security Ops show high satisfaction but 42-46% flight risk
+ </li>
+ <li>
+ <strong>
+ WATCH (Gray - Bottom Left):
+ </strong>
+ Admin and Stalled profiles have moderate satisfaction/flight, at risk of sliding to critical
+ </li>
+ <li>
+ <strong>
+ STRONG (Green - Bottom Right):
+ </strong>
+ Engineering (20% flight), 55+ age, and Large Firms are your retention anchors
+ </li>
+ </ul>
+ </div>
+ </div>
+ <!-- Replace both heatmap sections with this comprehensive visualization -->
+<div style="margin-top: 60px; max-width: 1200px; margin-left: auto; margin-right: auto;">
+ <h2 style="font-size: 2em; color: var(--deep-purple); margin-bottom: 20px;">Risk Concentration Analysis</h2>
+ <p style="font-size: 1.3em; color: var(--steel); margin-bottom: 40px; line-height: 1.6;">
+ Women are satisfied <strong>and</strong> mobile: <span style="color: var(--hot-pink); font-weight: bold;">36%</span> are likely to look for a new role within a year. 
+ Risk isn't random, it clusters in predictable, fixable patterns.
+ </p>
+
+ <!-- Overall Risk Banner -->
+ <div style="background: linear-gradient(135deg, var(--deep-purple), var(--midnight)); border-radius: 20px; padding: 30px; color: white; text-align: center; margin-bottom: 40px; position: relative; overflow: hidden;">
+ <div style="position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; background: radial-gradient(circle, var(--electric-purple), transparent); opacity: 0.3;"></div>
+ <div style="font-size: 1.2em; margin-bottom: 10px; opacity: 0.9;">OVERALL FLIGHT RISK</div>
+ <div style="font-size: 4em; font-weight: bold; color: var(--gold);">36.3%</div>
+ <div style="font-size: 1.1em; margin-top: 10px; opacity: 0.9;">More than 1 in 3 women actively considering moves</div>
+ </div>
+
+ <!-- Three Risk Dimensions Grid -->
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 50px; max-width: 1200px; margin-left: auto; margin-right: auto;">
+ 
+ <!-- Tenure Risk Profile -->
+ <div style="background: white; border-radius: 20px; padding: 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); border-top: 5px solid var(--hot-pink);">
+ <h3 style="color: var(--deep-purple); margin-bottom: 25px; font-size: 1.3em;">By Tenure</h3>
+ 
+ <div style="display: flex; flex-direction: column; gap: 20px;">
+ <div style="background: linear-gradient(135deg, #FFA726, #FF9800); border-radius: 15px; padding: 20px; color: white;">
+ <div style="display: flex; justify-content: space-between; align-items: center;">
+ <span style="font-weight: 600;"><5 years</span>
+ <span style="font-size: 2em; font-weight: bold;">40%</span>
+ </div>
+ </div>
+ 
+ <div style="background: linear-gradient(135deg, #FF5252, #FF1744); border-radius: 15px; padding: 20px; color: white; box-shadow: 0 8px 20px rgba(255,23,68,0.3); transform: scale(1.05);">
+ <div style="display: flex; justify-content: space-between; align-items: center;">
+ <span style="font-weight: 600;">5-10 years</span>
+ <span style="font-size: 2.2em; font-weight: bold;">49%</span>
+ </div>
+ <div style="font-size: 0.85em; margin-top: 8px; opacity: 0.9;">PEAK RISK ZONE</div>
+ </div>
+ 
+ <div style="background: linear-gradient(135deg, #66BB6A, #4CAF50); border-radius: 15px; padding: 20px; color: white;">
+ <div style="display: flex; justify-content: space-between; align-items: center;">
+ <span style="font-weight: 600;">10+ years</span>
+ <span style="font-size: 2em; font-weight: bold;">32%</span>
+ </div>
+ </div>
+ </div>
+ 
+ <div style="margin-top: 20px; padding: 15px; background: linear-gradient(135deg, #FFEBEE, #FCE4EC); border-radius: 10px;">
+ <p style="color: var(--deep-purple); font-size: 0.9em; line-height: 1.5;">
+ <strong>Critical:</strong> Peak value years = peak flight risk
+ </p>
+ </div>
+ </div>
+
+ <!-- Age Risk Profile -->
+ <div style="background: white; border-radius: 20px; padding: 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); border-top: 5px solid var(--electric-purple);">
+ <h3 style="color: var(--deep-purple); margin-bottom: 25px; font-size: 1.3em;">By Age</h3>
+ 
+ <div style="display: flex; flex-direction: column; gap: 20px;">
+ <div style="background: linear-gradient(135deg, #FFC107, #FFA000); border-radius: 15px; padding: 20px; color: white;">
+ <div style="display: flex; justify-content: space-between; align-items: center;">
+ <span style="font-weight: 600;">Under 35</span>
+ <span style="font-size: 2em; font-weight: bold;">30%</span>
+ </div>
+ </div>
+ 
+ <div style="background: linear-gradient(135deg, #FF5252, #E91E63); border-radius: 15px; padding: 20px; color: white; box-shadow: 0 8px 20px rgba(233,30,99,0.3); transform: scale(1.05);">
+ <div style="display: flex; justify-content: space-between; align-items: center;">
+ <span style="font-weight: 600;">35-54</span>
+ <span style="font-size: 2.2em; font-weight: bold;">42%</span>
+ </div>
+ <div style="font-size: 0.85em; margin-top: 8px; opacity: 0.9;">MID-CAREER CRISIS</div>
+ </div>
+ 
+ <div style="background: linear-gradient(135deg, #4CAF50, #388E3C); border-radius: 15px; padding: 20px; color: white;">
+ <div style="display: flex; justify-content: space-between; align-items: center;">
+ <span style="font-weight: 600;">55+</span>
+ <span style="font-size: 2em; font-weight: bold;">23%</span>
+ </div>
+ </div>
+ </div>
+ 
+ <div style="margin-top: 20px; padding: 15px; background: linear-gradient(135deg, #E8EAF6, #C5CAE9); border-radius: 10px;">
+ <p style="color: var(--deep-purple); font-size: 0.9em; line-height: 1.5;">
+ <strong>Pattern:</strong> Mid-career expects progression, doesn't see it
+ </p>
+ </div>
+ </div>
+
+ <!-- Manager Gender Profile -->
+ <div style="background: white; border-radius: 20px; padding: 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); border-top: 5px solid var(--gold);">
+ <h3 style="color: var(--deep-purple); margin-bottom: 25px; font-size: 1.3em;">By Manager</h3>
+ 
+ <div style="display: flex; flex-direction: column; gap: 20px;">
+ <div style="background: linear-gradient(135deg, #FFA726, #FF9800); border-radius: 15px; padding: 20px; color: white;">
+ <div style="display: flex; justify-content: space-between; align-items: center;">
+ <span style="font-weight: 600;">Male Mgr</span>
+ <span style="font-size: 2em; font-weight: bold;">34%</span>
+ </div>
+ </div>
+ 
+ <div style="background: linear-gradient(135deg, #FF7043, #FF5722); border-radius: 15px; padding: 20px; color: white;">
+ <div style="display: flex; justify-content: space-between; align-items: center;">
+ <span style="font-weight: 600;">Female Mgr</span>
+ <span style="font-size: 2em; font-weight: bold;">42%</span>
+ </div>
+ </div>
+ 
+ <!-- Visual comparison bar -->
+ <div style="text-align: center; padding: 15px;">
+ <div style="display: inline-flex; align-items: center; gap: 15px;">
+ <span style="color: var(--steel);">Gap:</span>
+ <span style="font-size: 1.5em; font-weight: bold; color: var(--hot-pink);">8pp</span>
+ </div>
+ </div>
+ </div>
+ 
+<div style="margin-top: 20px; padding: 15px; background: linear-gradient(135deg, #FFF8E1, #FFECB3); border-radius: 10px;">
+ <p style="color: var(--deep-purple); font-size: 0.9em; line-height: 1.5;">
+ <strong>Context:</strong> Female managers disproportionately work at smaller companies with lower revenues, environments we've shown have higher flight risk (59% at firms <$500K) and lower satisfaction overall. The gap likely reflects structural resourcing and support differences, not leadership capability.
+ </p>
+</div>
+ </div>
+ </div>
+
+ <!-- Strategic Insights Section -->
+ <div style="background: linear-gradient(135deg, var(--deep-purple), var(--midnight)); border-radius: 20px; padding: 60px; color: white; position: relative; overflow: hidden;">
+ <div style="max-width: 1000px; margin: 0 auto;">
+ <div style="position: absolute; top: -100px; right: -100px; width: 300px; height: 300px; background: radial-gradient(circle, var(--gold), transparent); opacity: 0.15;"></div>
+ 
+ <h3 style="color: var(--gold); font-size: 1.8em; margin-bottom: 30px;">The Strategic Takeaway</h3>
+ 
+ <div style="font-size: 1.2em; line-height: 1.8; margin-bottom: 30px;">
+ Risk peaks when women are <strong style="color: var(--gold);">most valuable and expect visible progression</strong>. 
+ The 5-10 year tenure mark and 35-54 age band represent your highest-performing, most experienced talent, exactly 
+ who you can't afford to lose.
+ </div>
+ 
+ <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;">
+ <div style="padding: 25px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 15px; border: 1px solid rgba(255,215,0,0.3);">
+ <h4 style="color: var(--gold); margin-bottom: 15px;">Primary Lever: Mid-Career Progression</h4>
+ <ul style="line-height: 1.8; padding-left: 20px; opacity: 0.95;">
+ <li>Create Manager†’Director acceleration paths</li>
+ <li>Publish promotion criteria and timelines</li>
+ <li>Provide P&L exposure and stretch roles</li>
+ </ul>
+ </div>
+ 
+ <div style="padding: 25px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 15px; border: 1px solid rgba(255,215,0,0.3);">
+ <h4 style="color: var(--gold); margin-bottom: 15px;">Secondary Lever: Manager Resources</h4>
+<ul style="line-height: 1.8; padding-left: 20px; opacity: 0.95;">
+ <li>Audit workloads on female-led teams (often at smaller, under-resourced companies)</li>
+ <li>Equalize budget and headcount ratios across all manager levels</li>
+ <li>Provide additional support for managers at firms <$5M revenue</li>
+ <li>Ensure equal access to executive sponsorship regardless of company size</li>
+</ul>
+ </div>
+ </div>
+ 
+ <div style="margin-top: 30px; padding: 20px; background: rgba(255,215,0,0.2); border-radius: 15px; text-align: center;">
+ <div style="font-size: 1.3em; font-weight: bold;">
+ Fix mid-career progression and manager resourcing = deflate your biggest risk pockets
+ </div>
+ </div>
+ </div>
+ </div>
+</div>
+</div>
+</div>
+ <!-- Barriers Tab -->
+ <div class="tab-content" id="barriers">
+ <div class="section-container">
+ <h2 style="font-size: 2.5em; color: var(--deep-purple); margin-bottom: 20px;">
+ Structural Barriers at Scale
+ </h2>
+ <p style="font-size: 1.3em; color: var(--steel); margin-bottom: 40px;">
+ These aren't isolated incidents or individual experiences, they're systemic patterns affecting 9 out of 10 women. 
+ Each barrier alone is surmountable; together they create an exhausting performance tax that drives talented women 
+ to seek environments with less friction.
+ </p>
+ <div class="barriers-grid">
+ <div class="barrier-item">
+ <div class="barrier-visual critical">
+ 93%
+ </div>
+ <div class="barrier-info">
+ <div class="barrier-title">
+ Appearance Judged More Critically
+ </div>
+ <div class="barrier-description">
+ Before competence is even considered, women face scrutiny on presentation that men never encounter. 
+ Too feminine is "not serious," too masculine is "trying too hard."
+ </div>
+ <div class="barrier-quote">
+ "I have to think about what I wear every single day in ways my male colleagues never consider. 
+ It's exhausting before the real work even begins."
+ </div>
+ </div>
+ </div>
+ <div class="barrier-item">
+ <div class="barrier-visual critical">
+ 91%
+ </div>
+ <div class="barrier-info">
+ <div class="barrier-title">
+ Must Work Harder for Same Recognition
+ </div>
+ <div class="barrier-description">
+ Excellence becomes the minimum standard for women, while mediocrity in male peers goes unchallenged. 
+ The 191% effort requirement isn't sustainable.
+ </div>
+ <div class="barrier-quote">
+ "I need a male counterpart to restate things for people to listen. My ideas only have value 
+ when repeated in a deeper voice."
+ </div>
+ </div>
+ </div>
+ <div class="barrier-item">
+ <div class="barrier-visual high">
+ 82%
+ </div>
+ <div class="barrier-info">
+ <div class="barrier-title">
+ Fewer Promotion Opportunities
+ </div>
+ <div class="barrier-description">
+ The ladder exists but rungs are missing for women. Informal sponsorship and "gut feel" decisions 
+ consistently favor men over equally qualified women.
+ </div>
+ <div class="barrier-quote">
+ "I've watched younger male colleagues promoted past me three times. Each time I'm told to be 
+ patient, my time will come."
+ </div>
+ </div>
+ </div>
+ <div class="barrier-item">
+ <div class="barrier-visual high">
+ 81%
+ </div>
+ <div class="barrier-info">
+ <div class="barrier-title">
+ "Good Old Boys" Network
+ </div>
+ <div class="barrier-description">
+ Real decisions happen in spaces women can't access, golf courses, bars, "informal" meetings. 
+ By the time it's official, the decision was made without them.
+ </div>
+ <div class="barrier-quote">
+ "It is still a clique of men and very difficult to break through. The important conversations 
+ happen where we're not invited."
+ </div>
+ </div>
+ </div>
+ </div>
+ <div style="margin-top: 40px; padding: 40px; background: linear-gradient(135deg, #E8EAF6, #C5CAE9); border-radius: 20px;">
+ <h3 style="color: var(--deep-purple); font-size: 1.8em; margin-bottom: 20px;">
+ The Compound Effect
+ </h3>
+ <p style="color: var(--slate); font-size: 1.2em; line-height: 1.8;">
+ <strong>
+ Death by a thousand cuts.
+ </strong>
+ No single barrier explains the 36% flight risk, but their 
+ cumulative weight becomes crushing. When every interaction requires extra effort, every meeting demands 
+ perfect performance, and every promotion requires extraordinary proof, even the most committed professionals 
+ reach their limits. This isn't about resilience, it's about removing unnecessary friction from the system.
+ </p>
+ <p style="color: var(--slate); font-size: 1.1em; line-height: 1.6; margin-top: 20px; font-style: italic;">
+ "I love this work, I believe in the mission, but I'm tired of fighting battles my male colleagues don't even know exist."
+ </p>
+ </div>
+ </div>
+ </div>
+ <!-- Voices Tab -->
+ <div class="tab-content" id="voices">
+ <div class="section-container">
+ <div class="verbatim-section">
+ <h2 class="verbatim-header">
+ Voices from the Field
+ </h2>
+ <p style="color: var(--steel); margin-bottom: 30px; font-size: 1.2em;">
+ Behind every statistic is a human story. These verbatim comments from 261 women reveal the daily reality 
+ of navigating security careers, the pride and purpose alongside frustration and exhaustion.
+ </p>
+ <h3 style="color: var(--deep-purple); margin-top: 40px; margin-bottom: 30px;">
+ Purpose & Pride
+ </h3>
+ <div class="quote-grid">
+ <div class="quote-card">
+ <div class="quote-text">
+ "Love security and the technology solutions we can solve for our clients."
+ </div>
+ <div class="quote-category">
+ Mission Connection
+ </div>
+ </div>
+ <div class="quote-card">
+ <div class="quote-text">
+ "I have had incredible opportunities. I love my coworkers and love waking every day to make the world a safer place."
+ </div>
+ <div class="quote-category">
+ Positive Culture
+ </div>
+ </div>
+ <div class="quote-card">
+ <div class="quote-text">
+ "Security has given me a career I never imagined possible. I'm protecting critical infrastructure daily."
+ </div>
+ <div class="quote-category">
+ Impact & Meaning
+ </div>
+ </div>
+ <div class="quote-card">
+ <div class="quote-text">
+ "The women in this industry are exceptional. We support each other through everything."
+ </div>
+ <div class="quote-category">
+ Community
+ </div>
+ </div>
+ </div>
+ <h3 style="color: var(--deep-purple); margin-top: 50px; margin-bottom: 30px;">
+ Growth & Compensation Frustrations
+ </h3>
+ <div class="quote-grid">
+ <div class="quote-card">
+ <div class="quote-text">
+ "I would be extremely satisfied if I made more money."
+ </div>
+ <div class="quote-category">
+ Pay Gap
+ </div>
+ </div>
+ <div class="quote-card">
+ <div class="quote-text">
+ "I've watched people grow... while mine seems stagnant."
+ </div>
+ <div class="quote-category">
+ Career Stagnation
+ </div>
+ </div>
+ <div class="quote-card">
+ <div class="quote-text">
+ "I am proud of what I've accomplished, but growth has stalled at my company."
+ </div>
+ <div class="quote-category">
+ Limited Advancement
+ </div>
+ </div>
+ <div class="quote-card">
+ <div class="quote-text">
+ "There's not a lot of women in security and sometimes that influences your growth."
+ </div>
+ <div class="quote-category">
+ Representation Impact
+ </div>
+ </div>
+ <div class="quote-card">
+ <div class="quote-text">
+ "I found out a male colleague hired after me makes $20K more for the same role."
+ </div>
+ <div class="quote-category">
+ Pay Inequity
+ </div>
+ </div>
+ <div class="quote-card">
+ <div class="quote-text">
+ "Three years, no promotion, while watching men advance in 18 months."
+ </div>
+ <div class="quote-category">
+ Promotion Gaps
+ </div>
+ </div>
+ </div>
+ <h3 style="color: var(--deep-purple); margin-top: 50px; margin-bottom: 30px;">
+ Cultural & Systemic Barriers
+ </h3>
+ <div class="quote-grid">
+ <div class="quote-card">
+ <div class="quote-text">
+ "It is still a clique of men and very difficult to break through."
+ </div>
+ <div class="quote-category">
+ Old Boys Network
+ </div>
+ </div>
+ <div class="quote-card">
+ <div class="quote-text">
+ "I need a male counterpart to restate things for people to listen."
+ </div>
+ <div class="quote-category">
+ Credibility Gap
+ </div>
+ </div>
+ <div class="quote-card">
+ <div class="quote-text">
+ "The important decisions happen on the golf course or at the bar after work."
+ </div>
+ <div class="quote-category">
+ Exclusion
+ </div>
+ </div>
+ <div class="quote-card">
+ <div class="quote-text">
+ "I'm asked about work-life balance in interviews. My male colleagues are asked about ambition."
+ </div>
+ <div class="quote-category">
+ Double Standards
+ </div>
+ </div>
+ <div class="quote-card">
+ <div class="quote-text">
+ "Being the only woman in the room stopped being special and started being exhausting."
+ </div>
+ <div class="quote-category">
+ Token Pressure
+ </div>
+ </div>
+ <div class="quote-card">
+ <div class="quote-text">
+ "I represent all women when I fail but only myself when I succeed."
+ </div>
+ <div class="quote-category">
+ Representation Burden
+ </div>
+ </div>
+ </div>
+ <h3 style="color: var(--deep-purple); margin-top: 50px; margin-bottom: 30px;">
+ Hope & Determination
+ </h3>
+ <div class="quote-grid">
+ <div class="quote-card">
+ <div class="quote-text">
+ "Despite everything, I believe this industry can change. That's why I stay and fight."
+ </div>
+ <div class="quote-category">
+ Persistence
+ </div>
+ </div>
+ <div class="quote-card">
+ <div class="quote-text">
+ "LeadHER showed me I'm not alone. That community keeps me going."
+ </div>
+ <div class="quote-category">
+ Community Power
+ </div>
+ </div>
+ <div class="quote-card">
+ <div class="quote-text">
+ "My manager (a woman) changed everything. She shows me what's possible."
+ </div>
+ <div class="quote-category">
+ Role Models
+ </div>
+ </div>
+ <div class="quote-card">
+ <div class="quote-text">
+ "I want to be the leader I needed when I started. That's worth the struggle."
+ </div>
+ <div class="quote-category">
+ Paying It Forward
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <!-- Action Plan Tab -->
+ <div class="tab-content" id="actions">
+ <div class="section-container">
+ <h2 style="font-size: 2.5em; color: var(--deep-purple); margin-bottom: 40px; text-align: center;">
+ Eight Strategic Actions
+ </h2>
+ <p style="font-size: 1.3em; color: var(--steel); text-align: center; margin-bottom: 60px;">
+ Concrete interventions with measurable impact, not aspirational goals but operational changes that directly 
+ address the drivers of turnover
+ </p>
+ <div class="action-timeline">
+ <div class="timeline-line">
+ </div>
+ <div class="timeline-item">
+ <div class="timeline-content">
+ <div class="action-number">
+ 1
+ </div>
+ <div class="action-title">
+ Publish the Path
+ </div>
+ <div class="action-description">
+ Make promotion criteria transparent and auditable. Post requirements for every level, track time-to-promotion 
+ by demographics, report quarterly. Mystery breeds mistrust.
+ </div>
+ <div class="action-impact">
+ <div class="impact-label">
+ Expected Impact
+ </div>
+ <div class="impact-value">
+ Reduce "fewer opportunities" perception by 10+ points
+ </div>
+ </div>
+ </div>
+ <div class="timeline-dot">
+ </div>
+ </div>
+ <div class="timeline-item">
+ <div class="timeline-content">
+ <div class="action-number">
+ 2
+ </div>
+ <div class="action-title">
+ Fix the Pay Gap
+ </div>
+ <div class="action-description">
+ Conduct equity audit, post ranges on all roles, commit to closing gaps within 18 months. 
+ Transparency alone reduces flight risk by 15%.
+ </div>
+ <div class="action-impact">
+ <div class="impact-label">
+ Expected Impact
+ </div>
+ <div class="impact-value">
+ Cut pay as exit reason from 44% to under 30%
+ </div>
+ </div>
+ </div>
+ <div class="timeline-dot">
+ </div>
+ </div>
+ <div class="timeline-item">
+ <div class="timeline-content">
+ <div class="action-number">
+ 3
+ </div>
+ <div class="action-title">
+ Unblock Mid-Career
+ </div>
+ <div class="action-description">
+ Create Manager†’Director acceleration program with P&L exposure, executive shadowing, and 
+ guaranteed consideration timeline. The 35-54 bottleneck is your biggest risk.
+ </div>
+ <div class="action-impact">
+ <div class="impact-label">
+ Expected Impact
+ </div>
+ <div class="impact-value">
+ Reduce mid-career flight risk by 10+ points
+ </div>
+ </div>
+ </div>
+ <div class="timeline-dot">
+ </div>
+ </div>
+ <div class="timeline-item">
+ <div class="timeline-content">
+ <div class="action-number">
+ 4
+ </div>
+ <div class="action-title">
+ Sponsor, Don't Mentor
+ </div>
+ <div class="action-description">
+ Require VP+ executives to sponsor 2-3 women with concrete advocacy: slate inclusion, stretch 
+ assignments, budget authority. Mentoring gives advice; sponsorship gives opportunity.
+ </div>
+ <div class="action-impact">
+ <div class="impact-label">
+ Expected Impact
+ </div>
+ <div class="impact-value">
+ 8+ point satisfaction increase for sponsored women
+ </div>
+ </div>
+ </div>
+ <div class="timeline-dot">
+ </div>
+ </div>
+ <div class="timeline-item">
+ <div class="timeline-content">
+ <div class="action-number">
+ 5
+ </div>
+ <div class="action-title">
+ Stop R&D Bleeding
+ </div>
+ <div class="action-description">
+ 58% flight risk demands immediate action. Create technical career ladder parallel to management, 
+ fund certifications, enable conference speaking, provide patent bonuses.
+ </div>
+ <div class="action-impact">
+ <div class="impact-label">
+ Expected Impact
+ </div>
+ <div class="impact-value">
+ Reduce R&D flight risk to under 45%
+ </div>
+ </div>
+ </div>
+ <div class="timeline-dot">
+ </div>
+ </div>
+ <div class="timeline-item">
+ <div class="timeline-content">
+ <div class="action-number">
+ 6
+ </div>
+ <div class="action-title">
+ Small Company Toolkit
+ </div>
+ <div class="action-description">
+ Provide templates for career ladders, compensation frameworks, and promotion rubrics to 
+ partners under $5M revenue. Their 59% flight risk threatens the entire ecosystem.
+ </div>
+ <div class="action-impact">
+ <div class="impact-label">
+ Expected Impact
+ </div>
+ <div class="impact-value">
+ 15+ point satisfaction increase in small firms
+ </div>
+ </div>
+ </div>
+ <div class="timeline-dot">
+ </div>
+ </div>
+ <div class="timeline-item">
+ <div class="timeline-content">
+ <div class="action-number">
+ 7
+ </div>
+ <div class="action-title">
+ Enforce Equity
+ </div>
+ <div class="action-description">
+ Require diverse slates for all promotions, audit outcomes quarterly, implement zero-tolerance 
+ for bias incidents. Good intentions without enforcement are meaningless.
+ </div>
+ <div class="action-impact">
+ <div class="impact-label">
+ Expected Impact
+ </div>
+ <div class="impact-value">
+ Close identity-based satisfaction gaps
+ </div>
+ </div>
+ </div>
+ <div class="timeline-dot">
+ </div>
+ </div>
+ <div class="timeline-item">
+ <div class="timeline-content">
+ <div class="action-number">
+ 8
+ </div>
+ <div class="action-title">
+ Scale What Works
+ </div>
+ <div class="action-description">
+ LeadHER participants show 16-point satisfaction advantage. Triple conference capacity, 
+ mandate attendance support, convert participation into sponsored advancement.
+ </div>
+ <div class="action-impact">
+ <div class="impact-label">
+ Expected Impact
+ </div>
+ <div class="impact-value">
+ Expand high-satisfaction cohort by 10+ points
+ </div>
+ </div>
+ </div>
+ <div class="timeline-dot">
+ </div>
+ </div>
+ </div>
+ <div style="margin-top: 60px; padding: 40px; background: linear-gradient(135deg, #E8F5E9, #C8E6C9); border-radius: 20px;">
+ <h3 style="color: #2E7D32; font-size: 1.8em; margin-bottom: 20px;">
+ Implementation Reality Check
+ </h3>
+ <p style="color: #1B5E20; font-size: 1.2em; line-height: 1.8;">
+ <strong>
+ These actions require leadership courage, not just budget.
+ </strong>
+ They challenge existing 
+ power structures, make inequality visible, and demand accountability. Organizations that implement even 
+ half of these actions will become talent magnets. Those that don't will continue bleeding their best 
+ women to competitors who will.
+ </p>
+ </div>
+ </div>
+ </div>
+ <!-- Executive Summary Tab -->
+ <div class="tab-content" id="summary">
+ <div class="section-container">
+ <div class="executive-container">
+ <h2 class="executive-title">
+ Executive Summary
+ </h2>
+ <p class="executive-subtitle">
+ Momentum is real. But friction is everywhere, and it's systemic.
+ </p>
+ <div style="background: rgba(255, 255, 255, 0.1); padding: 40px; border-radius: 15px; margin-bottom: 40px;">
+ <h3 style="color: var(--gold); font-size: 1.8em; margin-bottom: 20px;">
+ The Foundation is Strong
+ </h3>
+ <p style="font-size: 1.2em; line-height: 1.8; opacity: 0.95;">
+ Among employed women, 87% are satisfied with their job and 59% are very satisfied. They're not just content, they're invested: 
+ 92% feel connected to the industry, 92% believe a fulfilling career is attainable, and 91% believe the field can provide 
+ financial security. 90% would encourage other women to enter the field. Together, this is a strong foundation for growth and retention.
+ </p>
+ </div>
+ <div class="executive-grid">
+ <div class="executive-block">
+ <h3>
+ The Paradox
+ </h3>
+ <p>
+ Despite high satisfaction, 36% say they're at least somewhat likely to look for a new job within a year. 
+ The attitudinal battery makes the why clear: 91% say they have to work harder than men for the same promotion; 
+ 93% feel judged more on appearance; 82% believe women have fewer promotion opportunities; 81% see a "good old boys" culture.
+ </p>
+ </div>
+ <div class="executive-block">
+ <h3>
+ Risk Concentration
+ </h3>
+ <p>
+ Flight risk peaks in the 35-54 mid-career band (42% likely to look) and drops among 55+ (23%) and Under 35 (30%). 
+ Non-white women show a wider gap: satisfaction is lower (53% vs 63% for white women) and flight risk higher (41% vs 33%). 
+ The industry risks losing its most experienced talent at their peak productivity.
+ </p>
+ </div>
+ <div class="executive-block">
+ <h3>
+ Manager Impact on Job Satisfaction
+ </h3>
+ <p>
+ 	<strong>Manager gender matters:</strong> Very satisfied rates are 66% with male managers vs 43% with female managers—an unexpected gap 
+ 	that points to female managers being concentrated at smaller companies with tighter resources. They may be carrying heavier loads with less support, impacting their teams.
+	</p>
+ </div>
+ <div class="executive-block">
+ <h3>
+ The Solution
+ </h3>
+ <p>
+ Retention isn't a satisfaction problem, it's a progression problem. Women can be satisfied and still be mobile. 
+ Pay transparency, clear ladders, and equitable sponsorship are the levers that matter most. Professional development 
+ correlates with higher satisfaction, but impact on flight risk is mixed.
+ </p>
+ </div>
+ </div>
+ <div class="bottom-line">
+ <p class="bottom-line-text">
+ <strong>
+ The bottom line: Fix how advancement works, not just how engagement feels.
+ </strong>
+ Mid-career is the make-or-break moment. Concentrated flight risk among 35-54 suggests targeted advancement 
+ pathways (Manager → Director → VP) will deliver outsized ROI. Convert development into sponsorship and progression, 
+ not just participation.
+ </p>
+ </div>
+ </div>
+ <div style="margin-top: 60px; padding: 40px; background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+ <h3 style="color: var(--deep-purple); font-size: 2em; margin-bottom: 30px;">
+ Key Recommendations
+ </h3>
+ <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;">
+ <div style="padding: 25px; background: var(--cloud); border-radius: 15px; border-left: 4px solid var(--electric-purple);">
+ <h4 style="color: var(--deep-purple); margin-bottom: 15px;">
+ 1. Publish Ladders + Criteria
+ </h4>
+ <p style="color: var(--slate); line-height: 1.6;">
+ Calibrate titles; codify what "Director" and "VP" mean across orgs. Add auditable promotion checkpoints; 
+ force evidence-based decisions.
+ </p>
+ </div>
+ <div style="padding: 25px; background: var(--cloud); border-radius: 15px; border-left: 4px solid var(--gold);">
+ <h4 style="color: var(--deep-purple); margin-bottom: 15px;">
+ 2. Tighten Compensation Hygiene
+ </h4>
+ <p style="color: var(--slate); line-height: 1.6;">
+ Annual pay-equity audit; publish ranges; link progression to compensation, close the "satisfied but mobile" gap.
+ </p>
+ </div>
+ <div style="padding: 25px; background: var(--cloud); border-radius: 15px; border-left: 4px solid var(--hot-pink);">
+ <h4 style="color: var(--deep-purple); margin-bottom: 15px;">
+ 3. Mid-Career Lift
+ </h4>
+ <p style="color: var(--slate); line-height: 1.6;">
+ Rotations with P&L exposure; visible senior-forum presentations; leadership-readiness sprints with specific deliverables.
+ </p>
+ </div>
+ <div style="padding: 25px; background: var(--cloud); border-radius: 15px; border-left: 4px solid var(--emerald);">
+ <h4 style="color: var(--deep-purple); margin-bottom: 15px;">
+ 4. Upgrade to Sponsorship
+ </h4>
+ <p style="color: var(--slate); line-height: 1.6;">
+ VP+ sponsors for high-potentials; two material advocacy acts/quarter; measure advancement velocity.
+ </p>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <!-- Methodology Tab -->
+<div id="methodology" class="tab-content">
+ <div class="section-container">
+ <h2 style="font-size: 2.5em; color: var(--deep-purple); margin-bottom: 40px;">Methodology</h2>
+ 
+ <!-- Study Design Grid -->
+ <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px;">
+ <!-- Study Objectives Card -->
+ <div style="background: linear-gradient(135deg, white, #F8F4FF); border-radius: 20px; padding: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-left: 5px solid var(--deep-purple);">
+ <h3 style="color: var(--deep-purple); margin-bottom: 20px; font-size: 1.4em;">Study Objectives</h3>
+ <ul style="color: var(--slate); line-height: 1.6; padding-left: 20px; font-size: 0.95em;">
+ <li>Career satisfaction</li>
+ <li>Likelihood of moving to a new job in the next year</li>
+ <li>Perceived opportunities and barriers for professional development</li>
+ <li>Security industry issues/developments that could impact their career</li>
+ <li>Involvement in career development activities/programs and satisfaction</li>
+ </ul>
+ </div>
+
+ <!-- Target Audiences Card -->
+ <div style="background: linear-gradient(135deg, white, #FFF8F0); border-radius: 20px; padding: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-left: 5px solid var(--gold);">
+ <h3 style="color: var(--deep-purple); margin-bottom: 20px; font-size: 1.4em;">Target Audiences</h3>
+ <div style="margin-bottom: 15px;">
+ <strong style="color: var(--deep-purple);">Attendees</strong>
+ <div style="color: var(--steel); font-size: 0.9em;">Security LeadHER Conference (June 9-10, 2025, Detroit)</div>
+ </div>
+ <div style="margin-bottom: 15px;">
+ <strong style="color: var(--deep-purple);">Colleagues</strong>
+ <div style="color: var(--steel); font-size: 0.9em;">Conference attendees not in attendance</div>
+ </div>
+ <div>
+ <strong style="color: var(--deep-purple);">Other security professionals</strong>
+ <div style="color: var(--steel); font-size: 0.9em;">From industry email lists</div>
+ </div>
+ </div>
+ </div>
+
+ <!-- Key Metrics Visual Grid -->
+ <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 40px;">
+ <div style="background: white; border-radius: 15px; padding: 25px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.08); border-top: 4px solid var(--electric-purple);">
+ <div style="font-size: 2.5em; font-weight: bold; color: var(--electric-purple);">261</div>
+ <div style="color: var(--steel); font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px;">Sample Size</div>
+ </div>
+ <div style="background: white; border-radius: 15px; padding: 25px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.08); border-top: 4px solid var(--hot-pink);">
+ <div style="font-size: 2.5em; font-weight: bold; color: var(--hot-pink);">11</div>
+ <div style="color: var(--steel); font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px;">Minutes</div>
+ </div>
+ <div style="background: white; border-radius: 15px; padding: 25px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.08); border-top: 4px solid var(--gold);">
+ <div style="font-size: 2.5em; font-weight: bold; color: var(--gold);">Q3</div>
+ <div style="color: var(--steel); font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px;">2025</div>
+ </div>
+ <div style="background: white; border-radius: 15px; padding: 25px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.08); border-top: 4px solid var(--emerald);">
+ <div style="font-size: 2.5em; font-weight: bold; color: var(--emerald);">95%</div>
+ <div style="color: var(--steel); font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px;">Confidence</div>
+ </div>
+ </div>
+
+ <!-- Respondent Profile Visual - NOW WITH FUNCTION DISTRIBUTION -->
+ <h3 style="color: var(--deep-purple); margin-bottom: 25px; font-size: 1.6em;">Respondent Profile</h3>
+ <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 40px;">
+ 
+ <!-- Age Distribution -->
+ <div style="background: linear-gradient(135deg, #E8EAF6, white); border-radius: 15px; padding: 20px;">
+ <h4 style="color: var(--deep-purple); margin-bottom: 15px; font-size: 1em;">Age Distribution</h4>
+ <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+ <span style="color: var(--slate); font-size: 0.9em;">Under 35</span>
+ <span style="background: var(--electric-purple); color: white; padding: 2px 8px; border-radius: 10px; font-weight: bold;">28%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+ <span style="color: var(--slate); font-size: 0.9em;">35-44</span>
+ <span style="background: var(--electric-purple); color: white; padding: 2px 8px; border-radius: 10px; font-weight: bold;">26%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+ <span style="color: var(--slate); font-size: 0.9em;">45-54</span>
+ <span style="background: var(--electric-purple); color: white; padding: 2px 8px; border-radius: 10px; font-weight: bold;">25%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; align-items: center;">
+ <span style="color: var(--slate); font-size: 0.9em;">55+</span>
+ <span style="background: var(--electric-purple); color: white; padding: 2px 8px; border-radius: 10px; font-weight: bold;">21%</span>
+ </div>
+ </div>
+
+ <!-- Tenure -->
+ <div style="background: linear-gradient(135deg, #FFEBEE, white); border-radius: 15px; padding: 20px;">
+ <h4 style="color: var(--deep-purple); margin-bottom: 15px; font-size: 1em;">Tenure Range</h4>
+ <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+ <span style="color: var(--slate); font-size: 0.9em;">0-2 years</span>
+ <span style="background: var(--hot-pink); color: white; padding: 2px 8px; border-radius: 10px; font-weight: bold;">22%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+ <span style="color: var(--slate); font-size: 0.9em;">2-5 years</span>
+ <span style="background: var(--hot-pink); color: white; padding: 2px 8px; border-radius: 10px; font-weight: bold;">35%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+ <span style="color: var(--slate); font-size: 0.9em;">5-10 years</span>
+ <span style="background: var(--hot-pink); color: white; padding: 2px 8px; border-radius: 10px; font-weight: bold;">28%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; align-items: center;">
+ <span style="color: var(--slate); font-size: 0.9em;">10+ years</span>
+ <span style="background: var(--hot-pink); color: white; padding: 2px 8px; border-radius: 10px; font-weight: bold;">15%</span>
+ </div>
+ </div>
+
+ <!-- Company Size -->
+ <div style="background: linear-gradient(135deg, #FFF8E1, white); border-radius: 15px; padding: 20px;">
+ <h4 style="color: var(--deep-purple); margin-bottom: 15px; font-size: 1em;">Company Size</h4>
+ <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+ <span style="color: var(--slate); font-size: 0.9em;">Small <$500K</span>
+ <span style="background: var(--gold); color: white; padding: 2px 8px; border-radius: 10px; font-weight: bold;">18%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+ <span style="color: var(--slate); font-size: 0.9em;">Mid $500K-$5M</span>
+ <span style="background: var(--gold); color: white; padding: 2px 8px; border-radius: 10px; font-weight: bold;">43%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; align-items: center;">
+ <span style="color: var(--slate); font-size: 0.9em;">Large $5M+</span>
+ <span style="background: var(--gold); color: white; padding: 2px 8px; border-radius: 10px; font-weight: bold;">39%</span>
+ </div>
+ </div>
+
+ <!-- FUNCTION DISTRIBUTION - THIS IS THE NEW PART -->
+ <div style="background: linear-gradient(135deg, #E8F5E9, white); border-radius: 15px; padding: 20px;">
+ <h4 style="color: var(--deep-purple); margin-bottom: 15px; font-size: 1em;">Function Distribution</h4>
+ <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+ <span style="color: var(--slate); font-size: 0.9em;">Security</span>
+ <span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 10px; font-weight: bold;">30.9%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+ <span style="color: var(--slate); font-size: 0.9em;">Project Mgmt</span>
+ <span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 10px; font-weight: bold;">24.7%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+ <span style="color: var(--slate); font-size: 0.9em;">Sales</span>
+ <span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 10px; font-weight: bold;">21.6%</span>
+ </div>
+ <div style="display: flex; justify-content: space-between; align-items: center;">
+ <span style="color: var(--slate); font-size: 0.9em;">Marketing</span>
+ <span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 10px; font-weight: bold;">19.7%</span>
+ </div>
+ </div>
+ </div>
+
+ <!-- Analysis Framework -->
+<div style="background: linear-gradient(135deg, var(--deep-purple), var(--royal-purple)); border-radius: 20px; padding: 35px; color: white;">
+ <h3 style="margin-bottom: 25px; font-size: 1.4em;">Analysis Framework</h3>
+ <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;">
+ <div>
+ <div style="display: flex; align-items: center; margin-bottom: 15px;">
+ <div style="background: var(--gold); width: 8px; height: 8px; border-radius: 50%; margin-right: 12px;"></div>
+ <strong>Satisfaction Metrics: </strong><span style="margin-left: 5px;"> T3B for Job Satisfaction, T2B for very satisfied cohort analysis</span>
+ </div>
+ <div style="display: flex; align-items: center;">
+ <div style="background: var(--gold); width: 8px; height: 8px; border-radius: 50%; margin-right: 12px;"></div>
+ <strong>Flight Risk: </strong><span style="margin-left: 5px;"> Those "likely" or "very likely" to explore new opportunities</span>
+ </div>
+ </div>
+ <div>
+ <div style="display: flex; align-items: center; margin-bottom: 15px;">
+ <div style="background: var(--gold); width: 8px; height: 8px; border-radius: 50%; margin-right: 12px;"></div>
+ <strong>Statistical Confidence: </strong><span style="margin-left: 5px;"> 95% confidence level, +/-6% margin of error</span>
+ </div>
+ <div style="display: flex; align-items: center;">
+ <div style="background: var(--gold); width: 8px; height: 8px; border-radius: 50%; margin-right: 12px;"></div>
+ <strong>Crosstab Analysis Tool: </strong><span style="margin-left: 5px;"> Used for comprehensive demographic breakdowns</span>
+ </div>
+ </div>
+ </div>
+ <div style="margin-top: 25px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.3);">
+ <strong style="color: var(--gold);">Note:</strong> This analysis focuses exclusively on women respondents (n=261). All statistics represent women-only data unless explicitly stated otherwise.
+ </div>
+</div>
+ </div>
+</div>
+ <!-- Footer -->
+ <div class="footer">
+ <div class="footer-text">
+ <strong>
+ WISC Security Survey 2025
+ </strong>
+ <br/>
+ n=261 Women Respondents
+ </div>
+ </div>
+ <script>
+ // Chart initialization functions
+ function initDriversChart() {
+ var ctx = document.getElementById('driversChart');
+ if (!ctx) return;
+ 
+ if (window.driversChartInstance) {
+ window.driversChartInstance.destroy();
+ }
+ 
+ window.driversChartInstance = new Chart(ctx.getContext('2d'), {
+ type: 'bar',
+ data: {
+ labels: ['Pay & Benefits', 'Promotion Access', 'Role Frustration', 'Work-Life Balance', 'Desire to Manage'],
+ datasets: [{
+ data: [44, 39, 34, 33, 31],
+ backgroundColor: [
+ 'rgba(255, 23, 68, 0.8)',
+ 'rgba(255, 23, 68, 0.7)',
+ 'rgba(124, 77, 255, 0.7)',
+ 'rgba(124, 77, 255, 0.6)',
+ 'rgba(124, 77, 255, 0.5)'
+ ]
+ }]
+ },
+ options: {
+ indexAxis: 'y',
+ responsive: true,
+ maintainAspectRatio: false,
+ plugins: { 
+ legend: { display: false }
+ },
+ scales: {
+ x: { display: false, max: 50 },
+ y: { grid: { display: false } }
+ },
+ animation: {
+ onComplete: function() {
+ var ctx = this.ctx;
+ ctx.font = 'bold 16px Arial';
+ ctx.fillStyle = '#1e293b';
+ ctx.textAlign = 'left';
+ this.data.datasets[0].data.forEach(function(value, index) {
+ var meta = this.getDatasetMeta(0);
+ var bar = meta.data[index];
+ ctx.fillText(value + '%', bar.x + 10, bar.y);
+ }.bind(this));
+ }
+ }
+ }
+ });
+ }
+ 
+ function initQuadrantChart() {
+ var canvas = document.getElementById('quadrantChart');
+ if (!canvas) return;
+ 
+ if (window.quadrantChart) {
+ window.quadrantChart.destroy();
+ }
+ 
+ var segments = [
+ {x: 66, y: 80, size: 15, label: 'Engineering', color: '#38a169'},
+ {x: 68, y: 77, size: 18, label: '55+', color: '#38a169'},
+ {x: 56, y: 58, size: 60, label: '35-54', color: '#eb0473'},
+ {x: 50, y: 42, size: 12, label: 'R&D', color: '#eb0473'},
+ {x: 45, y: 54, size: 20, label: 'Security', color: '#e4a324'},
+ {x: 35, y: 56, size: 15, label: 'Admin', color: '#e4a324'}
+ ];
+ 
+ window.quadrantChart = new Chart(canvas.getContext('2d'), {
+ type: 'bubble',
+ data: {
+ datasets: [{
+ data: segments.map(function(s) {
+ return {x: s.x, y: s.y, r: Math.sqrt(s.size) * 3};
+ }),
+ backgroundColor: segments.map(function(s) { return s.color + '99'; }),
+ borderColor: segments.map(function(s) { return s.color; }),
+ borderWidth: 2
+ }]
+ },
+ options: {
+ responsive: true,
+ maintainAspectRatio: false,
+ scales: {
+ x: {
+ title: { display: true, text: 'SATISFACTION †’' },
+ min: 20, max: 90
+ },
+ y: {
+ title: { display: true, text: '† RETENTION' },
+ min: 35, max: 85
+ }
+ },
+ plugins: {
+ legend: { display: false }
+ }
+ }
+ });
+ }
+ </script>
+ </div>
+ </body>
+</html>
