@@ -3,213 +3,1767 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>WISC Security Industry Survey – Crosstabs + Verbatims</title>
+  <title>WISC Security Industry Survey - Crosstab Analysis</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <style>
-    :root {
+    :root{
       --royal-purple: #7434ac;
       --purple: #98069d;
-      --gray: #6b7280;
-      --light-bg: #f9fafb;
+      --muted: #6b7280;
+      --colw: 85px;
+      --stubw: 420px;
     }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       background: #f5f3f7;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
       color: #111;
     }
     .wrap { max-width: 1680px; margin: 0 auto; padding: 20px; }
+    
+    /* Header */
     .main-header {
-      background: white; border-radius: 12px; padding: 20px; margin-bottom: 16px;
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
     }
-    .logo-section { display:flex; align-items:center; gap:20px; border-bottom:2px solid #eee; padding-bottom:12px; }
-    .logo-section img { max-width:160px; }
-    .tabbar { display:flex; gap:10px; margin-top:16px; }
-    .tab { background:#f3f4f6; padding:10px 18px; border-radius:8px; font-weight:600; cursor:pointer; }
-    .tab.active { background:linear-gradient(135deg,var(--royal-purple),var(--purple)); color:white; }
-    .controls { background:white; border-radius:12px; padding:16px; margin-bottom:16px;
-                box-shadow:0 2px 8px rgba(0,0,0,0.1); }
-    .control-row { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:12px; align-items:center; }
-    .btn { background:var(--royal-purple); color:white; border:none; border-radius:8px;
-           padding:8px 14px; font-weight:600; cursor:pointer; }
-    .btn.secondary { background:#6b7280; }
-    .btn.success { background:#10b981; }
-    .btn:hover { background:#5a2a8a; }
-    .status { display:none; padding:10px; margin-bottom:12px; border-radius:8px; }
-    .twrap { background:white; border-radius:12px; box-shadow:0 2px 6px rgba(0,0,0,0.08); margin-bottom:16px; }
-    .thead { background:linear-gradient(135deg,var(--royal-purple),var(--purple)); color:white;
-             padding:10px 16px; font-weight:600; border-radius:12px 12px 0 0; }
-    /* Verbatims */
-    .stats-container { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; margin-bottom:16px; }
-    .stat-card { background:white; border-radius:12px; padding:14px; text-align:center;
-                 box-shadow:0 1px 4px rgba(0,0,0,0.1); border-top:4px solid var(--royal-purple); }
-    .stat-number { font-size:24px; font-weight:700; color:var(--royal-purple); }
-    .stat-label { font-size:12px; text-transform:uppercase; color:var(--gray); }
-    .responses { display:grid; gap:14px; }
-    .card { background:white; border-radius:12px; padding:16px;
-            box-shadow:0 1px 6px rgba(0,0,0,0.08); border-left:5px solid var(--royal-purple); }
-    .card .hdr { display:flex; justify-content:space-between; margin-bottom:8px; flex-wrap:wrap; }
-    .badge { padding:4px 10px; border-radius:999px; font-size:12px; font-weight:600; color:white; }
-    .b-ext { background:linear-gradient(135deg,var(--royal-purple),var(--purple)); }
-    .b-very { background:#9454b0; }
-    .b-some { background:#e4a324; }
-    .b-not2 { background:#eb0473; }
-    .b-not1 { background:#f10b25; }
-    .quote { font-style:italic; background:var(--light-bg); padding:10px; border-radius:8px; }
-    .pill { font-size:11px; color:#374151; background:#f3f4f6; border:1px solid #e5e7eb;
-            padding:4px 8px; border-radius:999px; margin:2px; display:inline-block; }
-    .tabpane { display:none; }
-    .tabpane.active { display:block; }
-  </style>
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+    .study-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 20px;
+    }
+    .study-section h3 {
+      color: #4c2a85;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 0 0 10px 0;
+    }
+    .study-section ul {
+      margin: 0;
+      padding-left: 20px;
+      line-height: 1.6;
+    }
+    .study-section li {
+      margin-bottom: 5px;
+      color: #374151;
+    }
+    
+    /* Controls */
+    .controls {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    .control-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      align-items: flex-end;
+      margin-bottom: 15px;
+    }
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    label {
+      font-size: 12px;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+    select, input[type="file"], input[type="number"] {
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 14px;
+      background: white;
+      min-width: 200px;
+    }
+    .btn {
+      background: #7434ac;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .btn:hover { background: #5a2a8a; }
+    .btn.secondary { background: #6b7280; }
+    .btn.success { background: #10b981; }
+    .btn.danger { background: #ef4444; }
+    
+    .status {
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      color: #166534;
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+    .twrap { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 20px; overflow: hidden; }
+    .thead { background: linear-gradient(135deg, #7434ac, #98069d); color: white; padding: 12px 20px; font-weight: 600; font-size: 16px; }
+    .scrollX { overflow-x: auto !important; overflow-y: visible; position: relative; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { border: 1px solid #e5e7eb; padding: 8px; text-align: center; }
+    th { background: #f9fafb; font-weight: 600; color: #374151; }
+    td.stub { text-align: left; font-weight: 600; background: #fafafa; }
+    .baserow td { background: #f3f4f6; font-weight: 600; }
+    .pct { font-size: 14px; font-weight: 600; }
+    .freq { font-size: 11px; color: #6b7280; }
+    .letters { 
+      font-size: 10px; 
+      color: #dc2626; 
+      font-weight: 600; 
+      margin-top: 2px;
+    }
+    .letters.lowercase {
+      color: #f59e0b;
+    }
+    .footer { padding: 10px 20px; background: #f9fafb; border-top: 1px solid #e5e7eb; font-size: 12px; color: #6b7280; }
+    .chk { 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 5px; 
+      background: #f9fafb; 
+      border: 1px solid #e5e7eb; 
+      border-radius: 6px; 
+      padding: 6px 10px; 
+    }
+    .chk input[type="checkbox"] { margin: 0; }
+    .chk label { 
+      font-size: 12px; 
+      color: #374151; 
+      text-transform: none; 
+      letter-spacing: normal; 
+      margin: 0; 
+    }
+  
+  /* Force horizontal scroll */
+  .twrap { 
+    overflow: hidden;
+    width: 100%;
+  }
+  .scrollX { 
+    overflow-x: scroll !important;
+    overflow-y: visible !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    display: block !important;
+  }
+  table {
+    table-layout: auto !important;
+    width: auto !important;
+  }
+
+  /* Better scroll visibility */
+  .scrollX { 
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    display: block !important;
+    padding-bottom: 15px !important; /* Space for scrollbar */
+    margin-bottom: 10px !important;
+  }
+  
+  /* Make scrollbar more visible */
+  .scrollX::-webkit-scrollbar {
+    height: 12px !important;
+    background: #f0f0f0 !important;
+  }
+  
+  .scrollX::-webkit-scrollbar-thumb {
+    background: #888 !important;
+    border-radius: 6px !important;
+  }
+  
+  .scrollX::-webkit-scrollbar-thumb:hover {
+    background: #555 !important;
+  }
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
 </head>
 <body>
+  <div class="topbar" style="position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;background:white;border-bottom:2px solid #eee;padding:6px 16px;z-index:1000;">
+    <a href="https://beyondinsights.com" target="_blank"><img src="https://i.imgur.com/nefMHjP.png" alt="Beyond Insights" style="max-height:32px;"></a>
+    <div id="status" class="status">Loading data…</div>
+  </div>
+  <div class="tabbar" style="position:fixed;top:50px;left:0;right:0;display:flex;gap:10px;background:#f9fafb;padding:8px 16px;z-index:999;">
+    <button class="tab active" data-tab="tab-xtabs">Crosstabs</button>
+    <button class="tab" data-tab="tab-verbatims">Verbatims</button>
+  </div>
+
   <div class="wrap">
     <div class="main-header">
       <div class="logo-section">
-        <img src="https://i.imgur.com/nefMHjP.png" alt="Beyond Insights">
+        <img src="https://i.imgur.com/nefMHjP.png" alt="Beyond Insights" style="width: 100%; height: auto; max-width: 180px;">
         <div>
-          <h1 style="margin:0;color:#4c2a85">WISC Security Industry Survey</h1>
-          <p style="margin:0;color:#6b7280">Crosstabs + Verbatims Tool</p>
+          <h1 style="color:#4c2a85; font-size:28px; margin:0;">WISC Security Industry Survey</h1>
+          <p style="color:#6b7280; margin:5px 0 0 0;">Crosstab Analysis Tool</p>
         </div>
       </div>
-      <div class="tabbar">
-        <button class="tab active" data-tab="tab-xtabs">Crosstabs</button>
-        <button class="tab" data-tab="tab-verbatims">Verbatims</button>
+      <div class="study-info">
+        <div class="study-section">
+          <h3>Study Objectives</h3>
+          <ul>
+            <li>Career satisfaction</li>
+            <li>Likelihood of moving to a new job in the next year</li>
+            <li>Perceived opportunities and barriers for professional development</li>
+            <li>Security industry issues/developments that could impact their career</li>
+            <li>Involvement in career development activities/programs and satisfaction</li>
+          </ul>
+        </div>
+        <div class="study-section">
+          <h3>Target Audiences</h3>
+          <ul>
+            <li><strong>Attendees</strong> of the Security LeadHER Conference (June 9-10, 2025, Detroit)</li>
+            <li><strong>Colleagues</strong> of conference attendees not in attendance</li>
+            <li><strong>Other security professionals</strong> from industry email lists</li>
+          </ul>
+          <p style="margin-top:10px"><strong>Survey Length:</strong> 11 minutes</p>
+        </div>
       </div>
     </div>
-
-    <!-- Crosstabs -->
-    <div id="tab-xtabs" class="tabpane active">
-      <div class="controls">
-        <div class="control-row">
+    
+    <div class="controls">
+      <div id="status" class="status" style="display:none"></div>
+      <div class="control-row">
+        
+        <div class="control-group">
           <label>Banner</label>
-          <select id="bannerSel">
+          <select id="bannerSel" aria-label="Select banner">
             <option value="B1">BANNER 1 – Demographics & Experience</option>
-            <option value="B2">BANNER 2 – Perceptions (Women Only)</option>
+            <option value="B2">BANNER 2 – Perceptions (Women only)</option>
           </select>
+        </div>
+        <div class="control-group">
           <label>Question</label>
-          <select id="qSel"></select>
-        </div>
-        <div class="control-row">
-          <button class="btn" id="genBtn">Generate Table</button>
-          <button class="btn success" id="allFullBtn">Generate All Tables</button>
-          <button class="btn danger" id="clearBtn">Clear Tables</button>
-          <button class="btn secondary" id="exportBtn">Export to Excel</button>
-          <button class="btn" id="bbBtn" style="background:#8b5cf6">Banner × Banner</button>
-          <button class="btn secondary" onclick="window.open('survey.pdf','_blank')">Review Survey</button>
-          <button class="btn secondary" onclick="window.location.href='survey.pdf'" download>⬇ Download Survey</button>
-          <button class="btn secondary" onclick="window.open('report.html','_blank')">Review Report</button>
+          <select id="qSel" aria-label="Select question"></select>
         </div>
       </div>
-      <div id="tables"></div>
-    </div>
-
-    <!-- Verbatims -->
-    <div id="tab-verbatims" class="tabpane">
-      <div class="controls">
-        <div class="control-row">
-          <input type="text" id="qSearch" placeholder="Search responses…" style="flex:1;padding:8px;border:1px solid #ddd;border-radius:6px;">
-          <select id="satFilter">
-            <option value="all">All</option>
-            <option value="_05">Extremely satisfied</option>
-            <option value="_04">Very satisfied</option>
-            <option value="_03">Somewhat satisfied</option>
-            <option value="_02">Not too satisfied</option>
-            <option value="_01">Not at all satisfied</option>
+      <div class="control-row">
+        <button class="btn" id="genBtn">Generate Table</button>
+        <button class="btn success" id="allFullBtn">Generate All Tables</button>
+        <button class="btn danger" id="clearBtn">Clear Tables</button>
+        <button class="btn secondary" id="exportBtn">Export to Excel</button>
+        
+        <button class="btn" style="background:#8b5cf6" onclick="window.location.href='survey-responses-viewer.html'">Review Verbatims</button>
+      </div>
+      <div class="control-row">
+        <div class="chk"><input type="checkbox" id="showFreq" checked><label for="showFreq">Frequencies</label></div>
+        <div class="chk"><input type="checkbox" id="showPct" checked><label for="showPct">Percentages</label></div>
+        <div class="chk"><input type="checkbox" id="showIndex"><label for="showIndex">Index to Total</label></div>
+        <div class="chk"><input type="checkbox" id="stat90" checked><label for="stat90">90% CI (lowercase)</label></div>
+        <div class="chk"><input type="checkbox" id="stat95" checked><label for="stat95">95% CI (CAPITALS)</label></div>
+        <div class="chk">
+          <label>Min base</label>
+          <input type="number" id="minBase" value="30" style="width:70px;min-width:70px;" aria-label="Minimum base size">
+        </div>
+        <div class="chk">
+          <label>Stats</label>
+          <select id="statScope" style="min-width:140px" aria-label="Statistics scope">
+            <option value="group" selected>Within groups</option>
+            <option value="all">All columns</option>
+            <option value="off">Off</option>
           </select>
-          <button class="btn" id="refreshOE">Refresh</button>
+        </div>
+        <div class="chk">
+          <label>Sort by</label>
+          <select id="sortSel" style="min-width:140px" aria-label="Sort order">
+            <option value="none">None (survey order)</option>
+            <option value="total">Total % (desc)</option>
+          </select>
         </div>
       </div>
-      <div class="stats-container">
-        <div class="stat-card"><div class="stat-number" id="oeTotal">0</div><div class="stat-label">Total Responses</div></div>
-        <div class="stat-card"><div class="stat-number" id="oeShown">0</div><div class="stat-label">Currently Shown</div></div>
-      </div>
-      <div class="responses" id="oeList"><div class="card"><div class="quote">Loading responses…</div></div></div>
     </div>
-  </div>
 
-  <!-- Banner × Banner Modal -->
-  <div class="modal-backdrop" id="bbModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);align-items:center;justify-content:center;z-index:9999;">
-    <div class="modal" style="background:white;width:min(900px,90vw);border-radius:12px;box-shadow:0 10px 50px rgba(0,0,0,.25);">
-      <div class="modal-h" style="padding:14px 16px;border-bottom:1px solid #eee;font-weight:800;">Banner × Banner Crosstab</div>
-      <div class="modal-b" style="padding:16px;">
-        <label>Columns</label><select id="bbCols"></select>
-        <label>Rows</label><select id="bbRows"></select>
-        <div id="bbOut" style="margin-top:10px;"></div>
-      </div>
-      <div class="modal-f" style="padding:12px 16px;border-top:1px solid #eee;display:flex;gap:10px;justify-content:flex-end;">
-        <button class="btn secondary" id="bbClose">Close</button>
-        <button class="btn success" id="bbRun">Run</button>
-      </div>
-    </div>
+    <div id="tables"></div>
   </div>
 
   <script>
-    let DATA=[],OE=[];
-    const DEFAULTS={csv:'data/condensed_datafile.csv',oe:'data/openends.csv'};
-    const MAP_Q1={'_05':'Extremely satisfied','_04':'Very satisfied','_03':'Somewhat satisfied','_02':'Not too satisfied','_01':'Not at all satisfied'};
+console.log('Script starting...');
 
-    // load crosstab data
-    fetch(DEFAULTS.csv).then(r=>r.text()).then(t=>{
-      DATA=Papa.parse(t,{header:true,skipEmptyLines:true}).data;
-      initQuestions();
-    });
-    // load openends
-    fetch(DEFAULTS.oe).then(r=>r.text()).then(t=>{
-      OE=Papa.parse(t,{header:true,skipEmptyLines:true}).data;
-      renderVerbatims();
-    });
+// =================== CORE STATE ===================
+let DATA = [];
+let HEADERS = [];
+let AGE_COL = 'respondent_age';
+const DERIVED = {};
+const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
-    function initQuestions(){
-      const qs=[{code:'S1',title:'S1. Gender Identity'},{code:'Q1',title:'Q1. Overall Job Satisfaction'}];
-      const qSel=document.getElementById('qSel');
-      qSel.innerHTML=qs.map(q=>`<option value="${q.code}">${q.title}</option>`).join('');
+function setStatus(msg) {
+  const s = document.getElementById('status');
+  if (s) {
+    s.style.display = "block";
+    s.innerHTML = msg;
+  } else {
+    console.warn("⚠️ status element not found in DOM");
+  }
+}
+
+// =================== MAPPINGS ===================
+const MAP = {
+  S1: {'_01':'Male','_02':'Female','_03':'Not listed here'},
+  // S2 numeric birth year/age column handled separately
+  S3: {'_01':'<1 year','_02':'1 to <3 years','_03':'3 to <5 years','_04':'5 to <10 years','_05':'10 to <20 years','_06':'20 years or more','_07':'20 years or more'},
+  S4: {'_01':'Employed full-time','_02':'Employed part-time','_03':'Unemployed','_04':'Retired','_05':'Student','_06':'Intern','_07':'Other'},
+  // S5/S6 labels are often study-specific; include a minimal base then auto-augment from data
+  S5: {'_01':'System integrator/Dealer','_02':'Technology/Product manufacturer','_03':'Security solutions/Services provider','_04':'Practitioner/End-user','_05':'Architecture/Engineering/Consultant firm','_06':'Trade organization','_07':'Advertising/Media','_Other':'Other'},
+  S6: {'_01':'President/Partner/C-Level','_02':'Senior Vice President/Vice President','_03':'Executive Director/Senior Director/Director','_04':'Sr. Manager/Manager','_05':'Consultant','_06':'Assistant','_07':'Administrator','_Other':'Other'},
+  S7_labels: {'_01':'Executive leadership','_02':'Sales','_03':'Marketing','_04':'Project management','_05':'Engineering','_06':'Security','_07':'Research & development','_08':'Administration','_09':'Other'},
+
+  Q1: {'_05':'Extremely satisfied','_04':'Very satisfied','_03':'Somewhat satisfied','_02':'Not too satisfied','_01':'Not at all satisfied'},
+  Q3: {'_05':'Extremely likely','_04':'Very likely','_03':'Somewhat likely','_02':'Not too likely','_01':'Not at all likely'},
+  Q4: {'_01':'Within security industry','_02':'Outside the security industry','_03':'Both within and outside'},
+
+  OB1_items: {
+    '_01':'Women have less opportunities to be promoted than men',
+    '_02':'Women are judged on their physical appearance more than men are',
+    '_03':'Women have to work harder than men to be promoted to the same position',
+    '_04':'Women are expected to dress more professionally than men',
+    '_05':'Artificial intelligence (AI) will make my job obsolete in the next 10 years',
+    '_06':'Women do not professionally support other women as much as I would like',
+    '_07':'There is a "good old boys" culture in the security industry that professionally disadvantages women',
+    '_08':'Women of color have fewer professional opportunities than white women',
+    '_09':'I feel a connection to the security industry',
+    '_10':'I can achieve financial security by working in the security industry',
+    '_11':'I can have a fulfilling career in the security industry',
+    '_12':'I can see spending the rest of my career in the security industry',
+    '_13':'I would encourage other women to consider a career in the security industry',
+    '_14':'I am proud of the things I have accomplished while working in the security industry'
+  },
+  // OB1 scale is 4-point for this study
+  OB1_scale: {'_01':'Disagree strongly','_02':'Disagree somewhat','_03':'Agree somewhat','_04':'Agree strongly'},
+
+  OB2_ranges: {'_01':'None','_02':'<10%','_03':'10% to <25%','_04':'25% to <50%','_05':'50% to <75%','_06':'75% to <100%','_07':'100%'},
+  OB3: {'_01':'Male','_02':'Female','_03':'Not listed here','_04':'N/A'},
+
+  OB4_labels: {'_01':'Mentorship as Mentor','_02':'Mentorship as Mentee','_03':'Professional certification program','_04':'Leadership development program','_05':'Professional conferences','_06':'Trade shows','_07':'Community service','_08':'Other'},
+
+  // OB5 5-point satisfaction about each activity
+  OB5_scale: {'_01':'Not at all satisfied','_02':'Not too satisfied','_03':'Somewhat satisfied','_04':'Very satisfied','_05':'Extremely satisfied'},
+
+  C0: {'_01':'Yes','_02':'No'},
+  C1_ranges: {'_01':'1–4','_02':'5–19','_03':'20–49','_04':'50–99','_05':'100–249','_06':'250–499','_07':'500–999','_08':'1000+'},
+  C2_ranges: {'_01':'<$500k','_02':'$500k–<$1M','_03':'$1M–<$5M','_04':'$5M–<$10M','_05':'$10M–<$25M','_06':'$25M–<$50M','_07':'$50M–<$100M','_08':'$100M–<$500M','_09':'$500M–<$1B','_10':'$1B+'},
+  C3: {'_01':'Married','_02':'Domestic partnership','_03':'Single, living with a partner','_04':'Single (incl. divorced/widowed/separated)','_05':'Prefer not to answer'},
+  C4: {'_01':'None','_02':'One','_03':'Two','_04':'Three','_05':'Four or more','_06':'Prefer not to answer'},
+  C5_ranges: {'_01':'<$20k','_02':'$20–29k','_03':'$30–49k','_04':'$50–74k','_05':'$75–99k','_06':'$100–149k','_07':'$150–199k','_08':'$200–249k','_09':'$250k+','_10':'Prefer not to answer'},
+  C6_labels: {'_01':'White / Caucasian','_02':'Black / African American','_03':'Hispanic / Latino','_04':'Asian or Pacific Islander','_05':'Alaskan Native / American Indian','_06':'Other','_07':'Prefer not to answer'},
+  C7: {'_01':'Yes','_02':'No','_03':'Prefer not to answer'}
+};
+
+const Q5_LABELS_OVERRIDE = {
+  '_01': "My company is struggling financially",
+  '_02': "I want better pay and benefits",
+  '_03': "I want to work at an organization that has values closer to my own",
+  '_04': "I want a better work-life balance",
+  '_05': "My employer doesn't provide adequate paid time off",
+  '_06': "My employer doesn't provide flexible enough working arrangements",
+  '_07': "I want to have children",
+  '_08': "My office does not support the needs of new mothers",
+  '_09': "I want to be promoted",
+  '_10': "I am frustrated in my current role",
+  '_11': "I dislike my boss",
+  '_12': "I dislike my team/coworkers",
+  '_13': "I have experienced sexism in my current job",
+  '_14': "I have experienced racism in my current job",
+  '_15': "I have experienced sexual harassment in my current job",
+  '_16': "I am bored with my current work",
+  '_17': "I want to learn new things",
+  '_18': "I want to manage other people",
+  '_19': "The temperature in my office is uncomfortable for premenopausal/menopausal women",
+  '_20': "I want to switch careers",
+  '_21': "I want to go back to school",
+  '_22': "I dislike the security industry (*)",
+  '_23': "I will have more career fulfillment in an industry other than security (*)",
+  '_24': "Other reason"
+};
+
+// =================== HELPERS ===================
+function num(v){ if(v===undefined||v===null||v==='') return null; const n=Number(v); return Number.isFinite(n)?n:null; }
+function getAge(row){ return num(row[AGE_COL]); }
+
+function valueToCode(value, labels){
+  if(value===null||value===undefined) return null;
+  const s = String(value).trim();
+  if(s==='') return null;
+  if(/^_\d+$/i.test(s)) return s;
+  if(/^\d+$/.test(s)) return '_' + s.padStart(2,'0');
+  if(labels){
+    for(const [k,lab] of Object.entries(labels)){
+      if(String(lab).trim().toLowerCase()===s.toLowerCase()) return k;
     }
-    function renderTable(code){document.getElementById('tables').innerHTML=`<div class="twrap"><div class="thead">${code}</div></div>`;}
+  }
+  if(/^(yes|no)$/i.test(s) && labels && labels._01==='Yes'){ return (/^yes$/i.test(s)) ? '_01' : '_02'; }
+  return s;
+}
+function valEq(val,key,labels){ return valueToCode(val,labels)===key; }
 
-    document.getElementById('genBtn').onclick=()=>renderTable(document.getElementById('qSel').value);
-    document.getElementById('allFullBtn').onclick=()=>renderTable('ALL');
-    document.getElementById('clearBtn').onclick=()=>{document.getElementById('tables').innerHTML='';};
+function multiCols(prefix){ return HEADERS.filter(h => h.startsWith(prefix)); }
+function isTick(v){ const s=String(v).toLowerCase(); return v===1||v==='1'||v===true||v==='true'||/^_?\d+$/.test(s); }
+function hasMulti(row,prefix,code){
+  // Position-based multiselects: look ACROSS ALL columns for the code (e.g., Q5 (1/24)… Q5 (24/24))
+  const cols = multiCols(prefix);
+  if(!cols.length) return false;
+  if(code){
+    return cols.some(c => String(row[c]||'').trim()===code || String(row[c]||'').trim()===code.replace(/^_0*/, '_'));
+  }
+  return cols.some(c => isTick(row[c]) || /^_\d+$/i.test(String(row[c]||'')));
+}
 
-    // Banner × Banner
-    function openBB(){document.getElementById('bbModal').style.display='flex';}
-    function closeBB(){document.getElementById('bbModal').style.display='none';}
-    function populateBBSelectors(){['bbCols','bbRows'].forEach(id=>{document.getElementById(id).innerHTML='<option>B1</option><option>B2</option>';});}
-    function runBB(){document.getElementById('bbOut').innerHTML='<div class="twrap"><div class="thead">Banner × Banner Output</div></div>'; }
-    document.getElementById('bbBtn').onclick=()=>{populateBBSelectors();openBB();};
-    document.getElementById('bbClose').onclick=closeBB;
-    document.getElementById('bbRun').onclick=runBB;
+// Emp base: include employed FT/PT, unemployed, retired; EXCLUDE student, intern, other
+function empOrPrevEmp(row){
+  const s4 = valueToCode(row.S4, MAP.S4);
+  return ['_01','_02','_03','_04'].includes(s4);
+}
 
-    // Verbatims
-    function renderVerbatims(){
-      let rows=[...OE];
-      const sat=document.getElementById('satFilter').value;
-      const search=(document.getElementById('qSearch').value||'').toLowerCase();
-      if(sat!=='all') rows=rows.filter(r=>r.Q1===sat);
-      if(search) rows=rows.filter(r=>(r.Q2||'').toLowerCase().includes(search));
-      document.getElementById('oeTotal').innerText=OE.length;
-      document.getElementById('oeShown').innerText=rows.length;
-      document.getElementById('oeList').innerHTML=rows.map(r=>{
-        const badgeMap={'_05':['Extremely','b-ext'],'_04':['Very','b-very'],'_03':['Somewhat','b-some'],'_02':['Not too','b-not2'],'_01':['Not at all','b-not1']};
-        const [lab,cls]=badgeMap[r.Q1]||['',''];
-        return `<div class="card">
-          <div class="hdr"><div class="pill">ID ${r['Respondent.Serial']||''}</div><div class="badge ${cls}">${lab}</div></div>
-          <div class="quote">${r.Q2||''}</div>
-        </div>`;
-      }).join('');
+// Q4/Q5 base: those at least somewhat likely (Q3 T3B)
+// Q1/Q3 base: same as S6 base per client (employment base)
+function askedRowsForQuestion(rows, code){
+  if(code==='Q4' || code==='Q5'){
+    return rows.filter(r => ['_05','_04','_03'].includes(valueToCode(r.Q3, MAP.Q3)));
+  }
+  if(code==='Q1' || code==='Q3'){
+    return rows.filter(empOrPrevEmp);
+  }
+  return rows;
+}
+
+function colLetters(groupBounds, nCols){
+  const out = Array(nCols).fill('');
+  let letterIdx = 0;
+  
+  // For Banner 2, column 0 is TOTAL (no letter)
+  // Letters start at column 1
+  for(let c = 0; c < nCols; c++){
+    if(c === 0) {
+      // TOTAL column - no letter
+      out[c] = '';
+    } else {
+      // All other columns get letters A, B, C, etc.
+      out[c] = LETTERS[c-1] || '';
     }
-    document.getElementById('refreshOE').onclick=renderVerbatims;
+  }
+  
+  return out;
+}
 
-    // Tabs
-    document.querySelectorAll('.tab').forEach(btn=>{
-      btn.onclick=()=>{
-        document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-        btn.classList.add('active');
-        document.querySelectorAll('.tabpane').forEach(p=>p.classList.remove('active'));
-        document.getElementById(btn.dataset.tab).classList.add('active');
+function lettersSpec(which){
+  if(which==='B1') {
+    return 'Stats testing: A/B; C/D/E; F/G; H/I/J; K/L/M/N/O/P/Q/R; S/T; U/V; W/X/Y/Z';
+  } else {
+    // Banner 2
+    return 'Stats testing: A/D; B/C/D; E/F/G/H/I; J/K; L/M/N/O/P/Q/R/S; T/U/V; W/X/Y';
+  }
+}
+
+function simplifyGroupLabel(lbl){ if(!lbl) return ''; return String(lbl).replace(/^WOMEN ONLY\s*[–-]\s*/i,'').toUpperCase(); }
+
+// =================== INIT QUESTIONS ===================
+function deriveLabelsFromHeaders(prefix){
+  // For Q5 override if provided else derive
+  const set = new Set();
+  for(const h of HEADERS){ if(h.startsWith(prefix)){ for(const r of DATA){ const v=r[h]; if(/^_\d+$/.test(String(v))) set.add(String(v)); if(/^\d+$/.test(String(v))) set.add('_'+String(v).padStart(2,'0')); } } }
+  const out = {};
+  Array.from(set).sort().forEach(k => out[k] = (Q5_LABELS_OVERRIDE[k] || (prefix+' '+k)));
+  return out;
+}
+
+function initQuestions(){
+  DERIVED.Q5_labels = deriveLabelsFromHeaders('Q5');
+
+  const qs = [
+    {code:'S1', type:'single', title:'S1. Gender Identity', labels:MAP.S1},
+    {code:'S2', type:'age', title:'S2. Age (exact numeric)'},
+    {code:'S3', type:'orderedMedian', title:'S3. Years in the Security Industry', labels:MAP.S3, gmedian:'S3',
+      nets:[{label:'<5 years [NET]', codes:['_01','_02','_03']},
+            {label:'5 to <10 years', codes:['_04']},
+            {label:'10+ years [NET]', codes:['_05','_06','_07']}]},
+    {code:'S4', type:'single', title:'S4. Work Status', labels:MAP.S4,
+      nets:[{label:'Employed (NET)', codes:['_01','_02']}]},
+    {code:'S5', type:'single', title:'S5. Company / Organization Type', labels:MAP.S5, empOnly:true},
+    {code:'S6', type:'single', title:'S6. Job Title', labels:MAP.S6, empOnly:true},
+    {code:'S7', type:'multiPrefix', title:'S7. Job Function (multi-select)', prefix:'S7', labels:MAP.S7_labels, empOnly:true},
+    {code:'Q1', type:'scale5', title:'Q1. Overall Job Satisfaction (Employment base)', labels:MAP.Q1, netsTB:true},
+    {code:'Q3', type:'scale5', title:'Q3. Likelihood to Look for a New Job (Employment base)', labels:MAP.Q3, netsTB:true},
+    {code:'Q4', type:'single', title:'Q4. Where Will You Look for a New Job? (Q3 T3B base)', labels:MAP.Q4},
+    {code:'Q5', type:'multiPrefix', title:'Q5. Reasons for Looking for a New Job (multi-select, Q3 T3B base)', prefix:'Q5', labels:DERIVED.Q5_labels},
+    {code:'OB1', type:'ob1grid', title:'OB1. Agreement with Statements – 4‑pt nets tables'},
+    {code:'OB2', type:'orderedMedian', title:'OB2. % of Leadership Positions Held by Women', labels:MAP.OB2_ranges, gmedian:'OB2'},
+    {code:'OB3', type:'single', title:'OB3. Gender of Your Manager', labels:MAP.OB3},
+    {code:'OB4', type:'multiPrefix', title:'OB4. Professional Development Activities (multi-select)', prefix:'OB4', labels:MAP.OB4_labels},
+    {code:'OB5', type:'ob5grid', title:'OB5. Satisfaction with PD Activities – nets by activity (bases = selected in OB4)'},
+    {code:'C0', type:'single', title:'C0. Attended Security LeadHER Conference', labels:MAP.C0},
+    {code:'C1', type:'orderedMedian', title:'C1. Company Size (employees)', labels:MAP.C1_ranges, gmedian:'C1'},
+    {code:'C2', type:'orderedMedian', title:'C2. 2024 Total Annual Revenue', labels:MAP.C2_ranges, gmedian:'C2',
+      nets:[{label:'< $5M [NET]', codes:['_01','_02','_03']},
+            {label:'$25M+ [NET]', codes:['_06','_07','_08','_09','_10']}]},
+    {code:'C3', type:'single', title:'C3. Marital Status', labels:MAP.C3,
+      nets:[{label:'SINGLE (NET)', codes:['_03','_04']}]},
+    {code:'C4', type:'single', title:'C4. Children in HH', labels:MAP.C4,
+      nets:[{label:'Have ANY', codes:['_02','_03','_04','_05']},
+            {label:'Have NONE', codes:['_01']}]},
+    {code:'C5', type:'orderedMedian', title:'C5. Household Income', labels:MAP.C5_ranges, gmedian:'C5',
+      nets:[{label:'< $100k [NET]', codes:['_01','_02','_03','_04','_05']},
+            {label:'$100k+ [NET]', codes:['_06','_07','_08','_09']},
+            {label:'$200k+ [NET]', codes:['_08','_09']}]},
+    {code:'C6', type:'multiPrefix', title:'C6. Race / Ethnicity (multi-select)', prefix:'C6', labels:MAP.C6_labels},
+    {code:'C7', type:'single', title:'C7. LGBTQIA Identity', labels:MAP.C7}
+  ];
+
+  const qSel = document.getElementById('qSel');
+  qSel.innerHTML = qs.map(q => `<option value="${q.code}">${q.title}</option>`).join('');
+  qSel.dataset.def = JSON.stringify(qs);
+}
+function getQuestions(){ const qSel=document.getElementById('qSel'); return (qSel&&qSel.dataset&&qSel.dataset.def)?JSON.parse(qSel.dataset.def):[]; }
+function getQ(code){ return getQuestions().find(q => q.code===code); }
+
+// =================== BANNERS ===================
+function bannerDefs(which){
+  const isFemale = r => valueToCode(r.S1, MAP.S1)==='_02';
+  const isMale = r => valueToCode(r.S1, MAP.S1)==='_01';
+  const under35 = r => isFemale(r)&&getAge(r)!=null&&getAge(r)<35;
+  const age35to54 = r => isFemale(r)&&getAge(r)!=null&&getAge(r)>=35&&getAge(r)<=54;
+  const age55plus = r => isFemale(r)&&getAge(r)!=null&&getAge(r)>=55;
+  const whiteOnly = r => isFemale(r)&&hasMulti(r,'C6','_01') && !['_02','_03','_04','_05','_06'].some(c=>hasMulti(r,'C6',c));
+  const nonWhite = r => isFemale(r) && ['_02','_03','_04','_05','_06'].some(c=>hasMulti(r,'C6',c));
+  const attended = r => isFemale(r) && (valueToCode(r.C0, MAP.C0)==='_01');
+
+  if(which==='B1'){
+    return [
+      {label:'TOTAL', filter:()=>true},
+      
+      {group:'GENDER', cols:[
+        {label:'Female', filter:isFemale},  // A
+        {label:'Male', filter:isMale}        // B
+      ]},
+      
+      {group:'WOMEN ONLY - AGE', cols:[
+        {label:'Under 35', filter:under35},      // C
+        {label:'35-54', filter:age35to54},       // D
+        {label:'55+', filter:age55plus}          // E
+      ]},
+      
+      {group:'WOMEN ONLY - RACE/ETHNICITY', cols:[
+        {label:'White only', filter:whiteOnly},  // F
+        {label:'Non-White', filter:nonWhite}     // G
+      ]},
+      
+      {group:'WOMEN ONLY - EXPERIENCE', cols:[
+        {label:'<5 years', filter: r=>isFemale(r) && ['_01','_02','_03'].includes(valueToCode(r.S3, MAP.S3))},  // H
+        {label:'5 to <10 years', filter: r=>isFemale(r) && valueToCode(r.S3, MAP.S3)==='_04'},                   // I
+        {label:'10+ years', filter: r=>isFemale(r) && ['_05','_06','_07'].includes(valueToCode(r.S3, MAP.S3))}  // J
+      ]},
+      
+      {group:'WOMEN ONLY - JOB FUNCTION', cols:[
+        {label:'Exec. leadership', filter:r=>isFemale(r)&&hasMulti(r,'S7','_01')},                           // K
+        {label:'Sales/Marketing', filter:r=>isFemale(r)&&(hasMulti(r,'S7','_02')||hasMulti(r,'S7','_03'))},  // L
+        {label:'Proj Mgmt/Eng/R&D', filter:r=>isFemale(r)&&['_04','_05','_07'].some(c=>hasMulti(r,'S7',c))}, // M
+        {label:'Sales', filter:r=>isFemale(r)&&hasMulti(r,'S7','_02')},                                      // N
+        {label:'Marketing', filter:r=>isFemale(r)&&hasMulti(r,'S7','_03')},                                  // O
+        {label:'Project mgmt', filter:r=>isFemale(r)&&hasMulti(r,'S7','_04')},                              // P
+        {label:'Security', filter:r=>isFemale(r)&&hasMulti(r,'S7','_06')},                                   // Q
+        {label:'Administration', filter:r=>isFemale(r)&&hasMulti(r,'S7','_08')}                              // R
+      ]},
+      
+      {group:'WOMEN ONLY - Attended LeadHER', cols:[
+        {label:'Yes', filter:attended},                                           // S
+        {label:'No', filter:r=>isFemale(r) && valueToCode(r.C0,MAP.C0)==='_02'}  // T
+      ]},
+      
+      {group:'WOMEN ONLY - Company Leaders (OB2)', cols:[
+        {label:'<25%', filter:r=>isFemale(r) && ['_01','_02','_03'].includes(valueToCode(r.OB2,MAP.OB2_ranges))},    // U
+        {label:'25%+', filter:r=>isFemale(r) && ['_04','_05','_06','_07'].includes(valueToCode(r.OB2,MAP.OB2_ranges))}, // V
+        {label:'<10%', filter:r=>isFemale(r) && ['_01','_02'].includes(valueToCode(r.OB2,MAP.OB2_ranges))},          // W
+        {label:'10% to <25%', filter:r=>isFemale(r) && valueToCode(r.OB2,MAP.OB2_ranges)==='_03'},                    // X
+        {label:'25% to <50%', filter:r=>isFemale(r) && valueToCode(r.OB2,MAP.OB2_ranges)==='_04'},                    // Y
+        {label:'50%+', filter:r=>isFemale(r) && ['_05','_06','_07'].includes(valueToCode(r.OB2,MAP.OB2_ranges))}      // Z
+      ]}
+    ];
+  }
+  
+  // Banner 2 - PERCEPTIONS & ORGANIZATION (WOMEN ONLY)
+  return [
+    {label:'TOTAL WOMEN', filter:isFemale},
+    
+    {group:'JOB SATISFACTION (Q1)', cols:[
+      {label:'T3B Satisfied', filter:r=>isFemale(r)&&['_05','_04','_03'].includes(valueToCode(r.Q1,MAP.Q1))},
+      {label:'T2B Satisfied', filter:r=>isFemale(r)&&['_05','_04'].includes(valueToCode(r.Q1,MAP.Q1))},
+      {label:'Somewhat Satisfied', filter:r=>isFemale(r)&&valueToCode(r.Q1,MAP.Q1)==='_03'},
+      {label:'B2B Not Satisfied', filter:r=>isFemale(r)&&['_02','_01'].includes(valueToCode(r.Q1,MAP.Q1))}
+    ]},
+    
+    {group:'LIKELIHOOD TO CHANGE (Q3)', cols:[
+      {label:'T3B Likely', filter:r=>isFemale(r)&&['_05','_04','_03'].includes(valueToCode(r.Q3,MAP.Q3))},
+      {label:'T2B Likely', filter:r=>isFemale(r)&&['_05','_04'].includes(valueToCode(r.Q3,MAP.Q3))},
+      {label:'Somewhat Likely', filter:r=>isFemale(r)&&valueToCode(r.Q3,MAP.Q3)==='_03'},
+      {label:'B2B Not Likely', filter:r=>isFemale(r)&&['_02','_01'].includes(valueToCode(r.Q3,MAP.Q3))},
+      {label:'B3B', filter:r=>isFemale(r)&&['_03','_02','_01'].includes(valueToCode(r.Q3,MAP.Q3))}
+    ]},
+    
+    {group:'GENDER OF MANAGER (OB3)', cols:[
+      {label:'Male', filter:r=>isFemale(r)&&valueToCode(r.OB3,MAP.OB3)==='_01'},
+      {label:'Female', filter:r=>isFemale(r)&&valueToCode(r.OB3,MAP.OB3)==='_02'}
+    ]},
+    
+    {group:'PARTICIPATION IN PD (OB4)', cols:[
+      {label:'Mentorship (NET)', filter:r=>isFemale(r)&&(hasMulti(r,'OB4','_01')||hasMulti(r,'OB4','_02'))},
+      {label:'Prof. certification', filter:r=>isFemale(r)&&hasMulti(r,'OB4','_03')},
+      {label:'Leadership dev.', filter:r=>isFemale(r)&&hasMulti(r,'OB4','_04')},
+      {label:'Prof. conferences', filter:r=>isFemale(r)&&hasMulti(r,'OB4','_05')},
+      {label:'Trade shows', filter:r=>isFemale(r)&&hasMulti(r,'OB4','_06')},
+      {label:'Community service', filter:r=>isFemale(r)&&hasMulti(r,'OB4','_07')},
+      {label:'As Mentor', filter:r=>isFemale(r)&&hasMulti(r,'OB4','_01')},
+      {label:'As Mentee', filter:r=>isFemale(r)&&hasMulti(r,'OB4','_02')}
+    ]},
+    
+    {group:'BUS./ORG. REVENUE (C2)', cols:[
+      {label:'<$10M', filter:r=>isFemale(r)&&['_01','_02','_03','_04'].includes(valueToCode(r.C2,MAP.C2_ranges))},
+      {label:'$10M-<$100M', filter:r=>isFemale(r)&&['_05','_06','_07'].includes(valueToCode(r.C2,MAP.C2_ranges))},
+      {label:'$100M+', filter:r=>isFemale(r)&&['_08','_09','_10'].includes(valueToCode(r.C2,MAP.C2_ranges))},
+      {label:'<$5M', filter:r=>isFemale(r)&&['_01','_02','_03'].includes(valueToCode(r.C2,MAP.C2_ranges))},
+      {label:'$5M-<$25M', filter:r=>isFemale(r)&&['_04','_05'].includes(valueToCode(r.C2,MAP.C2_ranges))},
+      {label:'$25M-<$100M', filter:r=>isFemale(r)&&['_06','_07'].includes(valueToCode(r.C2,MAP.C2_ranges))}
+    ]}
+  ];;;;;
+}
+
+// =================== TABLE GENERATION ===================
+function currentBanner(){
+  const which = document.getElementById('bannerSel').value;
+  const defs = bannerDefs(which);
+  const cols=[], groups=[]; let idx=0;
+  
+  defs.forEach(item => {
+    if(item.label && !item.cols){
+      // Single column (TOTAL) - don't add to groups
+      cols.push({label:item.label, filter:item.filter});
+      idx++;
+    }
+    if(item.cols){
+      const start=idx;
+      item.cols.forEach(c=>{ cols.push({label:c.label, filter:c.filter}); idx++; });
+      groups.push({start:start, end:idx-1, test:true, label:item.group||''});
+    }
+  });
+  return {cols, groups, which};
+}
+
+function baseLabelForQuestion(q){
+  const which = document.getElementById('bannerSel').value;
+  if(['S5','S6','S7','Q1','Q3'].includes(q.code)) return 'Those currently/previously employed (excl. students/interns/Other)';
+  if(['Q4','Q5'].includes(q.code)) return 'Those at least somewhat likely to look for new job (Q3 T3B)';
+  return (which==='B2') ? 'WOMEN ONLY' : 'TOTAL RESPONDENTS';
+}
+
+function renderShell(title){
+  const tw = document.createElement('div'); tw.className='twrap';
+  tw.innerHTML = `<div class="thead">${title}</div><div class="scrollX" style="overflow-x: scroll !important;"><table style="min-width: 1200px;"><thead></thead><tbody></tbody></table></div>`;
+  document.getElementById('tables').appendChild(tw);
+  return tw;
+}
+
+function applyMinWidth(table, nCols){
+  const minW = nCols*85 + 420 + 60;
+  const width = Math.max(minW, 1400); // Increased minimum
+  table.style.minWidth = width + 'px';
+  // Force scroll on parent
+  const scrollDiv = table.closest('.scrollX');
+  if(scrollDiv) {
+    scrollDiv.style.overflowX = 'scroll';
+    scrollDiv.style.maxWidth = '100%';
+    scrollDiv.style.display = 'block';
+  }
+  // Also ensure the container can scroll
+  const scrollContainer = table.closest('.scrollX');
+  if(scrollContainer) {
+    scrollContainer.style.overflowX = 'auto';
+    scrollContainer.style.width = '100%';
+  }
+}
+
+function generateOne(){
+  const q = getQ(document.getElementById('qSel').value);
+  if(!q) return;
+  clearTables();
+  renderQuestion(q);
+}
+function clearTables(){ document.getElementById('tables').innerHTML=''; }
+function generateAllFull(){
+  clearTables();
+  for(const q of getQuestions()){ renderQuestion(q); }
+}
+
+function renderQuestion(q){
+  const {cols:bannerCols, groups:groupBounds, which} = currentBanner();
+  const showFreq = document.getElementById('showFreq').checked;
+  const showPct  = document.getElementById('showPct').checked;
+  const showIndex= document.getElementById('showIndex').checked;
+  const minBase  = Number(document.getElementById('minBase').value)||0;
+  const do90     = document.getElementById('stat90').checked;
+  const do95     = document.getElementById('stat95').checked;
+  const scope    = document.getElementById('statScope').value;
+  const sortSel  = document.getElementById('sortSel').value;
+
+  const needEmp = ['S5','S6','S7','Q1','Q3'].includes(q.code);
+  let columns = bannerCols.map(c => ({ label:c.label, rows: needEmp ? DATA.filter(r=>c.filter(r)&&empOrPrevEmp(r)) : DATA.filter(c.filter) }));
+  columns = columns.map(c => ({ label:c.label, rows: askedRowsForQuestion(c.rows, q.code) }));
+  const letters = colLetters(groupBounds, columns.length);
+
+  // OB1 (4-pt) and OB5 grids
+  if(q.type==='ob1grid'){
+    const sets = [
+      {name:'TOP BOX', codes:['_04']},
+      {name:'TOP 2 BOX', codes:['_04','_03']},
+      {name:'BOTTOM 2 BOX', codes:['_02','_01']},
+      {name:'BOTTOM BOX', codes:['_01']}
+    ];
+    for(const s of sets){
+      const rowsSet = ob1Rows(columns, s.codes);
+      const tw = renderShell(`${q.title} – ${s.name}`);
+      const table = tw.querySelector('table'); applyMinWidth(table, columns.length);
+      const thead = tw.querySelector('thead'); const tbody = tw.querySelector('tbody');
+      // Create group header row
+  const grp = document.createElement('tr'); 
+  grp.className = 'grphead';
+  
+  // Build the HTML string directly based on what we need
+  let groupHeaderHTML = '<th></th>'; // Stub column
+  
+  // For Banner 1 and Banner 2, handle differently
+  const bannerType = document.getElementById('bannerSel').value;
+  
+  if(bannerType === 'B1') {
+    // Banner 1 groups
+    groupHeaderHTML += '<th></th>'; // TOTAL
+    groupHeaderHTML += '<th colspan="2">GENDER</th>';
+    groupHeaderHTML += '<th colspan="3">WOMEN ONLY - AGE</th>';
+    groupHeaderHTML += '<th colspan="2">WOMEN ONLY - RACE/ETHNICITY</th>';
+    groupHeaderHTML += '<th colspan="3">WOMEN ONLY - EXPERIENCE</th>';
+    groupHeaderHTML += '<th colspan="8">WOMEN ONLY - JOB FUNCTION</th>';
+    groupHeaderHTML += '<th colspan="2">WOMEN ONLY - Attended LeadHER</th>';
+    groupHeaderHTML += '<th colspan="6">WOMEN ONLY - Company Leaders (OB2)</th>';
+  } else {
+    // Banner 2 groups  
+    groupHeaderHTML += '<th></th>'; // TOTAL WOMEN
+    groupHeaderHTML += '<th colspan="4">JOB SATISFACTION (Q1)</th>';
+    groupHeaderHTML += '<th colspan="5">LIKELIHOOD TO CHANGE (Q3)</th>';
+    groupHeaderHTML += '<th colspan="2">GENDER OF MANAGER (OB3)</th>';
+    groupHeaderHTML += '<th colspan="8">PARTICIPATION IN PD (OB4)</th>';
+    groupHeaderHTML += '<th colspan="6">BUS./ORG. REVENUE (C2)</th>';
+  }
+  
+  grp.innerHTML = groupHeaderHTML;
+  thead.appendChild(grp);
+  
+  // Column headers row
+  const hdr = document.createElement('tr');
+  hdr.innerHTML = '<th></th>' + columns.map((c,i)=>`<th>${c.label}<br><span style="font-size:11px;color:#6b7280;font-weight:normal">(${letters[i]||''})</span></th>`).join('');
+  thead.appendChild(hdr);
+  
+  const baseRow = document.createElement('tr'); baseRow.className='baserow';
+      baseRow.innerHTML = `<td class="stub">BASE: ${baseLabelForQuestion(q)}</td>` + columns.map(c=>`<td class="num"><div class="freq">(${c.rows.length})</div></td>`).join('');
+      tbody.appendChild(baseRow);
+      renderBody(tw, rowsSet, columns, letters, groupBounds, {showFreq:false, showPct:true, showIndex:false, minBase, do90, do95, scope, sortSel, summaryOnlyPct:true, statsSpec:lettersSpec(which)});
+    }
+    return;
+  }
+
+  if(q.type==='ob5grid'){
+    const sets = [
+      {name:'TOP BOX', pass:v=>['_05'].includes(v)},
+      {name:'TOP 2 BOX', pass:v=>['_05','_04'].includes(v)},
+      {name:'TOP 3 BOX', pass:v=>['_05','_04','_03'].includes(v)},
+      {name:'BOTTOM 2 BOX', pass:v=>['_01','_02'].includes(v)},
+      {name:'BOTTOM BOX', pass:v=>['_01'].includes(v)}
+    ];
+    for(const s of sets){
+      const rowsSet = ob5RowsBySet(columns, s.pass);
+      const tw = renderShell(`${q.title} – ${s.name}`);
+      const table = tw.querySelector('table'); applyMinWidth(table, columns.length);
+      const thead = tw.querySelector('thead'); const tbody = tw.querySelector('tbody');
+      // HARDCODED HEADERS
+  const grp = document.createElement('tr'); 
+  grp.className = 'grphead';
+  
+  // Hardcode the exact headers we need
+  const bannerType = document.getElementById('bannerSel').value;
+  
+  if(bannerType === 'B1') {
+    grp.innerHTML = '<th></th><th></th><th colspan="2">GENDER</th><th colspan="3">AGE</th><th colspan="2">RACE/ETHNICITY</th><th colspan="3">EXPERIENCE</th><th colspan="8">JOB FUNCTION</th><th colspan="2">Attended LeadHER</th><th colspan="6">Company Leaders</th>';
+  } else {
+    grp.innerHTML = '<th></th><th></th><th colspan="4">JOB SATISFACTION</th><th colspan="5">LIKELIHOOD TO CHANGE</th><th colspan="2">GENDER OF MANAGER</th><th colspan="8">PD ACTIVITIES</th><th colspan="6">REVENUE</th>';
+  }
+  
+  thead.appendChild(grp);
+      const hdr = document.createElement('tr');
+      hdr.innerHTML = '<th></th>' + columns.map((c,i)=>`<th>${c.label}<br><span style="font-size:11px;color:#6b7280;font-weight:normal">(${letters[i]||''})</span></th>`).join('');
+      thead.appendChild(hdr);
+      const baseRow = document.createElement('tr'); baseRow.className='baserow';
+      baseRow.innerHTML = '<td class="stub">BASE: Those who engage in activity (selected in OB4)</td>' + columns.map(_=>'<td class="num"></td>').join('');
+      tbody.appendChild(baseRow);
+      renderBody(tw, rowsSet, columns, letters, groupBounds, {showFreq:false, showPct:true, showIndex:false, minBase, do90, do95, scope, sortSel, summaryOnlyPct:true, statsSpec:lettersSpec(which)});
+    }
+    return;
+  }
+
+  
+  // Regular tables
+  const tw = renderShell(q.title);
+  const table = tw.querySelector('table'); applyMinWidth(table, columns.length);
+  const thead = tw.querySelector('thead'); const tbody = tw.querySelector('tbody');
+  const grp = document.createElement('tr'); grp.className='grphead'; 
+  grp.innerHTML='<th></th>'; // stub
+  
+  // Check if first column is TOTAL (not in any group)
+  let hasUngroupedTotal = groupBounds.length === 0 || groupBounds[0].start > 0;
+  if(hasUngroupedTotal) {
+    grp.innerHTML += '<th></th>'; // empty header for TOTAL column
+  }
+  
+  for(const g of groupBounds){ 
+    if(g.test) grp.innerHTML += `<th colspan="${g.end-g.start+1}">${simplifyGroupLabel(g.label)}</th>`; 
+  } 
+  thead.appendChild(grp);
+  const hdr = document.createElement('tr');
+  hdr.innerHTML = '<th></th>' + columns.map((c,i)=>`<th>${c.label}<br><span style="font-size:11px;color:#6b7280;font-weight:normal">(${letters[i]||''})</span></th>`).join('');
+  thead.appendChild(hdr);
+  const baseRow = document.createElement('tr'); baseRow.className='baserow';
+  baseRow.innerHTML = `<td class="stub">BASE: ${baseLabelForQuestion(q)}</td>` + columns.map(c=>`<td class="num"><div class="freq">(${c.rows.length})</div></td>`).join('');
+  tbody.appendChild(baseRow);
+
+  let rows=[];
+  if(q.type==='single'){ rows = singleRows(q.code, q.labels, columns, q); }
+  else if(q.type==='multiPrefix'){ rows = multiRows(q.prefix, q.labels, columns, q); }
+  else if(q.type==='scale5'){ rows = scaleRows(q.code, q.labels, columns, q); }
+  else if(q.type==='orderedMedian'){
+    rows = singleRows(q.code, q.labels, columns, q);
+    const gmed = groupedMedian(q.gmedian, q.labels, columns);
+    rows.push({stub:'Median', isMedian:true, medCode:q.gmedian, cells:gmed});
+  } else if(q.type==='age'){ rows = ageRows(columns); }
+
+  renderBody(tw, rows, columns, letters, groupBounds,
+    {showFreq, showPct, showIndex, minBase, do90, do95, scope, sortSel, totalsFromBase:(q.type==='single'||q.type==='orderedMedian'||q.type==='age'||q.type==='scale5'), statsSpec:lettersSpec(which)});
+}
+
+// =================== ROW BUILDERS ===================
+function knownSingleCodesInData(code){
+  const set = new Set();
+  for(const r of DATA){
+    const v = valueToCode(r[code], MAP[code] || {});
+    if(v) set.add(v);
+  }
+  return Array.from(set).sort();
+}
+
+function singleRows(code, labels, columns, q){
+  const labelKeys = Object.keys(labels||{});
+  const dataKeys  = knownSingleCodesInData(code);
+  const keys = labelKeys.concat(dataKeys.filter(k=>!labelKeys.includes(k)));
+  const out = [];
+
+  for(const k of keys){
+    const row = {stub:(labels&&labels[k])||(`${code} ${k}`), cells:[]};
+    for(const c of columns){
+      const b = c.rows.length; let f=0;
+      for(const r of c.rows){ if(valEq(r[code], k, labels)) f++; }
+      row.cells.push({freq:f, freqBase:b, pct:(b?100*f/b:0)});
+    }
+    out.push(row);
+  }
+
+  if(q && q.nets){
+    for(const n of q.nets){
+      const row = {stub:n.label, isNet:true, cells:[]};
+      for(const c of columns){
+        const b=c.rows.length; let f=0;
+        for(const r of c.rows){ const v=valueToCode(r[code], labels); if((n.codes||[]).includes(v)) f++; }
+        row.cells.push({freq:f, freqBase:b, pct:(b?100*f/b:0)});
+      }
+      out.push(row);
+    }
+  }
+  return out;
+}
+
+function multiRows(prefix, labels, columns, q){
+  let codeList = labels ? Object.keys(labels) : [];
+  if(!codeList.length){
+    const set=new Set();
+    for(const h of multiCols(prefix)){ for(const r of DATA){ const v=r[h]; if(/^_\d+$/.test(String(v))) set.add(String(v)); if(/^\d+$/.test(String(v))) set.add('_'+String(v).padStart(2,'0')); } }
+    codeList = Array.from(set).sort();
+  }
+  const out=[];
+  for(const code of codeList){
+    if(prefix==='OB4' && /other/i.test((labels&&labels[code])||'')) continue; // drop "Other"
+    const row={stub:(labels&&labels[code])||(`${prefix} ${code}`), cells:[]};
+    for(const c of columns){
+      const b=c.rows.length; let f=0;
+      for(const r of c.rows){ if(hasMulti(r, prefix, code)) f++; }
+      row.cells.push({freq:f, freqBase:b, pct:(b?100*f/b:0)});
+    }
+    out.push(row);
+  }
+
+  // Special nets for C6
+  if(prefix==='C6'){
+    function selectedCodes(row){
+      const set = new Set(); for(const h of multiCols(prefix)){ const v=valueToCode(row[h]); if(v && /^_\d+/.test(v)) set.add(v); } return set;
+    }
+    const whiteOnlyRow={stub:'WHITE ONLY (NET)', isNet:true, cells:[]};
+    const nonWhiteRow={stub:'NON-WHITE (NET)', isNet:true, cells:[]};
+    for(const c of columns){
+      let b=c.rows.length, fW=0, fNW=0;
+      for(const r of c.rows){
+        const set=selectedCodes(r);
+        if(set.size===1 && set.has('_01')) fW++;
+        if([...set].some(k=>k!=='_01')) fNW++;
+      }
+      whiteOnlyRow.cells.push({freq:fW, freqBase:b, pct:(b?100*fW/b:0)});
+      nonWhiteRow.cells.push({freq:fNW, freqBase:b, pct:(b?100*fNW/b:0)});
+    }
+    out.push(whiteOnlyRow, nonWhiteRow);
+  }
+  return out;
+}
+
+function scaleRows(code, labels, columns, q){
+  const order=['_05','_04','_03','_02','_01'];
+  const out=[];
+  for(const k of order){
+    const row={stub:labels[k], cells:[]};
+    for(const c of columns){
+      const b=c.rows.length; let f=0;
+      for(const r of c.rows){ if(valEq(r[code],k,labels)) f++; }
+      row.cells.push({freq:f, freqBase:b, pct:(b?100*f/b:0)});
+    }
+    out.push(row);
+  }
+  // Nets
+  const addNet=(label, codes)=>{
+    const row={stub:label, isNet:true, cells:[]};
+    for(const c of columns){
+      const b=c.rows.length; let f=0;
+      for(const r of c.rows){ const v=valueToCode(r[code],labels); if(codes.includes(v)) f++; }
+      row.cells.push({freq:f, freqBase:b, pct:(b?100*f/b:0)});
+    }
+    out.push(row);
+  };
+  addNet('TOP 3 BOX',['_05','_04','_03']);
+  addNet('TOP 2 BOX',['_05','_04']);
+  addNet('BOTTOM 2 BOX',['_02','_01']);
+  return out;
+}
+
+function ob1Rows(columns, codes){
+  const out=[]; const itemCodes=Object.keys(MAP.OB1_items);
+  for(const ic of itemCodes){
+    const txt=MAP.OB1_items[ic]; const row={stub:txt, isNet:true, cells:[]};
+    const keyCands = HEADERS.filter(h => h.includes('OB1') && h.includes(ic));
+    for(const c of columns){
+      const b=c.rows.length; let f=0;
+      for(const r of c.rows){
+        let v=null;
+        for(const k of keyCands){ if(r[k]!==undefined && r[k]!=='' && r[k]!==null){ v=valueToCode(r[k], MAP.OB1_scale); break; } }
+        if(!v) continue;
+        if(codes.includes(v)) f++;
+      }
+      row.cells.push({freq:f, freqBase:b, pct:(b?100*f/b:0)});
+    }
+    out.push(row);
+  }
+  return out;
+}
+
+function ob5RowsBySet(columns, passFn){
+  const out=[]; const actCodes=Object.keys(MAP.OB4_labels).filter(k=>!/other/i.test(MAP.OB4_labels[k]||''));
+  for(const ac of actCodes){
+    const label=MAP.OB4_labels[ac]; const row={stub:label, isNet:true, cells:[]};
+    const ob5cand=HEADERS.filter(h=>h.startsWith('OB5') && h.includes(ac));
+    for(const c of columns){
+      const asked=c.rows.filter(r=>hasMulti(r,'OB4',ac)); // activity-specific base
+      const b=asked.length; let f=0;
+      for(const r of asked){
+        let v=null; for(const k of ob5cand){ if(r[k]!==undefined && r[k]!=='' && r[k]!==null){ v=valueToCode(r[k], MAP.OB5_scale); break; } }
+        if(!v) continue; if(passFn(v)) f++;
+      }
+      row.cells.push({freq:f, freqBase:b, pct:(b?100*f/b:0)});
+    }
+    out.push(row);
+  }
+  return out;
+}
+
+function ageRows(columns){
+  const out=[]; const bins=[[18,24,'Under 25'],[25,29,'25–29'],[30,34,'30–34'],[35,39,'35–39'],[40,44,'40–44'],[45,49,'45–49'],[50,54,'50–54'],[55,59,'55–59'],[60,64,'60–64'],[65,120,'65+']];
+  function countBin(rows,lo,hi){ let f=0; for(const r of rows){ const a=getAge(r); if(a!=null && a>=lo && a<=hi) f++; } return f; }
+  for(const [lo,hi,lab] of bins){
+    const row={stub:lab, cells:[]};
+    for(const c of columns){ const b=c.rows.length; const f=countBin(c.rows,lo,hi); row.cells.push({freq:f, freqBase:b, pct:(b?100*f/b:0)}); }
+    out.push(row);
+  }
+  // nets
+  const nets=[{label:'Under 35 [NET]', fn:a=>a<35},{label:'35–54 [NET]', fn:a=>a>=35&&a<=54},{label:'55+ [NET]', fn:a=>a>=55}];
+  for(const n of nets){
+    const row={stub:n.label, isNet:true, cells:[]};
+    for(const c of columns){ const b=c.rows.length; let f=0; for(const r of c.rows){ const a=getAge(r); if(a!=null && n.fn(a)) f++; } row.cells.push({freq:f, freqBase:b, pct:(b?100*f/b:0)}); }
+    out.push(row);
+  }
+  // median
+  const medRow={stub:'Median (years)', isMedian:true, medCode:'AGE', cells:[]};
+  for(const c of columns){ const ages=c.rows.map(r=>getAge(r)).filter(a=>a!=null).sort((a,b)=>a-b); const b=ages.length; let med=null; if(b){ const mid=(b-1)/2; med = (b%2?ages[Math.floor(mid)] : (ages[Math.floor(mid)]+ages[Math.ceil(mid)])/2); } medRow.cells.push({median:med??0, freqBase:b}); }
+  out.push(medRow);
+  return out;
+}
+
+// Grouped median with bounds and value (no percentages)
+function groupedMedian(code, labels, columns){
+  function boundsFor(code){
+    if(code==='OB2') return [[0,0],[0,10],[10,25],[25,50],[50,75],[75,100],[100,100]];
+    if(code==='C1') return [[1,4],[5,19],[20,49],[50,99],[100,249],[250,499],[500,999],[1000,2000]];
+    if(code==='C2') return [[0,500000],[500000,1000000],[1000000,5000000],[5000000,10000000],[10000000,25000000],[25000000,50000000],[50000000,100000000],[100000000,250000000],[250000000,500000000],[500000000,1500000000]];
+    if(code==='C5') return [[0,20000],[20000,30000],[30000,50000],[50000,75000],[75000,100000],[100000,150000],[150000,200000],[200000,250000],[250000,350000]];
+    if(code==='S3') return [[0,1],[1,3],[3,5],[5,10],[10,20],[20,40],[40,60]]; // years bands
+    return [];
+  }
+  const bnds = boundsFor(code);
+  const labelKeys = Object.keys(labels||{});
+  labelKeys.sort((a,b)=>parseInt(a.replace(/\D/g,''),10)-parseInt(b.replace(/\D/g,''),10));
+  const gmeds=[];
+  for(const c of columns){
+    const freq = labelKeys.map(k => c.rows.filter(r => valueToCode(r[code], labels)===k).length);
+    if(code==='C5' && labelKeys[labelKeys.length-1]==='_10'){ freq[freq.length-1]=0; } // drop PNA from median
+    const cum=[]; let running=0; for(const f of freq){ running+=f; cum.push(running); }
+    const N=running; if(!N){ gmeds.push({median:0, freqBase:0}); continue; }
+    const half=N/2; let idx=cum.findIndex(x=>x>=half); if(idx<0) idx=freq.length-1;
+    const f=freq[idx]||1; const C=idx>0?cum[idx-1]:0; let L=bnds[idx][0], w=(bnds[idx][1]-bnds[idx][0])||1;
+    const median=L + (w/f)*(half-C);
+    gmeds.push({median:median, freqBase:N});
+  }
+  return gmeds;
+}
+
+// =================== STATS LETTERS & RENDER ===================
+function computeLetters(rows, columns, letters, do90, do95, groups, minBase){
+  const z90=1.645, z95=1.96; const L=rows.length, K=columns.length;
+  const mat=Array.from({length:L},()=>Array(K).fill(''));
+  
+  const addMarks=(r, subset)=>{
+    for(const j of subset){
+      const pj=(rows[r].cells[j]?.pct||0)/100; 
+      const nj=(rows[r].cells[j]?.freqBase||0);
+      if(nj<(minBase||0)) continue;
+      const sej=Math.sqrt(Math.max(pj*(1-pj)/Math.max(1,nj),0));
+      const w90j=z90*sej, w95j=z95*sej;
+      
+      let marks='';
+      for(const k of subset){
+        if(k===j) continue;
+        const pk=(rows[r].cells[k]?.pct||0)/100; 
+        const nk=(rows[r].cells[k]?.freqBase||0);
+        if(nk<(minBase||0)) continue;
+        const sek=Math.sqrt(Math.max(pk*(1-pk)/Math.max(1,nk),0));
+        const w90k=z90*sek, w95k=z95*sek;
+        
+        const sep90=(pj-w90j)>(pk+w90k)||(pk-w90k)>(pj+w90j);
+        const sep95=(pj-w95j)>(pk+w95k)||(pk-w95k)>(pj+w95j);
+        
+        if(pj>pk){
+          if(do95 && sep95){
+            marks += (letters[k]||'').toUpperCase();
+          } else if(do90 && sep90 && !sep95){
+            marks += (letters[k]||'').toLowerCase();
+          }
+        }
+      }
+      mat[r][j] = marks;
+    }
+  };
+  
+  for(let r=0;r<L;r++){
+    if(!rows[r]||!rows[r].cells) continue;
+    const gs=(groups&&groups.length)?groups:[{start:0,end:K-1,test:true}];
+    for(const g of gs){
+      if(!g.test) continue;
+      const subset=[]; for(let c=g.start;c<=g.end;c++) subset.push(c);
+      addMarks(r, subset);
+    }
+  }
+  return mat;
+}
+
+function fmtMoneyK(v){ return '$' + (v/1000).toFixed(1).replace(/\.0$/,'') + 'K'; }
+function fmtMoneyMM(v){ return '$' + (v/1e6).toFixed(1).replace(/\.0$/,'') + 'MM'; }
+function fmtInt(v){ return (Math.round(v)).toLocaleString('en-US'); }
+
+function renderBody(tw, rows, columns, letters, groupBounds, opts){
+  const {showFreq, showPct, showIndex, minBase, do90, do95, scope, sortSel, summaryOnlyPct, totalsFromBase, statsSpec} = opts;
+  // Sort
+  if(sortSel==='total' && rows.length){ const med=rows.find(r=>r.isMedian); rows=rows.filter(r=>!r.isMedian).slice().sort((a,b)=>(b.cells[0]?.pct||0)-(a.cells[0]?.pct||0)); if(med) rows.push(med); }
+  const tbody=tw.querySelector('tbody');
+
+  // Stats letters
+  let lettersMatrix=null;
+  if(scope!=='off'){
+    const groups=(scope==='group')?groupBounds.filter(g=>g.test):[{start:0,end:columns.length-1,test:true}];
+    lettersMatrix = computeLetters(rows, columns, letters, do90, do95, groups, minBase);
+  }
+
+  // Render rows
+  for(let r=0;r<rows.length;r++){
+    const row=rows[r]; const tr=document.createElement('tr'); if(row.isMedian) tr.className='median'; if(row.isNet) tr.className='net';
+    tr.innerHTML = `<td class="stub">${row.stub}</td>` + row.cells.map((cell,c)=>{
+      // display
+      let body='';
+      const onlyPct = (summaryOnlyPct===true) || row.isNet || row.isMedian;
+      if(row.isMedian){
+        const medCode=row.medCode||''; const mv = cell.median||0;
+        let text='';
+        if(medCode==='C2') text = fmtMoneyMM(mv);
+        else if(medCode==='C5') text = fmtMoneyK(mv);
+        else if(medCode==='C1') text = fmtInt(mv);
+        else if(medCode==='OB2') text = (mv).toFixed(1).replace(/\.0$/,'') + '%';
+        else if(medCode==='S3') text = (mv).toFixed(1).replace(/\.0$/,''); // years
+        else if(medCode==='AGE') text = (mv).toFixed(0);
+        else text = (mv).toFixed(1).replace(/\.0$/,'');
+        body += `<div class="pct">${text}</div>`;
+      } else {
+        const p = (cell && Number.isFinite(+cell.pct)) ? (Math.round(+cell.pct*10)/10).toFixed(1) : '0.0';
+        const f = (cell && Number.isFinite(+cell.freq)) ? Math.round(+cell.freq) : 0;
+        if(showPct){ body += `<div class="pct">${p}%</div>`; }
+        if(!onlyPct && showFreq){ body += `<div class="freq">(${f})</div>`; }
+        if(showIndex && c>0 && !row.isNet){ const denom=(rows[r].cells[0]?.pct||0); const idx = denom>0 ? Math.round((cell.pct||0)/denom*100) : 0; body += `<div class="freq">[${idx}]</div>`; }
+      }
+      let lettersHTML=''; 
+      if(lettersMatrix && lettersMatrix[r] && lettersMatrix[r][c]){ 
+        const letterData = lettersMatrix[r][c];
+        if(typeof letterData === 'string') {
+          // Handle simple string format
+          const capitals = letterData.replace(/[a-z]/g, '');
+          const lowercase = letterData.replace(/[A-Z]/g, '');
+          if(capitals) lettersHTML += `<div class="letters">${capitals}</div>`;
+          if(lowercase) lettersHTML += `<div class="letters lowercase">${lowercase}</div>`;
+        } else if(letterData && typeof letterData === 'object') {
+          // Handle object format
+          if(letterData.capital) lettersHTML += `<div class="letters">${letterData.capital}</div>`;
+          if(letterData.lowercase) lettersHTML += `<div class="letters lowercase">${letterData.lowercase}</div>`;
+        }
+      }
+      return `<td class="num">${body}${lettersHTML}</td>`;
+    }).join('');
+    tbody.appendChild(tr);
+  }
+
+  // Total responses row (exclude nets/medians)
+  if(rows && rows.length && tbody){
+    const totals=new Array(columns.length).fill(0);
+    for(const r of rows){ if(r.isNet || r.isMedian) continue; for(let c=0;c<columns.length;c++){ const cell=r.cells[c]||{freq:0}; totals[c]+= (Number.isFinite(+cell.freq)?+cell.freq:0); } }
+    const trTot=document.createElement('tr'); trTot.className='baserow';
+    trTot.innerHTML = '<td class="stub">TOTAL RESPONSES</td>' + totals.map(t=>`<td class="num"><div class="freq">(${t})</div></td>`).join('');
+    tbody.appendChild(trTot);
+  }
+
+  // Footer w/ stats spec
+  const foot=document.createElement('div'); foot.className='footer';
+  const bannerTxt = document.getElementById('bannerSel').value; // B1 or B2
+  foot.innerHTML = `<div>${statsSpec}</div><div>CIs: 90% ${do90?'ON (lowercase)':'OFF'} · 95% ${do95?'ON (CAPITALS)':'OFF'} · Min base ${minBase} · Scope: ${(scope==='group')?'within groups':(scope==='all'?'all columns':'off')}</div>`;
+  tw.appendChild(foot);
+}
+
+// =================== WIRE UP ===================
+document.getElementById('genBtn').addEventListener('click', generateOne);
+document.getElementById('clearBtn').addEventListener('click', clearTables);
+document.getElementById('allFullBtn').addEventListener('click', generateAllFull);
+document.getElementById('exportBtn').addEventListener('click', exportToExcelAdvanced);
+
+// =================== LOAD CSV ===================
+document.getElementById('csvFile').addEventListener('change', (e)=>{
+  const file = e.target.files && e.target.files[0];
+  if(!file){ setStatus('No file chosen'); return; }
+  Papa.parse(file, { header:true, dynamicTyping:false, skipEmptyLines:true, complete:(res)=>{
+    DATA = res.data || []; HEADERS = res.meta && res.meta.fields ? res.meta.fields : Object.keys(DATA[0]||{});
+    AGE_COL = HEADERS.find(h=>h==='respondent_age') || HEADERS.find(h=>/^age$/i.test(h) || /age/i.test(h)) || 'respondent_age';
+    setStatus(`✓ Data loaded: ${DATA.length} respondents · ${HEADERS.length} columns`);
+    initQuestions();
+  }});
+});
+
+function exportToExcel() {
+  const tables = document.querySelectorAll('.twrap');
+  if(!tables.length) {
+    alert('No tables to export');
+    return;
+  }
+  
+  let output = '';
+  const TAB = '\t';
+  
+  // Header
+  output += 'WISC Security Industry Survey' + '\n';
+  output += 'Export Date: ' + new Date().toLocaleDateString() + '\n';
+  const banner = document.getElementById('bannerSel').selectedOptions[0].text;
+  output += 'Banner: ' + banner + '\n\n';
+  
+  tables.forEach(wrap => {
+    // Table title
+    const title = wrap.querySelector('.thead').textContent.trim();
+    output += title + '\n\n';
+    
+    const table = wrap.querySelector('table');
+    
+    // Process all rows (headers and body)
+    const allRows = table.querySelectorAll('tr');
+    allRows.forEach(row => {
+      const cells = [];
+      row.querySelectorAll('th, td').forEach(cell => {
+        // Get clean text
+        let text = '';
+        
+        // Try to get structured content first
+        const pct = cell.querySelector('.pct');
+        const freq = cell.querySelector('.freq');
+        
+        if(pct || freq) {
+          if(pct) text = pct.textContent.trim();
+          if(freq && !freq.textContent.includes('[')) {
+            text += ' ' + freq.textContent.trim();
+          }
+        } else {
+          // Just get all text
+          text = cell.textContent.trim();
+        }
+        
+        // Clean up
+        text = text.replace(/\s+/g, ' ');
+        cells.push(text);
+      });
+      
+      output += cells.join(TAB) + '\n';
+    });
+    
+    // Add space between tables
+    output += '\n\n';
+  });
+  
+  // Save as TSV (Tab-Separated Values) - Excel opens these perfectly
+  const blob = new Blob([output], {type: 'text/tab-separated-values'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'WISC_Export.tsv';  // .tsv extension
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  
+  // Show success
+  const status = document.getElementById('status');
+  if(status) {
+    const old = status.innerHTML;
+    status.innerHTML = '✅ Exported successfully as TSV file';
+    status.style.display = 'block';
+    setTimeout(() => { status.innerHTML = old; }, 3000);
+  }
+}
+
+
+// NEW ENHANCED EXPORT FUNCTION - REAL EXCEL
+function exportToExcelEnhanced() {
+  console.log('Enhanced Excel export started...');
+  const tables = document.querySelectorAll('.twrap');
+  if(!tables.length) {
+    alert('No tables to export');
+    return;
+  }
+  
+  // Check if XLSX is available
+  if(typeof XLSX === 'undefined') {
+    alert('Loading Excel library, please try again in a moment...');
+    // Try to load XLSX dynamically
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+    script.onload = () => {
+      console.log('XLSX library loaded');
+      setTimeout(() => exportToExcelEnhanced(), 500);
+    };
+    document.head.appendChild(script);
+    return;
+  }
+  
+  // Create workbook
+  const wb = XLSX.utils.book_new();
+  
+  // Get banner info from first table
+  const firstTable = tables[0].querySelector('table');
+  const groupHeaderRow = firstTable.querySelector('tr.grphead');
+  const columnHeaderRow = firstTable.querySelector('thead tr:not(.grphead)');
+  
+  // Function to create a sheet
+  function createSheet(includeStats) {
+    const sheetData = [];
+    
+    // Title rows
+    sheetData.push(['WISC Security Industry Survey - ' + (includeStats ? 'Percents + Stats' : 'Percents Only')]);
+    sheetData.push(['Export Date: ' + new Date().toLocaleDateString()]);
+    sheetData.push(['Banner: ' + document.getElementById('bannerSel').selectedOptions[0].text]);
+    sheetData.push([]); // Empty row
+    
+    // Group headers
+    if(groupHeaderRow) {
+      const row = [];
+      groupHeaderRow.querySelectorAll('th').forEach(th => {
+        row.push(th.textContent.trim());
+      });
+      sheetData.push(row);
+    }
+    
+    // Column headers
+    if(columnHeaderRow) {
+      const row = [];
+      columnHeaderRow.querySelectorAll('th').forEach(th => {
+        let text = th.textContent.trim();
+        if(!includeStats) {
+          // Remove (A), (B), etc. for clean version
+          text = text.replace(/\([A-Z]\)/g, '').trim();
+        }
+        row.push(text);
+      });
+      sheetData.push(row);
+    }
+    
+    sheetData.push([]); // Empty row
+    
+    // Process each table
+    tables.forEach((wrap, tableIdx) => {
+      if(tableIdx > 0) {
+        sheetData.push([]); // Space between tables
+      }
+      
+      const title = wrap.querySelector('.thead').textContent.trim();
+      sheetData.push(['TABLE: ' + title]);
+      
+      const table = wrap.querySelector('table');
+      const bodyRows = table.querySelectorAll('tbody tr');
+      
+      bodyRows.forEach(row => {
+        const rowData = [];
+        const isBase = row.classList.contains('baserow');
+        const isMedian = row.classList.contains('median');
+        const rowText = row.querySelector('.stub')?.textContent || '';
+        const isTotal = rowText.includes('TOTAL RESPONSES');
+        
+        row.querySelectorAll('td').forEach((td, colIdx) => {
+          if(colIdx === 0) {
+            // Stub/label column
+            rowData.push(td.textContent.trim());
+          } else if(isBase || isTotal) {
+            // Base/Total rows - extract number only
+            const freq = td.querySelector('.freq');
+            if(freq) {
+              const match = freq.textContent.match(/\((\d+)\)/);
+              rowData.push(match ? match[1] : '');
+            } else {
+              rowData.push('');
+            }
+          } else if(isMedian) {
+            // Median rows
+            const pct = td.querySelector('.pct');
+            if(pct) {
+              let val = pct.textContent.trim();
+              // Remove dollar and percent symbols
+              val = val.replace(/[\$%]/g, '');
+              rowData.push(val);
+            } else {
+              rowData.push('');
+            }
+          } else {
+            // Regular data cells
+            const pct = td.querySelector('.pct');
+            const letters = td.querySelector('.letters');
+            
+            let cellValue = '';
+            if(pct) {
+              // Get percentage without percent symbol
+              cellValue = pct.textContent.trim().replace('%', '');
+            }
+            
+            // Add stats letters if requested
+            if(includeStats && letters) {
+              if(cellValue) cellValue += ' ';
+              cellValue += letters.textContent.trim();
+            }
+            
+            rowData.push(cellValue);
+          }
+        });
+        
+        sheetData.push(rowData);
+      });
+    });
+    
+    return sheetData;
+  }
+  
+  // Create both versions
+  const statsData = createSheet(true);
+  const cleanData = createSheet(false);
+  
+  // Convert to worksheets
+  const ws1 = XLSX.utils.aoa_to_sheet(statsData);
+  const ws2 = XLSX.utils.aoa_to_sheet(cleanData);
+  
+  // Set column widths for both sheets
+  const wscols = [{wch: 45}]; // First column wider
+  for(let i = 1; i < 30; i++) {
+    wscols.push({wch: 12}); // Data columns
+  }
+  ws1['!cols'] = wscols;
+  ws2['!cols'] = wscols;
+  
+  // Add both sheets to workbook
+  XLSX.utils.book_append_sheet(wb, ws1, 'Percents+Stats');
+  XLSX.utils.book_append_sheet(wb, ws2, 'Percents Only');
+  
+  // Write the Excel file
+  XLSX.writeFile(wb, 'WISC_Export_' + new Date().toISOString().slice(0,10) + '.xlsx');
+  
+  // Show success
+  const status = document.getElementById('status');
+  if(status) {
+    status.innerHTML = '✅ Excel file created with 2 tabs: "Percents+Stats" and "Percents Only"';
+    status.style.display = 'block';
+    setTimeout(() => {
+      status.style.display = 'none';
+    }, 5000);
+  }
+}
+
+// Add event listener for new button
+
+
+
+
+// ADVANCED EXCEL EXPORT WITH FULL FORMATTING
+async function exportToExcelAdvanced() {
+  console.log('Advanced Excel export starting...');
+  
+  const tables = document.querySelectorAll('.twrap');
+  if(!tables.length) {
+    alert('No tables to export');
+    return;
+  }
+
+  // Create workbook with ExcelJS
+  const workbook = new ExcelJS.Workbook();
+  workbook.creator = 'WISC Survey Tool';
+  workbook.created = new Date();
+  
+  // Create two worksheets
+  const ws1 = workbook.addWorksheet('Percents+Stats', {
+    views: [{state: 'frozen', xSplit: 1, ySplit: 7}],
+    properties: {showGridLines: false}
+  });
+  
+  const ws2 = workbook.addWorksheet('Percents Only', {
+    views: [{state: 'frozen', xSplit: 1, ySplit: 7}],
+    properties: {showGridLines: false}
+  });
+  
+  // Get banner from first table
+  const firstTable = tables[0].querySelector('table');
+  const groupHeaderRow = firstTable.querySelector('tr.grphead');
+  const columnHeaderRow = firstTable.querySelector('thead tr:not(.grphead)');
+  
+  // Process each worksheet
+  [ws1, ws2].forEach((worksheet, sheetIdx) => {
+    const includeStats = (sheetIdx === 0);
+    let currentRow = 1;
+    
+    // Title
+    worksheet.mergeCells(currentRow, 1, currentRow, 10);
+    const titleCell = worksheet.getCell(currentRow, 1);
+    titleCell.value = 'WISC Security Industry Survey - ' + (includeStats ? 'Percents + Stats' : 'Percents Only');
+    titleCell.font = {size: 16, bold: true, color: {argb: 'FF7434AC'}};
+    titleCell.alignment = {horizontal: 'left', vertical: 'middle'};
+    worksheet.getRow(currentRow).height = 30;
+    currentRow++;
+    
+    // Date
+    worksheet.getCell(currentRow, 1).value = 'Export Date: ' + new Date().toLocaleDateString();
+    worksheet.getCell(currentRow, 1).font = {size: 11};
+    currentRow++;
+    
+    // Banner
+    worksheet.getCell(currentRow, 1).value = 'Banner: ' + document.getElementById('bannerSel').selectedOptions[0].text;
+    worksheet.getCell(currentRow, 1).font = {size: 11};
+    currentRow++;
+    
+    // Empty row
+    currentRow++;
+    
+    // Group headers with purple background
+    if(groupHeaderRow) {
+      let colIdx = 1;
+      groupHeaderRow.querySelectorAll('th').forEach(th => {
+        const colspan = parseInt(th.getAttribute('colspan') || '1');
+        const text = th.textContent.trim();
+        
+        if(colspan > 1 && text) {
+          worksheet.mergeCells(currentRow, colIdx, currentRow, colIdx + colspan - 1);
+        }
+        
+        const cell = worksheet.getCell(currentRow, colIdx);
+        cell.value = text;
+        cell.fill = {
+          type: 'pattern',
+          pattern: 'solid',
+          fgColor: {argb: 'FF98069D'}
+        };
+        cell.font = {bold: true, color: {argb: 'FFFFFFFF'}};
+        cell.alignment = {horizontal: 'center', vertical: 'middle'};
+        cell.border = {
+          top: {style: 'thin'},
+          bottom: {style: 'thin'},
+          left: {style: 'thin'},
+          right: {style: 'thin'}
+        };
+        const colspanVal = parseInt(th.getAttribute('colspan') || '1');
+        colIdx += colspanVal;
+      });
+      worksheet.getRow(currentRow).height = 25;
+      currentRow++;
+    }
+    
+    // Column headers with gray background
+    if(columnHeaderRow) {
+      let colIdx = 1;
+      columnHeaderRow.querySelectorAll('th').forEach(th => {
+        let text = th.textContent.trim();
+        if(!includeStats) {
+          text = text.replace(/\([A-Z]\)/g, '').trim();
+        }
+        const cell = worksheet.getCell(currentRow, colIdx);
+        cell.value = text;
+        cell.fill = {
+          type: 'pattern',
+          pattern: 'solid',
+          fgColor: {argb: 'FFE5E7EB'}
+        };
+        cell.font = {bold: true};
+        cell.alignment = {horizontal: 'center', vertical: 'middle'};
+        cell.border = {
+          top: {style: 'thin'},
+          bottom: {style: 'medium'},
+          left: {style: 'thin'},
+          right: {style: 'thin'}
+        };
+        const colspanVal = parseInt(th.getAttribute('colspan') || '1');
+        colIdx += colspanVal;
+      });
+      worksheet.getRow(currentRow).height = 22;
+      currentRow++;
+    }
+    
+    // Empty row
+    currentRow++;
+    
+    // Process each table
+    tables.forEach((wrap, tableIdx) => {
+      if(tableIdx > 0) {
+        currentRow++; // Space between tables
+      }
+      
+      // Table title
+      const title = wrap.querySelector('.thead').textContent.trim();
+      worksheet.mergeCells(currentRow, 1, currentRow, 10);
+      const tableTitleCell = worksheet.getCell(currentRow, 1);
+      tableTitleCell.value = 'TABLE: ' + title;
+      tableTitleCell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: {argb: 'FFF5F3F7'}
       };
+      tableTitleCell.font = {size: 12, bold: true, color: {argb: 'FF4C2A85'}};
+      tableTitleCell.alignment = {horizontal: 'left', vertical: 'middle'};
+      worksheet.getRow(currentRow).height = 25;
+      currentRow++;
+      
+      // Table data
+      const table = wrap.querySelector('table');
+      const bodyRows = table.querySelectorAll('tbody tr');
+      
+      bodyRows.forEach(row => {
+        let colIdx = 1;
+        const isBase = row.classList.contains('baserow');
+        const isMedian = row.classList.contains('median');
+        const isNet = row.classList.contains('net');
+        const rowText = row.querySelector('.stub')?.textContent || '';
+        const isTotal = rowText.includes('TOTAL RESPONSES');
+        
+        row.querySelectorAll('td').forEach((td, tdIdx) => {
+          const cell = worksheet.getCell(currentRow, colIdx);
+          
+          if(tdIdx === 0) {
+            // Stub column
+            cell.value = td.textContent.trim();
+            cell.font = {bold: true};
+            cell.fill = {
+              type: 'pattern',
+              pattern: 'solid',
+              fgColor: {argb: 'FFFAFAFA'}
+            };
+            cell.alignment = {horizontal: 'left', vertical: 'middle'};
+            cell.border = {
+              top: {style: 'thin'},
+              bottom: {style: 'thin'},
+              left: {style: 'thin'},
+              right: {style: 'medium'}
+            };
+          } else if(isBase || isTotal) {
+            // Base/Total rows
+            const freq = td.querySelector('.freq');
+            if(freq) {
+              const match = freq.textContent.match(/\((\d+)\)/);
+              cell.value = match ? parseInt(match[1]) : 0;
+              cell.numFmt = '#,##0';
+            }
+            cell.font = {bold: true};
+            cell.fill = {
+              type: 'pattern',
+              pattern: 'solid',
+              fgColor: {argb: 'FFF3F4F6'}
+            };
+            cell.alignment = {horizontal: 'center', vertical: 'middle'};
+            cell.border = {
+              top: {style: 'medium'},
+              bottom: {style: 'medium'},
+              left: {style: 'thin'},
+              right: {style: 'thin'}
+            };
+          } else if(isMedian) {
+            // Median rows
+            const pct = td.querySelector('.pct');
+            if(pct) {
+              let val = pct.textContent.trim().replace(/[$%]/g, '');
+              cell.value = parseFloat(val) || val;
+              if(!isNaN(parseFloat(val))) {
+                cell.numFmt = '0.0';
+              }
+            }
+            cell.font = {bold: true, italic: true};
+            cell.alignment = {horizontal: 'center', vertical: 'middle'};
+            cell.border = {
+              top: {style: 'thin'},
+              bottom: {style: 'thin'},
+              left: {style: 'thin'},
+              right: {style: 'thin'}
+            };
+          } else if(isNet) {
+            // NET rows
+            const pct = td.querySelector('.pct');
+            if(pct) {
+              let val = pct.textContent.trim().replace('%', '');
+              cell.value = parseFloat(val) || 0;
+              cell.numFmt = '0.0';
+            }
+            cell.font = {bold: true, color: {argb: 'FF7434AC'}};
+            cell.fill = {
+              type: 'pattern',
+              pattern: 'solid',
+              fgColor: {argb: 'FFF9FAFB'}
+            };
+            cell.alignment = {horizontal: 'center', vertical: 'middle'};
+            cell.border = {
+              top: {style: 'thin'},
+              bottom: {style: 'thin'},
+              left: {style: 'thin'},
+              right: {style: 'thin'}
+            };
+          } else {
+            // Regular data cells
+            const pct = td.querySelector('.pct');
+            const letters = td.querySelector('.letters');
+            
+            if(pct) {
+              let val = pct.textContent.trim().replace('%', '');
+              let cellValue = parseFloat(val) || 0;
+              
+              if(includeStats && letters) {
+                cell.value = val + ' ' + letters.textContent.trim();
+              } else {
+                cell.value = cellValue;
+                cell.numFmt = '0.0';
+              }
+            }
+            
+            cell.alignment = {horizontal: 'center', vertical: 'middle'};
+            cell.border = {
+              top: {style: 'thin'},
+              bottom: {style: 'thin'},
+              left: {style: 'thin'},
+              right: {style: 'thin'}
+            };
+          }
+          
+          colIdx++;
+        });
+        
+        worksheet.getRow(currentRow).height = 20;
+        currentRow++;
+      });
     });
-  </script>
+    
+    // Set column widths
+    worksheet.getColumn(1).width = 50; // Stub column
+    for(let i = 2; i <= 30; i++) {
+      worksheet.getColumn(i).width = 12; // Data columns
+    }
+  });
+  
+  // Save the workbook
+  const buffer = await workbook.xlsx.writeBuffer();
+  const blob = new Blob([buffer], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'WISC_Export_Formatted_' + new Date().toISOString().slice(0,10) + '.xlsx';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  
+  // Show success
+  const status = document.getElementById('status');
+  if(status) {
+    status.innerHTML = '✅ Excel file exported with full formatting!';
+    status.style.display = 'block';
+    setTimeout(() => {
+      status.style.display = 'none';
+    }, 5000);
+  }
+}
+
+
+
+</script>
 </body>
 </html>
