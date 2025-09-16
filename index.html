@@ -203,15 +203,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
 </head>
 <body>
-  <div class="topbar" style="position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;background:white;border-bottom:2px solid #eee;padding:6px 16px;z-index:1000;">
-    <a href="https://beyondinsights.com" target="_blank"><img src="https://i.imgur.com/nefMHjP.png" alt="Beyond Insights" style="max-height:32px;"></a>
-    <div id="status" class="status">Loading data…</div>
-  </div>
-  <div class="tabbar" style="position:fixed;top:50px;left:0;right:0;display:flex;gap:10px;background:#f9fafb;padding:8px 16px;z-index:999;">
-    <button class="tab active" data-tab="tab-xtabs">Crosstabs</button>
-    <button class="tab" data-tab="tab-verbatims">Verbatims</button>
-  </div>
-
   <div class="wrap">
     <div class="main-header">
       <div class="logo-section">
@@ -247,13 +238,15 @@
     <div class="controls">
       <div id="status" class="status" style="display:none"></div>
       <div class="control-row">
-        
+        <div class="control-group">
+          <label>Select Datafile to Import</label>
+          <input type="file" id="csvFile" accept=".csv" aria-label="Select CSV datafile" />
+        </div>
         <div class="control-group">
           <label>Banner</label>
           <select id="bannerSel" aria-label="Select banner">
             <option value="B1">BANNER 1 – Demographics & Experience</option>
-            <option value="B2">BANNER 2 – Perceptions (Women only)</option><option value="B3">BANNER 3 – Women: Age & LGBTQIA</option>
-            <option value="B3">BANNER 3 – Women: Age & LGBTQIA</option>
+            <option value="B2">BANNER 2 – Perceptions (Women only)</option>
           </select>
         </div>
         <div class="control-group">
@@ -434,18 +427,6 @@ function hasMulti(row,prefix,code){
 // Emp base: include employed FT/PT, unemployed, retired; EXCLUDE student, intern, other
 function empOrPrevEmp(row){
   const s4 = valueToCode(row.S4, MAP.S4);
-  
-  if(which==='B3'){
-    const isFemale = r => valueToCode(r.S1, MAP.S1)==='_02';
-    return [
-      {label:'TOTAL Women', filter:isFemale},
-      {label:'Age <40', filter:r=>isFemale(r)&&getAge(r)!=null&&getAge(r)<40},
-      {label:'Age 40+', filter:r=>isFemale(r)&&getAge(r)!=null&&getAge(r)>=40},
-      {label:'LGBTQIA', filter:r=>isFemale(r)&&valueToCode(r.C7, MAP.C7)==='_01'},
-      {label:'Not LGBTQIA', filter:r=>isFemale(r)&&valueToCode(r.C7, MAP.C7)==='_02'}
-    ];
-  }
-
   return ['_01','_02','_03','_04'].includes(s4);
 }
 
@@ -1209,47 +1190,11 @@ document.getElementById('allFullBtn').addEventListener('click', generateAllFull)
 document.getElementById('exportBtn').addEventListener('click', exportToExcelAdvanced);
 
 // =================== LOAD CSV ===================
-// AUTO-LOAD DATA FILE
-window.addEventListener('load', function() {
-  // Try to auto-load the CSV file
-  const autoLoadCSV = async function() {
-    try {
-      // Try relative path for respDV.csv in same directory
-      const response = await fetch('./respDV.csv');
-      if (response.ok) {
-        const csvText = await response.text();
-        Papa.parse(csvText, {
-          header: true,
-          dynamicTyping: false,
-          skipEmptyLines: true,
-          complete: function(res) {
-            DATA = res.data || [];
-            HEADERS = res.meta && res.meta.fields ? res.meta.fields : Object.keys(DATA[0]||{});
-            AGE_COL = HEADERS.find(h=>h==='respondent_age') || HEADERS.find(h=>/^age$/i.test(h) || /age/i.test(h)) || 'respondent_age';
-            setStatus(`✔ Auto-loaded respDV.csv: ${DATA.length} respondents · ${HEADERS.length} columns`);
-            initQuestions();
-            
-            // Update file input to show file is loaded
-            const fileInput = document.getElementById('csvFile');
-            if (fileInput) {
-              fileInput.style.border = '2px solid #10b981';
-              fileInput.style.background = '#f0fdf4';
-            }
-          }
-        });
-      } else {
-        throw new Error('File not found');
-      }
-    } catch (e) {
-      console.log('Could not auto-load respDV.csv:', e);
-      setStatus('📁 Ready to import data file manually (respDV.csv)');
-    }
-  };
-  
-  // Start auto-load attempt
-  autoLoadCSV();
-});
-    
+document.getElementById('csvFile').addEventListener('change', (e)=>{
+  const file = e.target.files && e.target.files[0];
+  if(!file){ setStatus('No file chosen'); return; }
+  Papa.parse(file, { header:true, dynamicTyping:false, skipEmptyLines:true, complete:(res)=>{
+    DATA = res.data || []; HEADERS = res.meta && res.meta.fields ? res.meta.fields : Object.keys(DATA[0]||{});
     AGE_COL = HEADERS.find(h=>h==='respondent_age') || HEADERS.find(h=>/^age$/i.test(h) || /age/i.test(h)) || 'respondent_age';
     setStatus(`✓ Data loaded: ${DATA.length} respondents · ${HEADERS.length} columns`);
     initQuestions();
@@ -1811,7 +1756,46 @@ async function exportToExcelAdvanced() {
   }
 }
 
-
+// AUTO-LOAD DATA FILE
+window.addEventListener('load', function() {
+  // Try to auto-load the CSV file
+  const autoLoadCSV = async function() {
+    try {
+      // Try relative path for respDV.csv in same directory
+      const response = await fetch('./respDV.csv');
+      if (response.ok) {
+        const csvText = await response.text();
+        Papa.parse(csvText, {
+          header: true,
+          dynamicTyping: false,
+          skipEmptyLines: true,
+          complete: function(res) {
+            DATA = res.data || [];
+            HEADERS = res.meta && res.meta.fields ? res.meta.fields : Object.keys(DATA[0]||{});
+            AGE_COL = HEADERS.find(h=>h==='respondent_age') || HEADERS.find(h=>/^age$/i.test(h) || /age/i.test(h)) || 'respondent_age';
+            setStatus(`✔ Auto-loaded respDV.csv: ${DATA.length} respondents · ${HEADERS.length} columns`);
+            initQuestions();
+            
+            // Update file input to show file is loaded
+            const fileInput = document.getElementById('csvFile');
+            if (fileInput) {
+              fileInput.style.border = '2px solid #10b981';
+              fileInput.style.background = '#f0fdf4';
+            }
+          }
+        });
+      } else {
+        throw new Error('File not found');
+      }
+    } catch (e) {
+      console.log('Could not auto-load respDV.csv:', e);
+      setStatus('📁 Ready to import data file manually (respDV.csv)');
+    }
+  };
+  
+  // Start auto-load attempt
+  autoLoadCSV();
+});
 
 </script>
 </body>
