@@ -1209,21 +1209,47 @@ document.getElementById('allFullBtn').addEventListener('click', generateAllFull)
 document.getElementById('exportBtn').addEventListener('click', exportToExcelAdvanced);
 
 // =================== LOAD CSV ===================
-
-// AUTO-LOAD CSVs
-document.addEventListener('DOMContentLoaded',()=>{
-  Promise.all([fetch('data/condensed_datafile.csv').then(r=>r.text()), fetch('data/openends.csv').then(r=>r.text())])
-    .then(([df,oe])=>{
-      DATA = Papa.parse(df,{header:true,skipEmptyLines:true}).data;
-      HEADERS = Object.keys(DATA[0]||{});
-      OE = Papa.parse(oe,{header:true,skipEmptyLines:true}).data;
-      setStatus(`✓ Data loaded: ${DATA.length} respondents · ${HEADERS.length} columns · ${OE.length} open-ends`);
-      initQuestions();
-      renderVerbatims();
-    })
-    .catch(err=>setStatus('Load error: '+err,false));
+// AUTO-LOAD DATA FILE
+window.addEventListener('load', function() {
+  // Try to auto-load the CSV file
+  const autoLoadCSV = async function() {
+    try {
+      // Try relative path for respDV.csv in same directory
+      const response = await fetch('./respDV.csv');
+      if (response.ok) {
+        const csvText = await response.text();
+        Papa.parse(csvText, {
+          header: true,
+          dynamicTyping: false,
+          skipEmptyLines: true,
+          complete: function(res) {
+            DATA = res.data || [];
+            HEADERS = res.meta && res.meta.fields ? res.meta.fields : Object.keys(DATA[0]||{});
+            AGE_COL = HEADERS.find(h=>h==='respondent_age') || HEADERS.find(h=>/^age$/i.test(h) || /age/i.test(h)) || 'respondent_age';
+            setStatus(`✔ Auto-loaded respDV.csv: ${DATA.length} respondents · ${HEADERS.length} columns`);
+            initQuestions();
+            
+            // Update file input to show file is loaded
+            const fileInput = document.getElementById('csvFile');
+            if (fileInput) {
+              fileInput.style.border = '2px solid #10b981';
+              fileInput.style.background = '#f0fdf4';
+            }
+          }
+        });
+      } else {
+        throw new Error('File not found');
+      }
+    } catch (e) {
+      console.log('Could not auto-load respDV.csv:', e);
+      setStatus('📁 Ready to import data file manually (respDV.csv)');
+    }
+  };
+  
+  // Start auto-load attempt
+  autoLoadCSV();
 });
-
+    
     AGE_COL = HEADERS.find(h=>h==='respondent_age') || HEADERS.find(h=>/^age$/i.test(h) || /age/i.test(h)) || 'respondent_age';
     setStatus(`✓ Data loaded: ${DATA.length} respondents · ${HEADERS.length} columns`);
     initQuestions();
