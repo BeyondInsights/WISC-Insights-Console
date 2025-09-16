@@ -3534,25 +3534,30 @@ async function exportToExcelAdvanced() {
 
 // AUTO-LOAD DATA FILE
 window.addEventListener('load', function() {
-  // Try to auto-load the CSV file
+  console.log('Window loaded, attempting auto-load...');
+  console.log('Current URL:', window.location.href);
+  
   const autoLoadCSV = async function() {
     try {
-      // Try relative path for respDV.csv in same directory
+      console.log('Trying to fetch ./respDV.csv');
       const response = await fetch('./respDV.csv');
+      console.log('Fetch response:', response.status, response.statusText);
+      
       if (response.ok) {
         const csvText = await response.text();
+        console.log('CSV loaded, first 100 chars:', csvText.substring(0, 100));
+        
         Papa.parse(csvText, {
           header: true,
           dynamicTyping: false,
           skipEmptyLines: true,
           complete: function(res) {
             DATA = res.data || [];
-            HEADERS = res.meta && res.meta.fields ? res.meta.fields : Object.keys(DATA[0]||{});
+            HEADERS = res.meta && res.meta.fields ? res.meta.fields : Object.keys(DATA[0]||{});  // NO 'let' here
             AGE_COL = HEADERS.find(h=>h==='respondent_age') || HEADERS.find(h=>/^age$/i.test(h) || /age/i.test(h)) || 'respondent_age';
             setStatus(`✔ Auto-loaded respDV.csv: ${DATA.length} respondents · ${HEADERS.length} columns`);
             initQuestions();
             
-            // Update file input to show file is loaded
             const fileInput = document.getElementById('csvFile');
             if (fileInput) {
               fileInput.style.border = '2px solid #10b981';
@@ -3561,18 +3566,17 @@ window.addEventListener('load', function() {
           }
         });
       } else {
-        throw new Error('File not found');
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
     } catch (e) {
-      console.log('Could not auto-load respDV.csv:', e);
+      console.error('Auto-load failed:', e);
       setStatus('📁 Ready to import data file manually (respDV.csv)');
     }
   };
   
-  // Start auto-load attempt
   autoLoadCSV();
 });
-
+    
 </script>
 
 </body></html>
