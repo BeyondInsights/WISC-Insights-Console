@@ -3540,7 +3540,7 @@ window.addEventListener('load', function() {
   const autoLoadCSV = async function() {
     try {
       console.log('Trying to fetch ./respDV.csv');
-      const response = await fetch('./respDV.csv');
+     const response = await fetch('https://raw.githubusercontent.com/BeyondInsights/WISC-Insights-Console/main/respDV.csv');
       console.log('Fetch response:', response.status, response.statusText);
       
       if (response.ok) {
