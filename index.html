@@ -3532,49 +3532,47 @@ async function exportToExcelAdvanced() {
   }
 }
 
-// AUTO-LOAD DATA FILE
-window.addEventListener('load', function() {
-  console.log('Window loaded, attempting auto-load...');
-  console.log('Current URL:', window.location.href);
-  
-  const autoLoadCSV = async function() {
-    try {
-      console.log('Trying to fetch respDF.csv from GitHub');
-const response = await fetch('https://raw.githubusercontent.com/BeyondInsights/WISC-Insights-Console/main/respDF.csv');
-      console.log('Fetch response:', response.status, response.statusText);
-      
-      if (response.ok) {
-        const csvText = await response.text();
-        console.log('CSV loaded, first 100 chars:', csvText.substring(0, 100));
-        
+// REPLACE your current auto-load code with this:
+window.addEventListener('DOMContentLoaded', function() {
+  setTimeout(function() {
+    console.log('Auto-loading data file...');
+    
+    fetch('https://raw.githubusercontent.com/BeyondInsights/WISC-Insights-Console/main/respDF.csv')
+      .then(response => {
+        if (!response.ok) throw new Error('File not found');
+        return response.text();
+      })
+      .then(csvText => {
         Papa.parse(csvText, {
           header: true,
           dynamicTyping: false,
           skipEmptyLines: true,
           complete: function(res) {
             DATA = res.data || [];
-            HEADERS = res.meta && res.meta.fields ? res.meta.fields : Object.keys(DATA[0]||{});  // NO 'let' here
+            HEADERS = res.meta && res.meta.fields ? res.meta.fields : Object.keys(DATA[0]||{});
             AGE_COL = HEADERS.find(h=>h==='respondent_age') || HEADERS.find(h=>/^age$/i.test(h) || /age/i.test(h)) || 'respondent_age';
-            setStatus(`✔ Auto-loaded respDV.csv: ${DATA.length} respondents · ${HEADERS.length} columns`);
+            
+            console.log('Data loaded successfully:', DATA.length, 'rows');
+            setStatus(`✔ Data loaded: ${DATA.length} respondents · ${HEADERS.length} columns`);
+            
+            // Initialize questions AFTER data is loaded
             initQuestions();
             
+            // Hide the file input since data is auto-loaded
             const fileInput = document.getElementById('csvFile');
             if (fileInput) {
-              fileInput.style.border = '2px solid #10b981';
-              fileInput.style.background = '#f0fdf4';
+              fileInput.style.display = 'none';
+              const label = fileInput.previousElementSibling;
+              if (label) label.style.display = 'none';
             }
           }
         });
-      } else {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-    } catch (e) {
-      console.error('Auto-load failed:', e);
-      setStatus('📁 Ready to import data file manually (respDV.csv)');
-    }
-  };
-  
-  autoLoadCSV();
+      })
+      .catch(error => {
+        console.error('Auto-load failed:', error);
+        setStatus('⚠️ Could not auto-load data. Please refresh the page.');
+      });
+  }, 100); // Small delay to ensure everything is initialized
 });
     
 </script>
